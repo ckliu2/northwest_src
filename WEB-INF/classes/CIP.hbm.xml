@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  	
+<hibernate-mapping>	
+  	
+    <!-- 
+    ************************ 
+    * 專案
+    ************************
+    -->       	
+  	<class name="com.cip.value.Project" table="CIP_Project">   	 	 
+        <id name="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>         
+        <property name="projectName" type="string" />                 
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 訂單主檔
+    ************************
+    -->       	
+  	<class name="com.cip.value.OrderBill" table="CIP_OrderBill">     	  
+  	  <meta attribute="extends">BaseObject</meta>
+      <id name="id" column="id" unsaved-value="null">
+         <generator class="identity"/>
+      </id>       
+      <property name="flag" type="integer" />       
+      <property name="billNo" type="string" />             
+      <property name="billDate" type="string" />    
+      <many-to-one name="project" class="com.cip.value.Project" cascade="none" />  
+      <many-to-one name="customer" class="northwest.common.value.Customer" cascade="none" />  
+      <property name="addressID" type="string" />
+      <property name="zipCode" type="string" />
+      <property name="custAddress" type="string" />      
+      <property name="linkMan" type="string" />
+      <property name="linkManProf" type="string" />
+      <property name="linkTelephone" type="string" />      
+      <many-to-one name="salesMan" class="com.common.value.Member" cascade="none" />       
+      <many-to-one name="maker" class="com.common.value.Member" cascade="none" />       
+      <property name="detail" type="string" />
+      <property name="projectName" type="string" />                 
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 訂單明細
+    ************************
+    -->
+           	
+  	<class name="com.cip.value.OrdBillSub" table="CIP_OrdBillSub"> 
+  	 <meta attribute="extends">BaseObject</meta>
+      <id name="id" column="id" unsaved-value="null">
+         <generator class="identity"/>
+      </id>        
+      <property name="flag" type="integer" /> 
+      <many-to-one name="orderBill" class="com.cip.value.OrderBill" cascade="none" />  
+      <property name="rowNO" type="integer" />      
+      <many-to-one name="product" class="northwest.common.value.Product" cascade="none" />  
+      <property name="width" type="integer" /> 
+      <property name="heigh" type="integer" />       
+      <property name="vwidth" type="integer" /> 
+      <property name="vheigh" type="integer" />       
+      <many-to-one name="crement" class="com.base.value.AppProperty" cascade="none" />  
+      <property name="calcDisp" type="string" />      
+      <property name="calcArea" type="integer" />       
+      <property name="paperPrice" type="integer" /> 
+      <property name="paperCount" type="integer" /> 
+      <property name="sprice" type="integer" />       
+      <property name="amount" type="integer" />      
+      <property name="squantity" type="integer" />      
+      <property name="quantity" type="integer" />      
+      <property name="equantity" type="integer" />      
+      <property name="preInDate" type="string" />   
+      <property name="isGift" type="boolean" />
+      <property name="qtyRemain" type="integer" />
+      <property name="detail" type="string" />
+      <property name="itemRemark" type="string" />      
+    </class> 
+    
+    
+    
+    
+  	 
+</hibernate-mapping>

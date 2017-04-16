@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codegen>
+   	<generate renderer="org.hibernate.tool.hbm2java.JspFormRenderer" extension="jsp"/>
+	<generate renderer="org.hibernate.tool.hbm2java.BasicRenderer" />
+   	<generate renderer="org.hibernate.tool.hbm2java.JspListWithCopyRenderer" extension="jsp"/>
+<!-- 
+   	<generate renderer="org.hibernate.tool.hbm2java.JspListRenderer" extension="jsp"/>
+-->
+
+	<generate renderer="org.hibernate.tool.hbm2java.DAOHibernateRenderer" suffix="DAOHibernate" />
+	<generate renderer="org.hibernate.tool.hbm2java.DAORenderer" suffix="DAO" />
+	<generate renderer="org.hibernate.tool.hbm2java.ManagerRenderer" suffix="Manager" />
+	<generate renderer="org.hibernate.tool.hbm2java.ManagerImplRenderer" suffix="ManagerImpl" />
+	<generate renderer="org.hibernate.tool.hbm2java.ActionClassRenderer" suffix="Action" />
+	<generate renderer="org.hibernate.tool.hbm2java.MessageRenderer" suffix=".properties" extension="zh_TW" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigActionServletRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigApplicationContextRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigApplicationContextHibernateRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigTilesRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigXworkRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigValidatorRenderer" suffix="Action-validation" extension="xml" />
+  <!--
+   	<generate renderer="org.hibernate.tool.hbm2java.JspFormRenderer" extension="jsp"/>
+	<generate renderer="org.hibernate.tool.hbm2java.BasicRenderer" />
+   	<generate renderer="org.hibernate.tool.hbm2java.JspListRenderer" extension="jsp"/>
+
+	<generate renderer="org.hibernate.tool.hbm2java.DAOHibernateRenderer" suffix="DAOHibernate" />
+	<generate renderer="org.hibernate.tool.hbm2java.DAORenderer" suffix="DAO" />
+	<generate renderer="org.hibernate.tool.hbm2java.ManagerRenderer" suffix="Manager" />
+	<generate renderer="org.hibernate.tool.hbm2java.ManagerImplRenderer" suffix="ManagerImpl" />
+	<generate renderer="org.hibernate.tool.hbm2java.ActionClassRenderer" suffix="Action" />
+	<generate renderer="org.hibernate.tool.hbm2java.MessageRenderer" suffix=".properties" extension="zh_TW" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigActionServletRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigApplicationContextRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigApplicationContextHibernateRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigTilesRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigXworkRenderer" extension="xml" />
+	<generate renderer="org.hibernate.tool.hbm2java.ConfigValidatorRenderer" suffix="Action-validation" extension="xml" />
+	-->
+</codegen>

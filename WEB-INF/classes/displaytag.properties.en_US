@@ -1,0 +1,54 @@
+
+# messages
+
+basic.msg.empty_list=無資料可顯示
+basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">無資料可顯示</td></tr>
+error.msg.invalid_page=invalid page
+
+
+paging.banner.item_name=筆
+paging.banner.items_name=筆
+
+paging.banner.no_items_found=<span class="pagebanner">找到零{0}</span>
+paging.banner.one_item_found=<span class="pagebanner">找到一{0}</span>
+paging.banner.all_items_found=<span class="pagebanner">找到{0}{1}, 顯示全部{2}</span>
+paging.banner.some_items_found=<span class="pagebanner">找到{0}{1}, 顯示{2}到{3}筆</span>
+
+#paging.banner.full=<span class="pagelinks">[<a href="{1}"><第一頁</a>/<a href="{2}">上一頁</a>] {0} [<a href="{3}">下一頁</a>/<a href="{4}">最後一頁</a>]</span>
+#paging.banner.first=<span class="pagelinks">[第一頁/上一頁] {0} [<a href="{3}">下一頁</a>/<a href="{4}">最後一頁</a>]</span>
+#paging.banner.last=<span class="pagelinks">[<a href="{1}">第一頁</a>/<a href="{2}">上一頁</a>] {0} [下一頁/最後一頁]</span>
+#paging.banner.onepage=<span class="pagelinks">{0}</span>
+
+paging.banner.full= <div class="pagelinks" align="left"><a class="cPageLink" href={1}><img border="0" src="/northwest/images/first.gif"></a><a class="cPageLink" href={2}><img border="0" src="/northwest/images/prev.gif"></a> {0} <a class="cPageLink" href={3}><img border="0" src="/northwest/images/next.gif"></a><a class="cPageLink" href={4}><img border="0" src="/northwest/images/last.gif"></a></div>
+paging.banner.first=<div class="pagelinks" align="left"><a class="cPageLink" href={1}><img border="0" src="/northwest/images/first.gif"></a><a class="cPageLink" href={2}><img border="0" src="/northwest/images/prev.gif"></a> {0} <a class="cPageLink" href={3}><img border="0" src="/northwest/images/next.gif"></a><a class="cPageLink" href={4}><img border="0" src="/northwest/images/last.gif"></a></div>
+paging.banner.last= <div class="pagelinks" align="left"><a class="cPageLink" href={1}><img border="0" src="/northwest/images/first.gif"></a><a class="cPageLink" href={2}><img border="0" src="/northwest/images/prev.gif"></a> {0} <a class="cPageLink" href={3}><img border="0" src="/northwest/images/next.gif"></a><a class="cPageLink" href={4}><img border="0" src="/northwest/images/last.gif"></a></div>
+paging.banner.onepage=
+
+paging.banner.page.selected=<strong>{0}</strong>
+paging.banner.page.link=<a href="{1}" title="跳到第{0}頁">{0}</a>
+paging.banner.page.separator=\u0020 \
+
+# external sort and pagination
+pagination.sort.param=sort
+pagination.sortdirection.param=dir
+pagination.pagenumber.param=page
+pagination.searchid.param=searchid
+pagination.sort.asc.value=asc
+pagination.sort.desc.value=desc
+pagination.sort.skippagenumber=true
+
+# unused
+save.excel.banner=<a href="{0}" rel="external">save ({1} bytes)</a>
+save.excel.filename=export.xls
+
+
+#export type
+export.types=excel
+export.excel=true
+export.excel.include_header=true
+export.csv=false
+export.csv.include_header=false
+export.xml=false
+export.xml.include_header=false
+export.banner=<span class="pagebanner">下載: {0} [請按右鍵IE:另存新檔/Chrome:另存連結]</span>
+export.banner.sepchar= |

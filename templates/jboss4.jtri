@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.jtri.model:Template xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.jtri.model="urn:org.jtri.model.ecore" xmi:id="_wT7R0Ng7EdmtkI3wRsAViA" templateBase="$base/jboss4/" name="Jboss4" description="Deploy for jboss 4"/>

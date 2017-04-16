@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  	
+<hibernate-mapping>	
+  	
+    <!-- 
+    ************************ 
+    * 專案編號
+    ************************
+    -->       	
+  	<class name="northwest.common.value.Profit" table="Northwest_Profit">   	 	 
+        <id name="id" column="pid" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <property name="projectNo" type="string" />
+        <property name="projectName" type="string" />
+        <property name="billNo" type="string"  />
+        <property name="salesNo" type="string"  />
+        <property name="salesPrice" type="integer"  /> 
+        <property name="salesCost" type="integer"  />         
+        <property name="purchase" type="integer"  />
+        <property name="profit" type="integer"  />
+         <property name="fee" type="integer"  />
+        <property name="discount" type="integer"  />  
+        <property name="recdiscount" type="integer"  />   
+        <property name="profitPerc" type="big_decimal"  /> 
+        <property name="billDate" type="string"  />  
+        <property name="remark" type="string"  />                 
+        <many-to-one name="customer" class="northwest.common.value.Customer" column="customerId" lazy="false"/>
+        <many-to-one name="salesmen" class="com.common.value.Member" cascade="none" column="salesmenId" lazy="false" />
+        <property name="standcost" type="boolean" />    
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 銷貨明細
+    ************************
+    -->    	
+  	<class name="northwest.common.value.ProfitDetail" table="Northwest_ProfitDetail">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <property name="salesNo" type="string"  />
+        <property name="item" type="integer"  /> 
+        <property name="rowNo" type="integer"  column="rowNo"/>
+        <property name="salesDetail" type="string"  />    
+        <property name="salesItemMark" type="string"  /> 
+        <property name="salesPrice" type="integer"  /> 
+        <property name="salesCost" type="integer"  />  
+        <property name="buyNo" type="string"  />              
+        <property name="company" type="string"  />        
+        <property name="purchasePrice" type="integer"  />
+        <property name="purchaseDetail" type="string"  />        
+        <property name="purchaseItemMark" type="string"  /> 
+        <property name="purchaseRowNo" type="integer"  column="purchaseRowNo"/> 
+        <property name="discount" type="integer"  />       
+        <property name="profit" type="integer"  />   
+        <property name="profitPerc" type="float"  />  
+        <property name="billDate" type="string"  /> 
+        <many-to-one name="productClass" class="northwest.common.value.ProductClass" cascade="none" column="productClass" />
+        <many-to-one name="project" class="northwest.common.value.Profit" column="projectNo"/>
+        <many-to-one name="product" class="northwest.common.value.Product" cascade="none" column="product" />
+        <property name="descript" type="string"  />  
+        <many-to-one name="profitNo" class="northwest.common.value.Profit" column="profitNo"/>       
+        <property name="standcost" type="boolean" />
+        
+        <property name="unit1" type="float"  />  
+        <property name="unit2" type="float"  />  
+        <property name="unit3" type="float"  />  
+        
+        
+    </class> 
+    
+    <!-- 
+    ************************ 
+    * 費用單
+    ************************
+    -->    	
+  	<class name="northwest.common.value.ProfitFee" table="Northwest_ProfitFee">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>              
+        <many-to-one name="bill" class="northwest.common.value.Bill" column="bill"/> 
+        <property name="billDate" type="integer"  />
+        <property name="localtotal" type="integer"  />
+        <property name="localtax" type="integer"  /> 
+        <property name="sumfee" type="integer"  />  
+    </class> 
+    
+    <!-- 
+    ************************ 
+    * 標準成本
+    ************************
+    -->    	
+  	<class name="northwest.common.value.StandardCost" table="Northwest_StandardCost">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>    
+        <property name="salesNo" type="string"  />
+        <many-to-one name="product" class="northwest.common.value.Product" cascade="none" />
+        <property name="cost" type="float"  />
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 批次新增標準成本
+    ************************
+    -->    	
+  	<class name="northwest.common.value.CustomerStandardCost" table="Northwest_CustomerStandardCost">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>    
+        <many-to-one name="customer" class="northwest.common.value.Customer" cascade="none"/>           
+        <many-to-one name="product" class="northwest.common.value.Product" cascade="none" />
+        <property name="cost" type="float"  />
+    </class> 
+    
+    
+  	 
+</hibernate-mapping>

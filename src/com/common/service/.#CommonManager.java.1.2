@@ -1,0 +1,42 @@
+package com.common.service;
+
+import com.base.service.BaseManager;
+import com.base.value.BaseObject;
+import com.base.value.SessionUser;
+import edu.tncc.adm.value.Unit;
+import edu.tncc.adm.value.Department;
+import edu.tncc.tea.value.Teacher;
+import edu.tncc.rec.value.Channel;
+import edu.tncc.rec.value.RecruitDepartment;
+import edu.tncc.stu.value.Student;
+import edu.tncc.adm.value.Personnel;
+import com.base.value.Group;
+import com.common.value.Checking;
+
+import java.util.List;
+
+public interface CommonManager extends BaseManager
+{
+    public abstract SessionUser getSessionUserByLoginIdAndPassword(String uid, String pwd);
+    public abstract Personnel getPersonnelByStaffIdAndPassword(String uid, String pwd);
+    public abstract Teacher getTeacherById(Long id);
+    public abstract Unit getUnitById(Long id);
+    public abstract Student getStudentById(Long id);
+    public abstract Personnel getPersonnelById(Long id);
+    public abstract Group getGroupById(Long id);
+    public abstract List findFunctionListBySessionUser(SessionUser su);
+    public abstract List<BaseObject> getBaseObjectListByTeacherId(Long id, Class cls);
+    public abstract List getUnitList();
+    public abstract List getTeacherListByCriteria(Teacher teacher);
+    public abstract Teacher getTeacherByStaffId(String sid);
+    public abstract void saveChecking(Checking obj);
+    
+    public abstract List getDepartmentListByChannelId(Long id);
+    public abstract Channel getChannelById(Long id);
+    public abstract RecruitDepartment getRecruitDepartmentById(Long id);   
+    public abstract List getDepartmentList();
+    public abstract Department getDepartmentById(Long id);
+    
+    // ---------------------
+    public abstract List getTeacherItemListByStaffId(Class cls, String sid);
+}

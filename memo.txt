@@ -1,0 +1,9 @@
+<style type="text/css">
+bODY{
+	width:20px;
+	height:50px;
+	
+	}
+</style>
+
+http://www.died.tw/2009/04/msdtc.html

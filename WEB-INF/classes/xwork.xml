@@ -1,0 +1,835 @@
+<!DOCTYPE xwork PUBLIC
+    "-//OpenSymphony Group//XWork 1.1.1//EN"
+    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+
+<xwork>
+    <include file="webwork-default.xml" />
+
+    <package name="default" extends="webwork-default">
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="exception" />
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="servlet-config" />
+                <interceptor-ref name="prepare" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="model-driven" />
+                <interceptor-ref name="fileUpload" />
+                <interceptor-ref name="static-params" />
+                <interceptor-ref name="params" />
+                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">execute,delete,edit,edit1,list,list1,copy,saveCheck11,queryBillList,query,login,mark,saveReg,saveRemark,miss,missSave,setDevicePowerStatus,setDevicePower,Download,Cleaner,saveCheck6,saveBillOutputDevice,saveCheck1,saveCheck7,saveBillProductionTime,saveBillDeliveryTimeTime,saveBillDrawings,saveCheck5,saveStep,uploadFiles,deleteStep</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            
+        </interceptors>
+        
+
+        
+        <global-results>
+            <result name="dataAccessFailure" type="tiles">dataAccessFailure</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="org.springframework.dao.DataAccessException"
+                result="dataAccessFailure"/>
+        </global-exception-mappings>
+
+        <!-- Login -->
+
+        <action name="login" class="loginAction" >
+            <result name="input" type="redirect">index.jsp${xworkParam}</result>
+            <result name="success" type="tiles">blank</result>
+            <!-- 
+              <result name="success" type="redirect">http://www.tnu.edu.tw</result>
+             -->
+        </action>
+
+        <action name="logout" class="loginAction" method="logout">
+            <result name="success" type="redirect">index.jsp</result>
+            <result name="input" type="redirect">index.jsp</result>
+        </action>
+ 
+        
+    <!-- AppProperty -->
+        <action name="appPropertyList" class="appPropertyAction" method="list">
+            <result name="success" type="tiles">appPropertyList</result>
+            <result name="input" type="tiles">appPropertyList</result>
+        </action>
+
+        <action name="editAppProperty" class="appPropertyAction" method="edit">
+            <result name="success" type="tiles">appPropertyForm</result>
+            <result name="input" type="tiles">appPropertyList</result>
+        </action>
+
+        <action name="saveAppProperty" class="appPropertyAction">
+            <result name="delete" type="redirect">appPropertyList.html</result>
+            <result name="input" type="tiles">appPropertyForm</result>
+            <result name="success" type="chain">saveAppPropertyWithValidation</result>
+        </action>
+
+        <action name="saveAppPropertyWithValidation" class="appPropertyAction" method="save">
+            <result name="input" type="tiles">appPropertyForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+    <!-- MiscCode -->
+        <action name="miscCodeList" class="miscCodeAction" method="list">
+            <result name="success" type="tiles">miscCodeList</result>
+            <result name="input" type="tiles">miscCodeList</result>
+        </action>
+
+        <action name="editMiscCode" class="miscCodeAction" method="edit">
+            <result name="success" type="tiles">miscCodeForm</result>
+            <result name="input" type="tiles">miscCodeList</result>
+        </action>
+
+        <action name="saveMiscCode" class="miscCodeAction">
+            <result name="delete" type="redirect">miscCodeList.html</result>
+            <result name="input" type="tiles">miscCodeForm</result>
+            <result name="success" type="chain">saveMiscCodeWithValidation</result>
+        </action>
+
+        <action name="saveMiscCodeWithValidation" class="miscCodeAction" method="save">
+            <result name="input" type="tiles">miscCodeForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+    <!-- Function -->
+        <action name="functionList" class="functionAction" method="list">
+            <result name="success" type="tiles">functionList</result>
+            <result name="input" type="tiles">functionList</result>
+        </action>
+
+        <action name="editFunction" class="functionAction" method="edit">
+            <result name="success" type="tiles">functionForm</result>
+            <result name="input" type="tiles">functionList</result>
+        </action>
+
+        <action name="saveFunction" class="functionAction">
+            <result name="delete" type="redirect">functionList.html</result>
+            <result name="input" type="tiles">functionForm</result>
+            <result name="success" type="chain">saveFunctionWithValidation</result>
+        </action>
+
+        <action name="saveFunctionWithValidation" class="functionAction" method="save">
+            <result name="input" type="tiles">functionForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+    <!-- FunctionCategory -->
+        <action name="functionCategoryList" class="functionCategoryAction" method="list">
+            <result name="success" type="tiles">functionCategoryList</result>
+            <result name="input" type="tiles">functionCategoryList</result>
+        </action>
+
+        <action name="editFunctionCategory" class="functionCategoryAction" method="edit">
+            <result name="success" type="tiles">functionCategoryForm</result>
+            <result name="input" type="tiles">functionCategoryList</result>
+        </action>
+
+        <action name="saveFunctionCategory" class="functionCategoryAction">
+            <result name="delete" type="redirect">functionCategoryList.html</result>
+            <result name="input" type="tiles">functionCategoryForm</result>
+            <result name="success" type="chain">saveFunctionCategoryWithValidation</result>
+        </action>
+
+        <action name="saveFunctionCategoryWithValidation" class="functionCategoryAction" method="save">
+            <result name="input" type="tiles">functionCategoryForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+    <!-- Group -->
+        <action name="groupList" class="groupAction" method="list">
+            <result name="success" type="tiles">groupList</result>
+            <result name="input" type="tiles">groupList</result>
+        </action>
+
+        <action name="editGroup" class="groupAction" method="edit">
+            <result name="success" type="tiles">groupForm</result>
+            <result name="input" type="tiles">groupList</result>
+        </action>
+
+        <action name="saveGroup" class="groupAction">
+            <result name="delete" type="redirect">groupList.html</result>
+            <result name="input" type="tiles">groupForm</result>
+            <result name="success" type="chain">saveGroupWithValidation</result>
+        </action>
+
+        <action name="saveGroupWithValidation" class="groupAction" method="save">
+            <result name="input" type="tiles">groupForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+
+    <!-- WebSite -->
+        <action name="webSiteList" class="webSiteAction" method="list">
+            <result name="success" type="tiles">webSiteList</result>
+            <result name="input" type="tiles">webSiteList</result>
+        </action>
+
+        <action name="editWebSite" class="webSiteAction" method="edit">
+            <result name="success" type="tiles">webSiteForm</result>
+            <result name="input" type="tiles">webSiteList</result>
+        </action>
+
+        <action name="saveWebSite" class="webSiteAction">
+            <result name="delete" type="redirect">webSiteList.html</result>
+            <result name="input" type="tiles">webSiteForm</result>
+            <result name="success" type="chain">saveWebSiteWithValidation</result>
+        </action>
+
+        <action name="saveWebSiteWithValidation" class="webSiteAction" method="save">
+            <result name="input" type="tiles">webSiteForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+ <!-- Member -->
+        <action name="memberList" class="memberAction" method="list">
+            <result name="success" type="tiles">memberList</result>
+            <result name="input" type="tiles">memberList</result>
+        </action>
+
+        <action name="editMember" class="memberAction" method="edit">
+            <result name="success" type="tiles">memberForm</result>
+            <result name="input" type="tiles">memberList</result>
+        </action>
+
+        <action name="copyMember" class="memberAction" method="copy">
+            <result name="success" type="tiles">memberForm</result>
+            <result name="input" type="tiles">memberList</result>
+        </action>
+
+        <action name="saveMember" class="memberAction">
+            <result name="delete" type="redirect">memberList.html</result>
+            <result name="input" type="tiles">memberForm</result>
+            <result name="success" type="chain">saveMemberWithValidation</result>
+        </action>
+
+        <action name="saveMemberWithValidation" class="memberAction" method="save">
+            <result name="input" type="tiles">memberForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+        
+        <action name="queryMemberListTop" class="memberAction" method="list">
+            <result name="success" type="tiles">queryMemberListTop</result>
+        </action>
+        
+  
+        
+     <!-- Unit -->
+        <action name="unitList" class="unitAction" method="list">
+            <result name="success" type="tiles">unitList</result>
+            <result name="input" type="tiles">unitList</result>
+        </action>
+
+        <action name="editUnit" class="unitAction" method="edit">
+            <result name="success" type="tiles">unitForm</result>
+            <result name="input" type="tiles">unitList</result>
+        </action>
+
+        <action name="saveUnit" class="unitAction">
+            <result name="delete" type="redirect">unitList.html</result>
+            <result name="input" type="tiles">unitForm</result>
+            <result name="success" type="chain">saveUnitWithValidation</result>
+        </action>
+
+        <action name="saveUnitWithValidation" class="unitAction" method="save">
+            <result name="input" type="tiles">unitForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+     <!-- Unit -->
+ 
+     <!-- Grade -->
+        <action name="gradeList" class="gradeAction" method="list">
+            <result name="success" type="tiles">gradeList</result>
+            <result name="input" type="tiles">gradeList</result>
+        </action>
+
+        <action name="editGrade" class="gradeAction" method="edit">
+            <result name="success" type="tiles">gradeForm</result>
+            <result name="input" type="tiles">gradeList</result>
+        </action>
+
+        <action name="copyGrade" class="gradeAction" method="copy">
+            <result name="success" type="tiles">gradeForm</result>
+            <result name="input" type="tiles">gradeList</result>
+        </action>
+
+        <action name="saveGrade" class="gradeAction">
+            <result name="delete" type="redirect">gradeList.html</result>
+            <result name="input" type="tiles">gradeForm</result>
+            <result name="success" type="chain">saveGradeWithValidation</result>
+        </action>
+
+        <action name="saveGradeWithValidation" class="gradeAction" method="save">
+            <result name="input" type="tiles">gradeForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+<!--******************************* Northwest **********************************-->
+
+
+    <!-- Freight -->
+        <action name="freightList" class="freightAction" method="list">
+            <result name="success" type="tiles">freightList</result>
+            <result name="input" type="tiles">freightList</result>
+        </action>
+
+        <action name="editFreight" class="freightAction" method="edit">
+            <result name="success" type="tiles">freightForm</result>
+            <result name="input" type="tiles">freightList</result>
+        </action>
+
+        <action name="copyFreight" class="freightAction" method="copy">
+            <result name="success" type="tiles">freightForm</result>
+            <result name="input" type="tiles">freightList</result>
+        </action>
+
+        <action name="saveFreight" class="freightAction">
+            <result name="delete" type="redirect">freightList.html</result>
+            <result name="input" type="tiles">freightForm</result>
+            <result name="success" type="chain">saveFreightWithValidation</result>
+        </action>
+
+        <action name="saveFreightWithValidation" class="freightAction" method="save">
+            <result name="input" type="tiles">freightForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+  
+      <!-- Bill -->
+        <action name="billList" class="billAction" method="list">
+            <result name="success" type="tiles">billList</result>
+            <result name="input" type="tiles">billList</result>
+        </action>
+        
+        <action name="editBill" class="billAction" method="edit1">
+            <result name="success" type="tiles">billForm</result>
+            <result name="input" type="tiles">billList</result>
+        </action>
+        
+        <action name="saveBill" class="billAction">
+            <result name="input" type="tiles">billForm</result>
+            <result name="success" type="chain">saveBillWithValidation</result>
+        </action>
+
+        <action name="saveBillWithValidation" class="billAction" method="save">
+            <result name="input" type="tiles">billForm</result>
+            <result name="success" type="redirect">editBill.html${xworkParam}</result> 
+        </action>
+        
+        <action name="saveStep" class="billAction" method="saveStep">        
+            <result name="success" type="tiles">queryBill</result>
+        </action>
+        
+        
+        <action name="deleteStep" class="billAction" method="deleteStep">
+            <result name="success" type="redirect">editBill.html${xworkParam}</result>           
+        </action>
+        
+        
+        
+        <action name="uploadStep1" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep1.jsp</result>
+            <result name="input">/northwest/uploadStep1.jsp</result>
+        </action>
+        
+        <action name="uploadStep5" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep5.jsp</result>
+            <result name="input">/northwest/uploadStep5.jsp</result>
+        </action>
+        
+         <action name="uploadStep6" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep6.jsp</result>
+            <result name="input">/northwest/uploadStep6.jsp</result>
+        </action>
+        
+        <action name="uploadStep7" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep7.jsp</result>
+            <result name="input">/northwest/uploadStep7.jsp</result>
+        </action>
+        
+        <action name="uploadStep8" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep8.jsp</result>
+            <result name="input">/northwest/uploadStep8.jsp</result>
+        </action>
+        
+        <action name="uploadStep10" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep10.jsp</result>
+            <result name="input">/northwest/uploadStep10.jsp</result>
+        </action>
+        
+        <action name="uploadStep11" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep11.jsp</result>
+            <result name="input">/northwest/uploadStep11.jsp</result>
+        </action>
+        
+                
+        <action name="uploadStep12" class="billAction" method="editDrawing">
+            <result name="success">/northwest/uploadStep12.jsp</result>
+            <result name="input">/northwest/uploadStep12.jsp</result>
+        </action>
+        
+        <action name="UploadFileExample" class="billAction" method="list">
+            <result name="success">/northwest/UploadFileExample.jsp</result>        
+        </action>
+        
+        <action name="UploadFileExampleSubmit" class="billAction" method="uploadFiles">
+            <result name="success">/northwest/UploadFileExampleSubmit.jsp</result>        
+        </action>
+        
+        
+
+         <action name="productCombine" class="billAction" method="edit">
+            <result name="success">/northwest/productCombineList.jsp</result>
+            <result name="input">/northwest/productCombineList.jsp</result>
+        </action>        
+        
+        <action name="saveCheck1" class="billAction" method="saveCheck1">          
+            <result name="success" type="redirect">uploadStep1.html${xworkParam}</result>
+        </action>
+        
+         <action name="saveCheck5" class="billAction" method="saveCheck5">          
+            <result name="success" type="redirect">uploadStep5.html${xworkParam}</result>
+        </action>
+        
+        <action name="saveCheck6" class="billAction" method="saveCheck6">          
+            <result name="success" type="redirect">uploadStep6.html${xworkParam}</result>
+        </action>
+        
+        <action name="saveCheck7" class="billAction" method="saveCheck7">          
+            <result name="success" type="redirect">uploadStep7.html${xworkParam}</result>
+        </action>
+        
+        <action name="saveCheck11" class="billAction" method="saveCheck11">          
+            <result name="success" type="redirect">uploadStep11.html${xworkParam}</result>
+        </action>    
+        
+        <action name="saveBillOutputTime" class="billAction" method="saveBillOutputTime">          
+            <result name="success" type="redirect">uploadStep7.html${xworkParam}</result>
+        </action>
+        
+        
+       <action name="saveCheck8" class="billAction" method="saveCheck8">          
+            <result name="success" type="redirect">uploadStep8.html${xworkParam}</result>
+        </action>
+        
+       <action name="saveBillDeliveryTimeTime" class="billAction" method="saveBillDeliveryTimeTime">          
+            <result name="success" type="redirect">uploadStep10.html${xworkParam}</result>
+        </action>
+        
+        <action name="saveCheck12" class="billAction" method="saveCheck12">          
+            <result name="success" type="redirect">uploadStep12.html${xworkParam}</result>
+        </action>
+        
+        <action name="showDrawings" class="billAction" method="editDrawing">          
+            <result name="success" >/northwest/showDrawings.jsp</result>
+        </action>
+        
+        
+        <action name="reportCounter" class="billAction" method="edit">
+            <result name="success">/northwest/reportCounter.jsp</result>
+            <result name="input">/northwest/reportCounter.jsp</result>
+        </action>
+        
+        <action name="reportConstruction" class="billAction" method="edit">
+            <result name="success">/northwest/reportConstruction.jsp</result>
+            <result name="input">/northwest/reportConstruction.jsp</result>
+        </action>
+        
+        <action name="reportComplete" class="billAction" method="edit">
+            <result name="success">/northwest/reportComplete.jsp</result>
+            <result name="input">/northwest/reportComplete.jsp</result>
+        </action>                  
+        
+        <action name="counter" class="billAction" method="list">          
+            <result name="success" >/northwest/counter.jsp</result>
+        </action>
+        
+        
+        <action name="queryBill" class="billAction" method="queryBillList">          
+            <result name="success"  type="tiles">queryBill</result>
+        </action>
+        
+        
+        <action name="queryProduct" class="billAction" method="list">          
+            <result name="success" >/northwest/queryProduct.jsp</result>
+        </action>
+        
+        
+        <action name="billFlow" class="billAction" method="list">          
+            <result name="success" >/northwest/billFlow.jsp</result>
+        </action>
+        
+        
+        <action name="billJSON" class="billAction" method="list">          
+            <result name="success" >/northwest/billJSON.jsp</result>
+        </action>
+        
+        
+     <!-- Customer -->   
+        <action name="customerList" class="customerAction" method="list">
+            <result name="success" type="tiles">customerList</result>
+            <result name="input" type="tiles">customerList</result>
+        </action>  
+        
+        <action name="editCustomer" class="customerAction" method="edit">
+            <result name="success" type="tiles">customerForm</result>
+            <result name="input" type="tiles">customerList</result>
+        </action>
+
+        <action name="saveCustomer" class="customerAction"> 
+            <result name="delete" type="redirect">editCustomer.html${xworkParam}</result>        
+            <result name="input" type="tiles">customerForm</result>
+            <result name="success" type="chain">saveCustomerWithValidation</result>
+        </action>
+
+        <action name="saveCustomerWithValidation" class="customerAction" method="save">
+            <result name="input" type="tiles">customerForm</result>
+            <result name="success" type="redirect">editCustomer.html${xworkParam}</result>
+        </action>
+        
+       <action name="queryCustomerDetail" class="customerAction" method="list">
+            <result name="success" type="tiles">customerForm</result>
+        </action> 
+        
+    <!-- CustomerScreen -->
+        <action name="customerScreenList" class="customerScreenAction" method="list">
+            <result name="success" >/northwest/customerScreenList.jsp</result>
+            <result name="input" >/northwest/customerScreenList.jsp</result>
+        </action>
+
+        <action name="editCustomerScreen" class="customerScreenAction" method="edit">
+            <result name="success" >/northwest/customerScreenForm.jsp</result>
+            <result name="input">/northwest/customerScreenList.jsp</result>
+        </action>
+
+        <action name="saveCustomerScreen" class="customerScreenAction">
+            <result name="delete" type="redirect">/northwest/customerScreenList.html${xworkParam}</result>
+            <result name="input" >/northwest/customerScreenForm.jsp</result>
+            <result name="success" type="chain">saveCustomerScreenWithValidation</result>
+        </action>
+
+        <action name="saveCustomerScreenWithValidation" class="customerScreenAction" method="save">
+            <result name="input" >/northwest/customerScreenForm.jsp</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+        
+        <action name="showCustomerScreen" class="customerScreenAction" method="edit">
+            <result name="success" >/northwest/customerScreenShow.jsp</result>
+            <result name="input">/northwest/customerScreenShow.jsp</result>
+        </action>
+        
+     <!-- OutputEquipment -->
+        <action name="outputEquipmentList" class="outputEquipmentAction" method="list">
+            <result name="success" type="tiles">outputEquipmentList</result>
+            <result name="input" type="tiles">outputEquipmentList</result>
+        </action>
+
+        <action name="editOutputEquipment" class="outputEquipmentAction" method="edit">
+            <result name="success" type="tiles">outputEquipmentForm</result>
+            <result name="input" type="tiles">outputEquipmentList</result>
+        </action>
+
+        <action name="copyOutputEquipment" class="outputEquipmentAction" method="copy">
+            <result name="success" type="tiles">outputEquipmentForm</result>
+            <result name="input" type="tiles">outputEquipmentList</result>
+        </action>
+
+        <action name="saveOutputEquipment" class="outputEquipmentAction">
+            <result name="delete" type="redirect">outputEquipmentList.html</result>
+            <result name="input" type="tiles">outputEquipmentForm</result>
+            <result name="success" type="chain">saveOutputEquipmentWithValidation</result>
+        </action>
+
+        <action name="saveOutputEquipmentWithValidation" class="outputEquipmentAction" method="save">
+            <result name="input" type="tiles">outputEquipmentForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+        
+
+        
+        
+        
+
+    <!-- ProductClass -->
+    
+        <action name="findProduct" class="productClassAction" method="list">          
+            <result name="success" type="tiles">findProduct</result>
+        </action>
+    
+        <action name="productSelect" class="productClassAction" method="list">          
+            <result name="success" type="tiles">productSelect</result>
+        </action>
+        
+        <action name="productSelectPrint" class="productClassAction" method="list">
+            <result name="success" type="tiles">productSelectPrint</result>           
+        </action> 
+        
+        <action name="productClassList" class="productClassAction" method="list">
+            <result name="success" type="tiles">productClassList</result>
+            <result name="input" type="tiles">productClassList</result>
+        </action>
+
+        <action name="editProductClass" class="productClassAction" method="edit">
+            <result name="success" type="tiles">productClassForm</result>
+            <result name="input" type="tiles">productClassList</result>
+        </action>
+
+        <action name="copyProductClass" class="productClassAction" method="copy">
+            <result name="success" type="tiles">productClassForm</result>
+            <result name="input" type="tiles">productClassList</result>
+        </action>
+
+        <action name="saveProductClass" class="productClassAction">
+            <result name="delete" type="redirect">productClassList.html</result>
+            <result name="input" type="tiles">productClassForm</result>
+            <result name="success" type="chain">saveProductClassWithValidation</result>
+        </action>
+
+        <action name="saveProductClassWithValidation" class="productClassAction" method="save">
+            <result name="input" type="tiles">productClassForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+        
+        <action name="findCustomer" class="customerAction" method="list">
+            <result name="success" type="tiles" >findCustomer</result>           
+        </action>
+        
+        
+        <action name="processStateList" class="billAction" method="list">          
+            <result name="success"  type="tiles">processStateList</result>
+        </action>
+        
+        <action name="exportReport1" class="billAction" method="list">
+            <result name="success" type="tiles">exportReport1</result>            
+        </action>
+        
+        <action name="exportReport2" class="billAction" method="list">
+            <result name="success" type="tiles">exportReport2</result>            
+        </action>
+        
+        
+        <!-- Profit -->
+        <action name="profitList" class="profitAction" method="list">
+            <result name="success" type="tiles">profitList</result>
+        </action>
+        
+        <action name="profitDetail" class="profitAction" method="list">
+            <result name="success" type="tiles">profitDetail</result>
+        </action>
+        
+        <action name="profitProduct" class="profitAction" method="list">
+            <result name="success" type="tiles">profitProduct</result>
+            <result name="input" type="tiles">profitProduct</result>
+        </action>
+        
+        <action name="profitProductDetail" class="profitAction" method="list">
+            <result name="success" >/northwest/profitProductDetail.jsp</result>           
+        </action>
+        
+        <action name="findProductByJSON" class="profitAction" method="list">
+            <result name="success" >/northwest/findProductByJSON.jsp</result>           
+        </action>
+        
+        <action name="findCustomerByJSON" class="profitAction" method="list">
+            <result name="success" >/northwest/findCustomerByJSON.jsp</result>           
+        </action>
+        
+        
+        <action name="profitRateList" class="profitAction" method="list">
+            <result name="success" type="tiles">profitRateList</result>           
+        </action>
+        
+         <action name="calculateProfitJSON" class="profitAction" method="list">
+            <result name="success" >/northwest/calculateProfitJSON.jsp</result>           
+        </action>
+        
+        
+        
+        <!--產能分析-->
+        <action name="workEfficiency" class="workEfficiencyAction" method="list">
+            <result name="success" type="tiles">workEfficiency</result>           
+        </action>
+        
+        <action name="findMemberByJSON" class="workEfficiencyAction" method="list">
+            <result name="success" >/northwest/findMemberByJSON.jsp</result>           
+        </action>
+        
+         <action name="test" class="workEfficiencyAction" method="list">
+            <result name="success" type="tiles">test</result>           
+        </action>
+        
+        
+        <!-- barcode -->
+        
+        <action name="barcode" class="barcodeAction" method="list">
+            <result name="success" >barcode.jsp</result>           
+        </action>
+        
+        <action name="barcodeActive" class="barcodeAction" method="list">
+            <result name="success" >/northwest/barcodeActiveByJSON.jsp</result>           
+        </action>
+        
+        <action name="barcodeCompleteStatus" class="barcodeAction" method="list">
+            <result name="success" >/northwest/barcodeCompleteStatus.jsp</result>           
+        </action>
+        
+        <action name="barcodeUserStep" class="barcodeAction" method="list">
+            <result name="success" >/northwest/barcodeUserStepByJSON.jsp</result>           
+        </action>
+        
+  
+    <!-- 
+    ************************ 
+    * 訂單主檔 
+    ************************
+    
+    
+        <action name="orderBillList" class="orderBillAction" method="list">
+            <result name="success" type="tiles">orderBillList</result>
+            <result name="input" type="tiles">orderBillList</result>
+        </action>        
+  
+        <action name="editOrderBill" class="orderBillAction" method="edit">
+            <result name="success" type="tiles">orderBillForm</result>          
+        </action>   
+        
+        <action name="saveOrdBill" class="orderBillAction" method="save">           
+            <result name="success" type="redirect">editOrderBill.html${xworkParam}</result>
+        </action>
+        
+        <action name="saveOrdBillSub" class="orderBillAction" method="save1">           
+            <result name="success" type="redirect">editOrderBill.html${xworkParam}</result>
+        </action>
+        
+        
+        <action name="orderBillCurrentProjectNo" class="orderBillAction" method="list">
+            <result name="success" >/cip/orderBillCurrentProjectNo.jsp</result>           
+        </action>  
+        
+        <action name="ordBillSubProductJSON" class="orderBillAction" method="list">
+            <result name="success" >/cip/ordBillSubProductJSON.jsp</result>           
+        </action>
+        
+        <action name="ordBillSubRowNo" class="orderBillAction" method="list">
+            <result name="success" >/cip/ordBillSubRowNo.jsp</result>           
+        </action>
+     -->
+        
+        <!-- 
+         ************************ 
+         * 設定標準成本 
+         ************************
+         -->
+        
+        <action name="standardCostList" class="standardCostAction" method="list">
+            <result name="success" >/northwest/standardCostList.jsp</result>           
+        </action>
+        
+        <action name="saveStandardCost" class="standardCostAction" method="save">
+            <result name="input" type="redirect">standardCostList.html${xworkParam}</result>
+            <result name="success" type="redirect">standardCostList.html${xworkParam}</result>
+        </action>
+        
+        <action name="productJSON" class="standardCostAction" method="list1">
+            <result name="success" >/northwest/productJSON.jsp</result>           
+        </action>
+        
+        <action name="customerJSON" class="standardCostAction" method="list1">
+            <result name="success" >/northwest/customerJSON.jsp</result>           
+        </action>
+        
+        <action name="customerStandardCostList" class="standardCostAction" method="list2">
+            <result name="success" >/northwest/customerStandardCostList.jsp</result>           
+        </action>
+        
+        
+        <action name="saveCustomerStandardCost" class="standardCostAction" method="list1">
+            <result name="success" >/northwest/saveCustomerStandardCost.jsp</result>           
+        </action>
+        
+        <!-- BillQA -->
+        <action name="billQAList" class="billQAAction" method="list">
+            <result name="success" type="tiles">billQAList</result>
+            <result name="input" type="tiles">billQAList</result>
+        </action>
+
+        <action name="editBillQA" class="billQAAction" method="edit">
+            <result name="success" type="tiles">billQAForm</result>
+            <result name="input" type="tiles">billQAList</result>            
+        </action>
+
+        <action name="copyBillQA" class="billQAAction" method="copy">
+            <result name="success" type="tiles">billQAForm</result>
+            <result name="input" type="tiles">billQAList</result>
+        </action>
+
+        <action name="saveBillQA" class="billQAAction">
+            <result name="delete" type="redirect">billQAList.html${xworkParam}</result>
+            <result name="input" type="tiles">billQAForm</result>
+            <result name="success" type="chain">saveBillQAWithValidation</result>           
+        </action>
+
+        <action name="saveBillQAWithValidation" class="billQAAction" method="save">
+            <result name="input" type="tiles">billQAForm</result>
+            <result name="success" type="redirect">billQAList.html${xworkParam}</result>
+            <result name="none" type="redirect">billQAListQuery.html</result>
+        </action>
+        
+        <action name="billQAListQuery" class="billQAAction" method="list">
+            <result name="success" type="tiles">billQAListQuery</result>
+            <result name="input" type="tiles">billQAListQuery</result>
+        </action>
+        
+        
+      <!-- 物流 -->
+        <action name="logisticsList" class="logisticsAction" method="list">
+            <result name="success" type="tiles">logisticsList</result>
+            <result name="input" type="tiles">logisticsForm</result>
+        </action>
+
+        <action name="editLogistics" class="logisticsAction" method="edit">
+            <result name="success" >/northwest/logisticsForm.jsp</result>           
+        </action>
+        
+        <action name="saveLogisticsJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/saveLogisticsJSON.jsp</result>           
+        </action>
+        
+        <action name="deleteLogisticsJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/deleteLogisticsJSON.jsp</result>           
+        </action>        
+        
+         <action name="logisticsListJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/logisticsListJSON.jsp</result>           
+        </action>
+     
+        <action name="saveLogistics" class="logisticsAction">
+            <result name="delete" type="tiles">logisticsList</result>            
+            <result name="success" type="chain">saveLogisticsWithValidation</result>
+        </action>
+
+        <action name="saveLogisticsWithValidation" class="logisticsAction" method="save">
+            <result name="success" type="redirect">logisticsList</result>
+        </action>
+        
+        <action name="senderDBJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/senderDBJSON.jsp</result>           
+        </action>
+        
+        <action name="recipientDBJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/recipientDBJSON.jsp</result>           
+        </action>
+        
+        
+            
+    </package>
+</xwork>
+

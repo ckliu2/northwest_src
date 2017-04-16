@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="loginAction" class="com.common.web.action.LoginAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+    
+    <bean id="appPropertyAction" class="com.common.web.action.AppPropertyAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    <bean id="miscCodeAction" class="com.common.web.action.MiscCodeAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    
+    <bean id="functionAction" class="com.common.web.action.FunctionAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    <bean id="functionCategoryAction" class="com.common.web.action.FunctionCategoryAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    <bean id="groupAction" class="com.common.web.action.GroupAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    <bean id="webSiteAction" class="com.common.web.action.WebSiteAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+    <bean id="memberAction" class="com.common.web.action.MemberAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+    
+    <bean id="unitAction" class="com.common.web.action.UnitAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+
+
+    <bean id="gradeAction" class="com.common.web.action.GradeAction" singleton="false">
+        <property name="genericManager" ref="commonManager"/>
+    </bean>
+    
+<!-- ********************************************* -->
+
+    <bean id="freightAction" class="northwest.common.web.action.FreightAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+
+    <bean id="billAction" class="northwest.common.web.action.BillAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="customerAction" class="northwest.common.web.action.CustomerAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="customerScreenAction" class="northwest.common.web.action.CustomerScreenAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>    
+    
+    <bean id="productClassAction" class="northwest.common.web.action.ProductClassAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="outputEquipmentAction" class="northwest.common.web.action.OutputEquipmentAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="profitAction" class="northwest.common.web.action.ProfitAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="workEfficiencyAction" class="northwest.common.web.action.WorkEfficiencyAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    
+    <bean id="barcodeAction" class="northwest.common.web.action.BarcodeAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <!-- 
+    <bean id="orderBillAction" class="com.cip.web.action.OrderBillAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    -->
+    
+    
+    <bean id="standardCostAction" class="northwest.common.web.action.StandardCostAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    <bean id="billQAAction" class="northwest.common.web.action.BillQAAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+    
+    
+    <bean id="logisticsAction" class="northwest.common.web.action.LogisticsAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
+   
+    
+    
+    
+  
+</beans>

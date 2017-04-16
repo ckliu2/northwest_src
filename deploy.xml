@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="shopping" default="deployAll" basedir=".">
+    <target name="deployAll" depends="compile,makejar,xml" description="--> Deploy All">
+
+    </target>
+    <property name="workspace" 				    location="D:/developEclipse" />
+    <property name="tomcat"                     location="D:/Tomcat" />
+    <property name="jarfile" 				    location="${basedir}/project.jar" />
+    <property name="webapps"                    location="${tomcat}/webapps" />
+    <property name="deploy"                     location="${webapps}/shopping" />
+    <property name="input"                      location="${basedir}" />
+    <property name="source"                     location="${basedir}" />
+	<property name="codgen"                     location="${workspace}/workspace/lib/wwappgen.jar" />
+	<property name="source.root"                location="${source}" />
+    <property name="source.java"                location="${source}/src" />
+    <property name="source.common"              location="${source}/common" />
+    <property name="source.css"                 location="${source}/css" />
+    <property name="source.images"              location="${source}/images" />
+    <property name="source.imgs"              	location="${source}/imgs" />
+    <property name="source.layout"              location="${source}/layout" />
+    <property name="source.scripts"             location="${source}/scripts" />
+    <property name="source.webinf"              location="${source}/WEB-INF" />
+    <property name="source.template"            location="${source}/template/simple" />
+    <property name="source.generated"           location="${source}/generated" />
+    <property name="source.query"               location="${source}/query" />
+    <property name="source.bin"                 location="${source}/bin" />
+	<property name="source.classes"             location="${source.webinf}/classes" />
+
+	<property name="deploy.root"                location="${deploy}" />
+    <property name="deploy.common"              location="${deploy}/common" />
+    <property name="deploy.css"                 location="${deploy}/css" />
+    <property name="deploy.images"              location="${deploy}/images" />
+    <property name="deploy.imgs"              	location="${deploy}/imgs" />
+    <property name="deploy.layout"              location="${deploy}/layout" />
+    <property name="deploy.scripts"             location="${deploy}/scripts" />
+    <property name="deploy.webinf"              location="${deploy}/WEB-INF" />
+    <property name="deploy.template"            location="${deploy}/template/simple" />
+    <property name="deploy.query"               location="${deploy}/query" />
+    <property name="deploy.jsp.adm"           	location="${deploy}/adm" />
+
+    <property name="deploy.classes"             location="${deploy.webinf}/classes" />
+    <property name="input.libs" 			    location="${deploy.webinf}/lib" />    	
+
+	<property name="inputlib.antlr"     		location="${input.libs}/antlr-2.7.6rc1.jar" />
+    <property name="inputlib.asm"  		        location="${input.libs}/asm-1.5.3.jar" />
+    <property name="inputlib.cglib"        	    location="${input.libs}/cglib-2.1_3.jar" />
+    <property name="inputlib.beanutils"         location="${input.libs}/commons-beanutils-1.7.0.jar" />
+    <property name="inputlib.collections"       location="${input.libs}/commons-collections-3.1.jar" />
+    <property name="inputlib.digester"          location="${input.libs}/commons-digester.jar" />
+    <property name="inputlib.lang"        	    location="${input.libs}/commons-lang-2.1.jar" />
+    <property name="inputlib.logging"           location="${input.libs}/commons-logging-1.0.4.jar" />
+    <property name="inputlib.displaytag"        location="${input.libs}/displaytag-1.1.jar" />
+    <property name="inputlib.dom4j"        	    location="${input.libs}/dom4j-1.6.1.jar" />
+    <property name="inputlib.dwr"        		location="${input.libs}/dwr-1.0.jar" />
+    <property name="inputlib.ehcache"           location="${input.libs}/ehcache-1.1.jar" />
+    <property name="inputlib.freemarker"        location="${input.libs}/freemarker-2.3.4.jar" />
+    <property name="inputlib.geronimo"          location="${input.libs}/geronimo-spec-jta-1.0.1B-rc4.jar" />
+    <property name="inputlib.hibernate"         location="${input.libs}/hibernate-3.1.2.jar" />
+	<property name="inputlib.hibernatetools"         location="${input.libs}/hibernate-tools.jar" />
+    <property name="inputlib.itext"     		location="${input.libs}/itext-1.3.jar" />
+    <property name="inputlib.jstl"     	        location="${input.libs}/jstl-1.1.2.jar" />
+    <property name="inputlib.log4j"   		    location="${input.libs}/log4j-1.2.11.jar" />
+    <property name="inputlib.mysql"   		    location="${input.libs}/mysql-connector-java-3.1.12-bin.jar" />
+    <property name="inputlib.ognl"   		    location="${input.libs}/ognl-2.6.7.jar" />
+    <property name="inputlib.oscore"     		location="${input.libs}/oscore-2.2.4.jar" />
+    <property name="inputlib.rife"     		    location="${input.libs}/rife-continuations-0.0.1.jar" />
+    <property name="inputlib.spring"     		location="${input.libs}/spring-1.2.6.jar" />
+    <property name="inputlib.standard"     		location="${input.libs}/standard-1.1.2.jar" />
+    <property name="inputlib.tiles"		      	location="${input.libs}/tiles-core.jar" />
+    <property name="inputlib.webwork"		    location="${input.libs}/webwork-2.2.2-upd.jar" />
+    <property name="inputlib.xwork"	        	location="${input.libs}/xwork-1.1.2.jar" />
+    <property name="inputlib.jdom"				location="${input.libs}/jdom-b8-dev.jar" />
+	<property name="inputlib.velocity"			location="${input.libs}/velocity-dep.jar" />
+	<property name="inputlib.jbpm312"      		location="${input.libs}/jbpm-3.1.2.jar" />
+	<property name="inputlib.jbpmId312"      	location="${input.libs}/jbpm-identity-3.1.2.jar" />
+	<property name="inputlib.bsh"      			location="${input.libs}/bsh-1.3.0.jar" />
+	<property name="inputlib.campusTool"      	location="${input.libs}/campusTool.jar" />
+	<property name="inputlib.codegen"			location="${codgen}" />
+    <property name="inputlib.servlet"	      	location="${tomcat}/common/lib/servlet-api.jar" />
+    <property name="inputlib.jsp"	      		location="${tomcat}/common/lib/jsp-api.jar" />
+	<property name="inputlib.springmoduleJbpm31"      location="${input.libs}/spring-modules-jbpm31.jar" />
+
+    <property environment="env" />
+
+    <taskdef name="hbm2java"
+        classname="org.hibernate.tool.hbm2java.Hbm2JavaTask"
+        classpath="${inputlib.antlr}:
+                   ${inputlib.asm}:
+                   ${inputlib.cglib}:
+                   ${inputlib.beanutils}:
+                   ${inputlib.collections}:
+                   ${inputlib.digester}:
+                   ${inputlib.lang}:
+                   ${inputlib.logging}:
+                   ${inputlib.displaytag}: 
+                   ${inputlib.dom4j}:
+                   ${inputlib.dwr}:
+                   ${inputlib.ehcache}:
+                   ${inputlib.freemarker}:
+                   ${inputlib.geronimo}:
+                   ${inputlib.hibernate}:
+    	           ${inputlib.hibernatetool}:
+                   ${inputlib.itext}:
+                   ${inputlib.jstl}:
+                   ${inputlib.log4j}:
+                   ${inputlib.mysql}:
+                   ${inputlib.ognl}:
+                   ${inputlib.oscore}:
+                   ${inputlib.rife}:
+                   ${inputlib.spring}:
+                   ${inputlib.standard}:
+                   ${inputlib.tiles}:
+                   ${inputlib.webwork}:
+                   ${inputlib.xwork}:
+                   ${inputlib.servlet}:
+  		           ${inputlib.jsp}:
+    			   ${inputlib.jdom}:
+    	           ${inputlib.velocity}:
+    			   ${inputlib.campusTool}:
+	               ${inputlib.codegen}"
+    	
+    />
+
+
+    <target name="makejar" description="make jar file">
+        <jar jarfile="${jarfile}" basedir="${source.bin}" />
+    	<copy todir="${input.libs}" >
+    	    <fileset file="${jarfile}"/>
+    	</copy>
+    </target>
+
+    <!-- =================================
+          target: deployAll
+         ================================= -->
+    <target name="compile" description="Compile the demo classes">
+        <mkdir dir="${deploy.classes}" />
+       	<javac  srcdir="${source.java}"
+               destdir="${source.bin}"
+             classpath="${inputlib.antlr}:
+                        ${inputlib.asm}:
+                        ${inputlib.cglib}:
+                        ${inputlib.beanutils}:
+                        ${inputlib.collections}:
+                        ${inputlib.digester}:
+                        ${inputlib.lang}:
+                        ${inputlib.logging}:
+                        ${inputlib.displaytag}:
+                        ${inputlib.dom4j}:
+                        ${inputlib.dwr}:
+                        ${inputlib.ehcache}:
+                        ${inputlib.freemarker}:
+                        ${inputlib.geronimo}:
+                        ${inputlib.hibernate}:
+                        ${inputlib.itext}:
+                        ${inputlib.jstl}:
+                        ${inputlib.log4j}:
+                        ${inputlib.mysql}:
+                        ${inputlib.ognl}:
+                        ${inputlib.oscore}:
+                        ${inputlib.rife}:
+                        ${inputlib.spring}:
+                        ${inputlib.standard}:
+                        ${inputlib.tiles}:
+                        ${inputlib.webwork}:
+                        ${inputlib.xwork}:
+                        ${inputlib.servlet}:
+       		            ${inputlib.jsp}:
+            			${inputlib.jbpm312}:
+            			${inputlib.jbpmId312}:
+            			${inputlib.springmoduleJbpm31}:
+			   			${inputlib.campusTool}:
+	            		${inputlib.bsh}"       		
+            debug="on"
+            optimize="on"
+            deprecation="on"
+       		source="1.5"
+    		target="1.5">
+       		<compilerarg value="-Xlint:unchecked"/>
+       	</javac>  
+	</target>
+	
+   
+    <target name="xml" description="xml">
+        <copy todir="${deploy.classes}" overwrite="true">
+	        <fileset dir="${source.classes}">
+    	        <include name="*.*" />
+          	</fileset>
+        </copy>
+    </target>
+   	
+</project>

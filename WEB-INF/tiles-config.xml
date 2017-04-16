@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+    <definition name="default" path="/layout/template.jsp">
+        <put name="title" value="Information System"/>
+        <put name="menu" value="/layout/menu.jsp"/>
+        <put name="rightColumn" value="/layout/right.jsp"/>
+    </definition>    
+
+    <definition name="surveyOnlineTemplate" path="/layout/templateOnline.jsp">
+        <put name="title" value="Information System"/>
+        <put name="foot" value="/layout/foot.jsp"/>
+    </definition>
+
+    <definition name="noMenuTemplate" path="/layout/noMenuTemplate.jsp">
+        <put name="title" value="Information System"/>
+    </definition>
+    
+    
+
+    <definition name="searchResultTemplate" path="/layout/searchResultTemplate.jsp">
+        <put name="title" value="Information System"/>
+    </definition>
+
+    <definition name="dataAccessFailure" extends="default">
+        <put name="title" value="Data Access Error"/>
+        <put name="content" value="/common/dataAccessFailure.jsp"/>
+    </definition>
+
+    <definition name="blank" extends="default">
+        <put name="title" value=""/>
+        <put name="content" value="/common/blank.jsp"/>    
+    </definition>
+
+    <definition name="editTimeExceed" extends="default">
+        <put name="title" value=""/>
+        <put name="content" value="/common/editTimeExceed.jsp"/>
+    </definition>
+  
+
+    <!-- 
+    ************************ 
+    * AppProperty 
+    ************************
+    -->
+    <definition name="appPropertyList" extends="default">
+        <put name="content" value="/adm/appPropertyList.jsp"/>
+    </definition>
+    <definition name="appPropertyForm" extends="default">
+        <put name="content" value="/adm/appPropertyForm.jsp"/>
+    </definition>
+ 
+     <!-- 
+    ************************ 
+    * MiscCode 
+    ************************
+    -->
+    <definition name="miscCodeList" extends="default">
+        <put name="content" value="/adm/miscCodeList.jsp"/>
+    </definition>
+    <definition name="miscCodeForm" extends="default">
+        <put name="content" value="/adm/miscCodeForm.jsp"/>
+    </definition>
+ 
+     <!-- 
+    ************************ 
+    * Function 
+    ************************
+    -->
+    <definition name="functionList" extends="default">
+        <put name="content" value="/adm/functionList.jsp"/>
+    </definition>
+
+    <definition name="functionForm" extends="default">
+        <put name="content" value="/adm/functionForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
+    * FunctionCategory 
+    ************************
+    -->
+    <definition name="functionCategoryList" extends="default">
+        <put name="content" value="/adm/functionCategoryList.jsp"/>
+    </definition>
+
+    <definition name="functionCategoryForm" extends="default">
+        <put name="content" value="/adm/functionCategoryForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
+    * Group 
+    ************************
+    -->
+    <definition name="groupList" extends="default">
+        <put name="content" value="/adm/groupList.jsp"/>
+    </definition>
+
+    <definition name="groupForm" extends="default">
+        <put name="content" value="/adm/groupForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
+    * WebSite 
+    ************************
+    -->
+    <definition name="webSiteList" extends="default">
+        <put name="content" value="/adm/webSiteList.jsp"/>
+    </definition>
+
+    <definition name="webSiteForm" extends="default">
+        <put name="content" value="/adm/webSiteForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
+    * Member 
+    ************************
+    -->
+    <definition name="memberList" extends="default">
+        <put name="content" value="/adm/memberList.jsp"/>
+    </definition>
+
+    <definition name="memberForm" extends="default">
+        <put name="content" value="/adm/memberForm.jsp"/>
+    </definition>
+    
+    <definition name="queryMember" extends="default">
+        <put name="content" value="/adm/queryMember.jsp"/>
+    </definition>
+    
+     <definition name="onlineMember" extends="noMenuTemplate">
+        <put name="content" value="/online/onlineMember.jsp"/>
+     </definition>
+     
+    <definition name="memberIndex" extends="noMenuTemplate">
+        <put name="content" value="/online/memberIndex.jsp"/>
+     </definition>
+     
+    <definition name="memberRegister" extends="noMenuTemplate">
+        <put name="content" value="/online/memberRegister.jsp"/>
+    </definition>
+    
+    <definition name="queryMemberListTop" extends="noMenuTemplate">
+        <put name="content" value="/adm/queryMemberListTop.jsp"/>
+    </definition>    
+
+
+    <definition name="memberFormInfo" extends="noMenuTemplate">
+        <put name="content" value="/adm/memberFormInfo.jsp"/>
+    </definition>
+    
+<!--******************************* Northwest **********************************-->
+    
+    <!-- 
+    ************************ 
+    * Freight 
+    ************************
+    -->
+    <definition name="freightList" extends="default">
+        <put name="content" value="/northwest/freightList.jsp"/>
+    </definition>
+
+    <definition name="freightForm" extends="default">
+        <put name="content" value="/northwest/freightForm.jsp"/>
+    </definition>
+    
+    <!-- 
+    ************************ 
+    * Bill 
+    ************************
+    -->
+    <definition name="billList" extends="default">
+        <put name="content" value="/northwest/billList.jsp"/>
+    </definition>
+
+    <definition name="billForm" extends="default">
+        <put name="content" value="/northwest/billForm.jsp"/>
+    </definition>
+    
+    
+    <definition name="queryBill" extends="default">
+        <put name="content" value="/northwest/queryBill.jsp"/>
+    </definition>
+    
+    
+    
+    
+    
+    <!-- 
+    ************************ 
+    * Customer 
+    ************************
+    -->
+    <definition name="customerList" extends="default">
+        <put name="content" value="/northwest/customerList.jsp"/>
+    </definition>
+
+    <definition name="customerForm" extends="default">
+        <put name="content" value="/northwest/customerForm.jsp"/>
+    </definition>
+    
+    
+    <definition name="findCustomer" path="/northwest/findCustomer.jsp">    
+    </definition>
+    
+    
+    <!-- 
+    ************************ 
+    * Product 
+    ************************
+    -->
+    <definition name="productSelect" extends="default">
+        <put name="content" value="/northwest/productSelect.jsp"/>
+    </definition>
+    
+    <definition name="findProduct" path="/northwest/findProduct.jsp">    
+    </definition>
+    
+    <definition name="productSelectPrint" path="/northwest/productSelectPrint.jsp">    
+    </definition>
+    
+    <!-- 
+    ************************ 
+    * ProductClass 
+    ************************
+    -->
+    <definition name="productClassList" extends="default">
+        <put name="content" value="/northwest/productClassList.jsp"/>
+    </definition>
+
+    <definition name="productClassForm" extends="default">
+        <put name="content" value="/northwest/productClassForm.jsp"/>
+    </definition>
+    
+    
+    <!-- 
+    ************************ 
+    * OutputEquipment 
+    ************************
+    -->
+    <definition name="outputEquipmentList" extends="default">
+        <put name="content" value="/northwest/outputEquipmentList.jsp"/>
+    </definition>
+
+    <definition name="outputEquipmentForm" extends="default">
+        <put name="content" value="/northwest/outputEquipmentForm.jsp"/>
+    </definition>
+    
+    
+   <definition name="processStateList" extends="default">
+        <put name="content" value="/northwest/processStateList.jsp"/>
+    </definition>
+    
+    <definition name="exportReport1" path="/northwest/exportReport1.jsp"/> 
+    <definition name="exportReport2" path="/northwest/exportReport2.jsp"/>
+    
+    
+    <!-- 
+    ************************ 
+    * Profit 
+    ************************
+    -->
+    <definition name="profitList" extends="default">
+        <put name="content" value="/northwest/profitList.jsp"/>
+    </definition>
+    
+    <definition name="profitDetail" extends="noMenuTemplate">
+        <put name="content" value="/northwest/profitDetail.jsp"/>
+    </definition>
+    
+    <definition name="profitProduct" extends="default">
+        <put name="content" value="/northwest/profitProduct.jsp"/>
+    </definition>
+    
+    
+    <definition name="profitRateList" extends="default">
+        <put name="content" value="/northwest/profitRateList.jsp"/>
+    </definition>
+    
+    
+    
+    <!-- 
+    ************************ 
+    * 產能分析 
+    ************************
+    -->
+    <definition name="workEfficiency" extends="default">
+        <put name="content" value="/northwest/workEfficiency.jsp"/>
+    </definition>
+    
+    <definition name="test" extends="default">
+        <put name="content" value="/northwest/test.jsp"/>
+    </definition>
+    
+    
+    
+    <!-- 
+    ************************ 
+    * OrderBill 
+    ************************
+    -->
+    
+    <definition name="orderBillList" extends="noMenuTemplate">
+        <put name="content" value="/cip/orderBillList.jsp"/>
+    </definition>
+
+    <definition name="orderBillForm" extends="noMenuTemplate">
+        <put name="content" value="/cip/orderBillForm.jsp"/>
+    </definition>
+    
+    
+    
+    <!-- 
+    ************************ 
+    * BillQA 
+    ************************
+    -->
+    <definition name="billQAList" extends="default">
+        <put name="content" value="/northwest/billQAList.jsp"/>
+    </definition>
+
+    <definition name="billQAForm" extends="default">
+        <put name="content" value="/northwest/billQAForm.jsp"/>
+    </definition>
+    
+    <definition name="billQAListQuery" extends="default">
+        <put name="content" value="/northwest/billQAListQuery.jsp"/>
+    </definition>
+    
+    
+    
+    <!-- 
+    ************************ 
+    * Logistics 
+    ************************
+    -->
+    <definition name="logisticsList" extends="default">
+        <put name="content" value="/northwest/logisticsList.jsp"/>
+    </definition>
+
+    
+    
+    
+</tiles-definitions>

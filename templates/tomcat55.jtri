@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.jtri.model:Template xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.jtri.model="urn:org.jtri.model.ecore" xmi:id="_Dy9WAHbwEdqB_4GqyO18KA" templateBase="$base/tomcat5/" name="tomcat 5.5" description="Tomcat 5 configuration"/>

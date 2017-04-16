@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  	
+<hibernate-mapping>	
+  	
+    <!-- 
+    ************************ 
+    * 訂單
+    ************************
+    -->    	
+  	<class name="northwest.common.value.Bill" table="Northwest_Bill">  	 
+        <id name="id" column="BillNO" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <property name="projectName" type="string"  column="CProjectName"/>
+        <property name="remark" type="string"  column="Remark"/>  
+        <property name="userDef2" type="string"  column="UserDef2"/> 
+        <property name="billDate" type="string"  column="BillDate"/>  
+        <many-to-one name="customer" class="northwest.common.value.Customer" column="CustomerID"/>   
+        <property name="state" type="boolean" />
+    </class> 
+    
+    <!-- 
+    ************************ 
+    * 訂單檔案上傳
+    ************************
+    -->   	
+  	<class name="northwest.common.value.BillFiles" table="Northwest_BillFiles">  	 
+        <id name="id" column="id"  type="long"  unsaved-value="null">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="bill" class="northwest.common.value.Bill" column="bill"/>   
+        <many-to-one name="doc1" class="com.base.value.UploadedFile" cascade="all"  column="doc1"/>        
+        <many-to-one name="doc2" class="com.base.value.UploadedFile" cascade="all"  column="doc2"/>
+        <many-to-one name="doc3" class="com.base.value.UploadedFile" cascade="all"  column="doc3"/>
+        <many-to-one name="doc4" class="com.base.value.UploadedFile" cascade="all"  column="doc4"/>
+        <many-to-one name="doc5" class="com.base.value.UploadedFile" cascade="all"  column="doc5"/>
+        <many-to-one name="doc6" class="com.base.value.UploadedFile" cascade="all"  column="doc6"/>
+   	</class>
+    
+    
+	
+	<!-- 
+    ************************ 
+    * 結案訂單
+    ************************
+    -->	
+     <class name="northwest.common.value.BillFinish" table="Northwest_BillFinish">  	 
+        <id name="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>  
+        <property name="createdDate" type="timestamp"  not-null="true"/>
+        <many-to-one name="bill" class="northwest.common.value.Bill" column="bill" not-null="true"/>   
+        
+	</class> 
+	
+	
+	<!-- 
+    ************************ 
+    * 訂單權限
+    ************************
+    -->    	
+  	<class name="northwest.common.value.BillAuthority" table="Northwest_BillAuthority">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="bill" class="northwest.common.value.Bill" column="billID"/>   
+	    <many-to-one name="group" class="com.base.value.Group" column="groupID" />   
+	</class>
+	
+	
+  	
+  	
+   <!-- 
+    ************************ 
+    * 訂單項目
+    ************************
+   -->  
+    	
+  	<class name="northwest.common.value.BillDetail" table="Northwest_BillDetail">
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>        
+            <property name="fromRow"   type="integer"  column="FromRow"/>
+    	    <property name="price"   type="integer"  column="Price"/>           
+            <property name="width"   type="float"  column="Width"/>
+            <property name="heigh"   type="float"  column="Heigh"/>
+            <property name="visibleWidth"   type="float"  column="VWidth"/>
+            <property name="visibleHeigh"   type="float"  column="VHeigh"/>            
+            <property name="calcArea"   type="integer"  column="CalcArea"/>
+            <property name="area"   type="integer"  column="Area"/>  
+            <property name="quantity"   type="integer"  column="Quantity"/>
+            <property name="basicQuantity"   type="integer"  column="basicQuantity"/>            
+            <property name="detail" type="string"  column="Detail"/>
+            <property name="itemRemark" type="string"  column="ItemRemark"/>
+            <property name="paperPrice"   type="integer"  column="PaperPrice"/>
+            <property name="amount"   type="float"  column="Amount"/>   
+            <property name="complete"    type="string"     column="complete"/>
+            <property name="uncomplete"    type="string"     column="uncomplete"/>
+            <many-to-one name="product" class="northwest.common.value.Product" cascade="none"  column="ProdID"/>   
+            <many-to-one name="bill" class="northwest.common.value.Bill" cascade="none"  column="BillNo"/>       
+  		         
+  	</class> 
+  	
+  	
+   <!-- 
+    ************************ 
+    * 訂單項目進度
+    ************************
+   -->    	
+  	<class name="northwest.common.value.BillSchedule" table="Northwest_BillSchedule">
+            <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+            </id> 
+            <property name="fileName" type="string"  column="fileName"/>
+            <many-to-one name="imageDiagram" class="com.base.value.UploadedFile" cascade="all"  column="imageDiagram"/>
+            <many-to-one name="checkDiagram" class="com.base.value.UploadedFile" cascade="all"  column="checkDiagram"/>
+            <property name="outputDevice" type="string" column="outputDevice"/>
+            <many-to-one name="outputEquipment" class="northwest.common.value.OutputEquipment" cascade="none"  column="outputEquipment"/>
+            <property name="outputTime" type="timestamp" column="outputTime"/>            
+            <property name="deliveryTime"    type="timestamp"     column="deliveryTime"/>             
+            <many-to-one name="isSend"  class="com.base.value.AppProperty" cascade="none"  column="isSend"	/>
+            <property name="isSendTime"    type="timestamp"     column="isSendTime"/>
+            <many-to-one name="customerAddress" class="northwest.common.value.CustomerDetail" cascade="none"  column="customerAddress"/>
+            <property name="arrival"    type="timestamp"     column="arrival"/>             
+            <many-to-one name="freight" class="northwest.common.value.Freight" cascade="none"  column="freight"/>
+            <property name="freightNo" type="string"  column="freightNo"/>
+            <many-to-one name="worker" class="com.common.value.Member" cascade="none" column="worker" />
+            <property name="costs"   type="integer"  column="costs"/>
+            <many-to-one name="billDetail" class="northwest.common.value.BillDetail" cascade="none"  column="billDetail"/>       
+  	        <many-to-one name="customerScreen" class="northwest.common.value.CustomerScreen" cascade="none"  column="customerScreen"/>       
+  	        <property name="uploadDrawingsTime"    type="timestamp"     column="uploadDrawingsTime"/>
+  	        <property name="drawingsMemo"    type="string"     column="drawingsMemo"/>
+  	        
+  	        <property name="step1"  type="boolean"  >
+               <column name="step1" default="0"/>
+            </property>
+            <property name="step2"  type="boolean"  >
+               <column name="step2" default="0"/>
+            </property>
+            <property name="step3"  type="boolean"  >
+               <column name="step3" default="0"/>
+            </property>
+            <property name="step4"  type="boolean"  >
+               <column name="step4" default="0"/>
+            </property>
+            <property name="step5"  type="boolean"  >
+               <column name="step5" default="0"/>
+            </property>
+            <property name="step6"  type="boolean"  >
+               <column name="step6" default="0"/>
+            </property>
+            <property name="step7"  type="boolean"  >
+               <column name="step7" default="0"/>
+            </property>
+            <property name="step8"  type="boolean"  >
+               <column name="step8" default="0"/>
+            </property>
+            <property name="step9"  type="boolean"  >
+               <column name="step9" default="0"/>
+            </property>
+            <property name="step10"  type="boolean"  >
+               <column name="step10" default="0"/>
+            </property> 
+            <property name="step11"  type="boolean"  >
+               <column name="step11" default="0"/>
+            </property>       
+            <property name="step12"  type="boolean"  >
+               <column name="step12" default="0"/>
+            </property> 
+            
+            
+            <property name="cuticlestep"  type="boolean"  >
+               <column name="cuticlestep" default="0"/>
+            </property>              
+            <property name="cuticle"    type="timestamp" 	column="cuticle"/>   
+            <many-to-one name="cuticleer" class="com.common.value.Member" cascade="none" />
+            
+            
+            <property name="check1"    type="timestamp" 	column="check1"/>   
+            <property name="check2"    type="timestamp"     column="check2"/>
+            <property name="check3"    type="timestamp"     column="check3"/>
+            <property name="check4"    type="timestamp"     column="check4"/>  
+            <property name="check5"    type="timestamp" 	column="check5"/>   
+            <property name="check6"    type="timestamp"     column="check6"/>
+            <property name="check7"    type="timestamp"     column="check7"/>
+            <property name="check8"    type="timestamp"     column="check8"/>  
+            <property name="check9"    type="timestamp" 	column="check9"/>   
+            <property name="check10"   type="timestamp"     column="check10"/>
+            <property name="check11"   type="timestamp"     column="check11"/>
+            <property name="check12"   type="timestamp"     column="check12"/>  
+            
+            <many-to-one name="checker1" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker2" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker3" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker4" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker5" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker6" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker7" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker8" class="com.common.value.Member" cascade="none" />
+  	        <many-to-one name="checker9" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker10" class="com.common.value.Member" cascade="none" />
+            <many-to-one name="checker11" class="com.common.value.Member" cascade="none" />
+  	        <many-to-one name="checker12" class="com.common.value.Member" cascade="none" />
+  	        <property name="code" type="string"  />
+            
+  	        
+  	        <list name="drawingsFiles" cascade="none" table="Northwest_DrawingsFiles" >
+        	  <meta attribute="widget">none</meta>
+        	  <key column="billScheduleId" /> 
+        	  <index column="IDX" /> 
+        	  <many-to-many class="com.base.value.UploadedFile" column="uploadId" />         	
+ 		    </list> 
+  
+  	</class> 
+ 
+   	
+  	<!-- 
+    ************************ 
+    * 產品主檔
+    ************************
+    -->   	
+  	<class name="northwest.common.value.Product" table="Northwest_Product"> 
+        <id name="id" column="ProdId" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <property name="productName" type="string"  column="ProdName"/>
+        <property name="unit" type="string"  column="Unit"/>   
+        <many-to-one name="productClass" class="northwest.common.value.ProductClass" cascade="none" column="ClassID" />
+        <many-to-one name="productUnit" class="northwest.common.value.ProductUnit" cascade="none" column="unitId" />
+       
+        <list name="combine" cascade="none" lazy="false" table="Northwest_ProductCombine">
+		   <meta attribute="widget">two-list</meta>
+		   <key column="productId" /> 
+		   <index column="idx" /> 
+           <composite-element class="northwest.common.value.ProductCombine">   			
+   			 <property name="amount"   type="integer" />
+      		 <many-to-one name="product" class="northwest.common.value.Product" cascade="none" not-null="true" column="productCombineId"/>  
+           </composite-element>
+	     </list>
+        
+  	</class> 
+  	
+  	<!-- 
+    ************************ 
+    * 產品類別
+    ************************
+    -->   	
+  	<class name="northwest.common.value.ProductClass" table="Northwest_ProductClass"> 
+        <id name="id" column="ClassId" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <property name="className" type="string"  column="ClassName" update="false"/>
+        
+        <list name="expectionFlows" cascade="none" table="Northwest_ExpectionFlows" >
+        	<meta attribute="widget">none</meta>
+        	<key column="productId" /> 
+        	<index column="IDX" /> 
+        	<many-to-many class="com.base.value.Group" column="groupId" />         	
+ 		</list>         
+  	</class> 
+  	
+
+  	<!-- 
+    ************************ 
+    * 輸出設備
+    ************************
+    -->   	
+  	<class name="northwest.common.value.OutputEquipment" table="Northwest_OutputEquipment"> 
+        <id name="id" column="id"  type="long"  unsaved-value="null">
+            <generator class="identity"/>
+        </id> 
+        <property name="name" type="string"  column="name"/>
+        <property name="memo" type="string"  column="memo"/>
+    </class> 
+  	 
+  	
+  	<!-- 
+    ************************ 
+    * 客戶
+    ************************
+    -->    	
+  	<class name="northwest.common.value.Customer" table="Northwest_Customer">
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>
+        <property name="name"	type="string"   column="FullName"/> 
+        <property name="linkMan"	type="string"   column="LinkMan"/> 
+        <property name="address"	type="string"   column="Address"/> 
+        <property name="telephone"	type="string"   column="Telephone1"/> 
+        <many-to-one name="saleman" class="com.common.value.Member" cascade="none" column="PersonID" />
+           
+  	</class> 
+  	
+  	
+  	<!-- 
+    ************************ 
+    * 客戶詳細資料
+    ************************
+    -->   	
+  	<class name="northwest.common.value.CustomerDetail" table="Northwest_CustomerDetail">  	 
+        <id name="id" column="id"  type="long"  unsaved-value="null">
+            <generator class="identity"/>
+        </id>
+        <property name="counterNo"	type="string" length="20" column="counterNo"/>
+        <property name="counter"	type="string" length="20" column="counter"/>  
+        <property name="contacts"	type="string" length="20" column="contacts"/> 
+        <property name="screenPosition"	type="string" length="20" column="screenPosition"/>
+        <property name="location"	type="string" length="100" column="location"/>
+        <property name="counterPhone"	type="string" length="20" column="counterPhone"/>  
+        <many-to-one name="planmap" class="com.base.value.UploadedFile" cascade="all"  column="planmap"/>        
+        <many-to-one name="photo1" class="com.base.value.UploadedFile" cascade="all"  column="photo1"/>
+        <many-to-one name="photo2" class="com.base.value.UploadedFile" cascade="all"  column="photo2"/>
+        <many-to-one name="photo3" class="com.base.value.UploadedFile" cascade="all"  column="photo3"/>
+        <many-to-one name="photo4" class="com.base.value.UploadedFile" cascade="all"  column="photo4"/>
+        <many-to-one name="photo5" class="com.base.value.UploadedFile" cascade="all"  column="photo5"/>
+        <many-to-one name="customerService" class="com.common.value.Member" cascade="none" column="customerService" />
+  	    <many-to-one name="customer" class="northwest.common.value.Customer" column="customer"/>       
+  	</class>
+  	
+  	
+  	
+  	<!-- 
+    ************************ 
+    * 客戶畫面資料
+    ************************
+    --> 
+    
+    <class name="northwest.common.value.CustomerScreen" table="Northwest_CustomerScreen">  	 
+        <id name="id" column="id"  type="long"  unsaved-value="null">
+            <generator class="identity"/>
+        </id>
+        <property name="name"	type="string" length="20" column="name"/>
+        <property name="memo"	type="string" length="600" column="memo"/>
+  	    <many-to-one name="customerDetail" class="northwest.common.value.CustomerDetail" column="customerDetail"/>       
+ 		<list name="customerScreenFiles" cascade="none" table="Northwest_CustomerScreenFiles" >
+        	<meta attribute="widget">none</meta>
+        	<key column="customerScreenId" /> 
+        	<index column="IDX" /> 
+        	<many-to-many class="com.base.value.UploadedFile" column="uploadId" />         	
+ 		</list> 
+  	</class>
+  	
+  	 
+  	<!-- 
+    ************************ 
+    * 貨運公司
+    ************************
+    -->    	
+  	<class name="northwest.common.value.Freight" table="Northwest_Freight">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>      
+        <property name="name" type="string" length="50" not-null="true"/> 
+        <property name="contactName" type="string" length="10" not-null="true"/>    
+        <property name="contactCellphone" type="string" length="20" not-null="true"/> 
+        <property name="contactPhone" type="string" length="20" not-null="true"/> 
+        <property name="contactEmail" type="string" length="100" not-null="true"/> 
+        <property name="lastModifiedDate"   type="timestamp"    not-null="true" />       
+        <property name="createdDate"        type="timestamp"    insert="true" update="false" not-null="true" />       
+  	</class>
+  	
+   <!-- 
+    ************************ 
+    * 儀表板
+    ************************
+   -->    	
+  	<class name="northwest.common.value.Meter" table="Northwest_Meter">
+            <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+            </id> 
+            <many-to-one name="schedule" class="northwest.common.value.BillSchedule" cascade="none" column="billSchedule" />
+            <many-to-one name="billdetail" class="northwest.common.value.BillDetail" cascade="none" column="billDetail" />
+            <many-to-one name="bill" class="northwest.common.value.Bill" cascade="none" column="bill" />
+            <many-to-one name="product" class="northwest.common.value.Product" cascade="none" column="prodID" />
+            <property name="step1"  type="boolean" />
+            <property name="step2"  type="boolean" />
+            <property name="step3"  type="boolean" />
+            <property name="step4"  type="boolean" />
+            <property name="step5"  type="boolean" />
+            <property name="step6"  type="boolean" />
+            <property name="step7"  type="boolean" />
+            <property name="step8"  type="boolean" />
+            <property name="step9"  type="boolean" />
+            <property name="step10"  type="boolean" />
+            <property name="step11"  type="boolean" />
+            <property name="step12"  type="boolean" />
+            <property name="group1"  type="boolean" />
+            <property name="group2"  type="boolean" />
+            <property name="group3"  type="boolean" />
+            <property name="group4"  type="boolean" />
+            <property name="group5"  type="boolean" />
+            <property name="group6"  type="boolean" />
+            <property name="group7"  type="boolean" />
+            <property name="group8"  type="boolean" />
+            <property name="group9"  type="boolean" />
+            <property name="group10"  type="boolean" />
+            <property name="group11"  type="boolean" />
+            <property name="group12"  type="boolean" />  
+            <property name="check1"    type="timestamp" 	column="check1"/>   
+            <property name="check2"    type="timestamp"     column="check2"/>
+            <property name="check3"    type="timestamp"     column="check3"/>
+            <property name="check4"    type="timestamp"     column="check4"/>  
+            <property name="check5"    type="timestamp" 	column="check5"/>   
+            <property name="check6"    type="timestamp"     column="check6"/>
+            <property name="check7"    type="timestamp"     column="check7"/>
+            <property name="check8"    type="timestamp"     column="check8"/>  
+            <property name="check9"    type="timestamp" 	column="check9"/>   
+            <property name="check10"   type="timestamp"     column="check10"/>
+            <property name="check11"   type="timestamp"     column="check11"/>
+            <property name="check12"   type="timestamp"     column="check12"/>  
+            	
+  	</class>
+  	
+  	
+  	<!-- 
+    ************************ 
+    * 訂單查詢
+    ************************
+    -->    	
+  	<class name="northwest.common.value.ProcessState" table="Northwest_ProcessState">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>  
+        <many-to-one name="bill" class="northwest.common.value.Bill"  column="bill" />
+        <property name="step1"  type="boolean" column="step1"/>
+        <property name="step2"  type="boolean" column="step2"/>
+        <property name="step3"  type="boolean" column="step3"/>
+        <property name="step4"  type="boolean" column="step4"/>
+        <property name="step5"  type="boolean" column="step5"/>
+        <property name="step6"  type="boolean" column="step6"/>
+        <property name="step7"  type="boolean" column="step7"/>
+        <property name="step8"  type="boolean" column="step8"/>
+        <property name="step9"  type="boolean" column="step9"/>
+        <property name="step10"  type="boolean" column="step10"/>
+        <property name="step11"  type="boolean" column="step11"/>
+        <property name="step12"  type="boolean" column="step12"/>        
+        <property name="worker" type="string" /> 
+        
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 單位
+    ************************
+    -->    	
+  	<class name="northwest.common.value.ProductUnit" table="Northwest_Unit">
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="assigned"/>
+        </id>
+        <property name="name"	type="string"   column="name"/>             
+  	</class>
+  	
+  	<!-- 
+    ************************ 
+    * 訂單QA
+    ************************
+    -->    	
+  	<class name="northwest.common.value.BillQA" table="Northwest_BillQA">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>  
+        <many-to-one name="bill" class="northwest.common.value.Bill"  column="bill" />             
+        <property name="question" type="string" /> 
+        <property name="answer" type="string" />         
+        <property name="lastModifiedDate"   type="timestamp"    not-null="true" />       
+        <property name="createdDate"        type="timestamp"    insert="true" update="false" not-null="true" /> 
+        <many-to-one name="member" class="com.common.value.Member" cascade="none" />
+        <list name="notifications" cascade="none" lazy="false" table="Northwest_BillQAEmail">
+      		<meta attribute="widget">two-list</meta>
+      		<key column="billQAId"/>
+      		<index column="idx"/>
+      		<many-to-many class="com.common.value.Member" column="memberId"/>
+    	</list>
+        
+    </class> 
+    
+    
+     <!-- 
+    ************************ 
+    * 收件列印
+    ************************
+    -->    	
+  	<class name="northwest.common.value.LogisticsCode" table="Northwest_LogisticsCode">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>  
+       <property name="code" type="string" not-null="true"/> 
+       <many-to-one name="logistics" class="northwest.common.value.Logistics" cascade="none" not-null="true"/>
+    </class>
+    
+    <!-- 
+    ************************ 
+    * 收件列印
+    ************************
+    -->    	
+  	<class name="northwest.common.value.Logistics" table="Northwest_Logistics">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>          
+        <property name="freight" type="string" /> 
+        <property name="code" type="string" not-null="true"/> 
+        <many-to-one name="bill" class="northwest.common.value.Bill"  column="bill" not-null="true"/>     
+        <property name="otherBills" type="string" />         
+        <many-to-one name="member" class="com.common.value.Member" cascade="none" not-null="true"/>
+        
+        <property name="sender" type="string" not-null="true"/> 
+        <property name="senderPhone" type="string" not-null="true"/> 
+        <property name="senderAddress" type="string" not-null="true"/> 
+        <property name="senderMemo" type="string" /> 
+        
+        <property name="recipient" type="string" not-null="true"/> 
+        <property name="recipientPhone" type="string" not-null="true"/> 
+        <property name="recipientAddress" type="string" not-null="true"/> 
+       
+        <property name="serviceDate" type="date" not-null="true"/> 
+        <many-to-one name="time"  class="com.base.value.AppProperty" cascade="none" not-null="true"/>
+           
+        <property name="lastModifiedDate"   type="timestamp"    not-null="true" />       
+        <property name="createdDate"        type="timestamp"    insert="true" update="false" not-null="true" /> 
+        
+    </class> 
+    
+    
+    <!-- 
+    ************************ 
+    * 寄件人DB
+    ************************
+    -->    	
+  	<class name="northwest.common.value.SenderDB" table="Northwest_SenderDB">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>  
+        <property name="sender" type="string" not-null="true"/> 
+        <property name="senderPhone" type="string" not-null="true"/> 
+        <property name="senderAddress" type="string" not-null="true"/> 
+        <property name="senderMemo" type="string" /> 
+    </class> 
+    
+    <!-- 
+    ************************ 
+    * 送件人DB
+    ************************
+    -->    	
+  	<class name="northwest.common.value.RecipientDB" table="Northwest_RecipientDB">  	 
+        <id name="id" column="id" unsaved-value="null">
+            <generator class="identity"/>
+        </id>  
+        <property name="recipient" type="string" not-null="true"/> 
+        <property name="recipientPhone" type="string" not-null="true"/> 
+        <property name="recipientAddress" type="string" not-null="true"/> 
+    </class> 
+
+  	
+  	 
+</hibernate-mapping>
