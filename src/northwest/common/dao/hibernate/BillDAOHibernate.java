@@ -2478,9 +2478,11 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 			Criterion c1 = Restrictions.like("b.id", "%" + keyword + "%");
 			Criterion c2 = Restrictions.like("code", "%" + keyword + "%");
 			Criterion c3 = Restrictions.like("otherBills", "%" + keyword + "%");
+			Criterion c4 = Restrictions.like("memo", "%" + keyword + "%");
 			disjunction.add(c1);
 			disjunction.add(c2);
 			disjunction.add(c3);
+			disjunction.add(c4);
 			c.add(disjunction);
 		}
 

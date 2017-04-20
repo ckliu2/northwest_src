@@ -18,7 +18,7 @@ public class LogisticsAction extends CommonActionSupport {
 	private Logistics logistics, logistics1;
 	private String serviceDate;
 	private Long[] selectedLogisticsIds;
-	String keyword, startDate, endDate,ids;
+	String keyword, startDate, endDate, ids;
 	LogisticsCode code;
 	Long logisticsId;
 	SenderDB senderDB;
@@ -50,7 +50,7 @@ public class LogisticsAction extends CommonActionSupport {
 	public LogisticsCode getCode() {
 		return code;
 	}
-	
+
 	public String getIds() {
 		return ids;
 	}
@@ -226,6 +226,7 @@ public class LogisticsAction extends CommonActionSupport {
 				logistics = ls.get(i);
 				JSONObject jo = new JSONObject();
 				jo.put("id", logistics.getId());
+				jo.put("freight", logistics.getFreight());
 				jo.put("code", logistics.getCode());
 				jo.put("billno", logistics.getBillId());
 				jo.put("otherBills", logistics.getOtherBills());
@@ -241,7 +242,10 @@ public class LogisticsAction extends CommonActionSupport {
 				jo.put("serviceDate", Tools.dateToString(logistics.getServiceDate()));
 				jo.put("time", logistics.getTime().getValueTw());
 				jo.put("member", logistics.getMember().getName());
-				jo.put("lastModifiedDate",Tools.dateToString(logistics.getLastModifiedDate()));
+				jo.put("lastModifiedDate", Tools.formatSimpleDate1(logistics.getLastModifiedDate()));
+				jo.put("createdUser", (logistics.getCreatedUser() != null) ? logistics.getCreatedUser().getName() : "");
+				jo.put("createdDate", Tools.formatSimpleDate1(logistics.getCreatedDate()));
+				jo.put("memo", logistics.getMemo());
 				ja.put(jo);
 			}
 			mainObj.put("total", ls.size());
@@ -280,9 +284,7 @@ public class LogisticsAction extends CommonActionSupport {
 			return "";
 		}
 	}
-	
-	
-	
+
 	public String recipientDBJSON() {
 		System.out.println("recipientDBJSON");
 		JSONObject mainObj = new JSONObject();
@@ -356,6 +358,12 @@ public class LogisticsAction extends CommonActionSupport {
 
 			logistics1.setCreatedDate(Tools.getCurrentTimestamp());
 			logistics1.setLastModifiedDate(Tools.getCurrentTimestamp());
+
+			logistics1.setFreight(logistics.getFreight());
+
+			logistics1.setCreatedUser(getSessionUser().getMember());
+
+			logistics1.setMemo(logistics.getMemo());
 
 			// save Logistics
 			getGenericManager().saveLogistics(logistics1);

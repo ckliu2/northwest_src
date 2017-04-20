@@ -518,8 +518,11 @@
         <property name="serviceDate" type="date" not-null="true"/> 
         <many-to-one name="time"  class="com.base.value.AppProperty" cascade="none" not-null="true"/>
            
+        <property name="memo" type="string" />    
         <property name="lastModifiedDate"   type="timestamp"    not-null="true" />       
         <property name="createdDate"        type="timestamp"    insert="true" update="false" not-null="true" /> 
+        <many-to-one name="createdUser"  class="com.common.value.Member" insert="true" update="false" not-null="true"/>  
+            
         
     </class> 
     

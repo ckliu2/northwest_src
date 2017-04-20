@@ -61,8 +61,12 @@ public class Logistics implements Serializable {
     private Long timeId;
 
 	String otherBills,freight;
+	
+	Member createdUser;
+	
+	String memo;
 
-    /** full constructor */
+	/** full constructor */
     public Logistics(String code, String sender, String senderPhone, String senderAddress, String senderMemo, String recipient, String recipientPhone, String recipientAddress, Date serviceDate, Date lastModifiedDate, Date createdDate, northwest.common.value.Bill bill, Member member, AppProperty time) {
         this.code = code;
         this.sender = sender;
@@ -265,6 +269,22 @@ public class Logistics implements Serializable {
 
 	public void setFreight(String freight) {
 		this.freight = freight;
+	}
+
+    public Member getCreatedUser() {
+		return createdUser;
+	}
+
+	public void setCreatedUser(Member createdUser) {
+		this.createdUser = createdUser;
+	}
+	
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	
     public String toString() {
