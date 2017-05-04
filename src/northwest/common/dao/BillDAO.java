@@ -329,7 +329,7 @@ public interface BillDAO extends CommonDAO {
 
 	public abstract void removeLogisticsCode(Logistics val);
 
-	public abstract LogisticsCode getLastOneLogisticsCode();
+	public abstract LogisticsCode getLastOneLogisticsCode(AppProperty freightCompany);
 	
 	// RecipientDB
 	public abstract List<RecipientDB> findAllRecipientDB(String keyword);

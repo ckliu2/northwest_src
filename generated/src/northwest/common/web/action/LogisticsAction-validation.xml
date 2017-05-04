@@ -50,6 +50,11 @@
             <message key="errors.required"></message>
         </field-validator>
     </field>
+    <field name="logistics.freightCompanyId">
+        <field-validator type="required">
+            <message key="errors.required"></message>
+        </field-validator>
+    </field>
     <field name="logistics.billId">
         <field-validator type="required">
             <message key="errors.required"></message>

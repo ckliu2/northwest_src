@@ -59,6 +59,9 @@ public class Logistics implements Serializable {
     /** persistent field */
     private AppProperty time;
     private Long timeId;
+    
+    private AppProperty freightCompany;
+    private Long freightCompanyId;
 
 	String otherBills,freight;
 	
@@ -286,6 +289,24 @@ public class Logistics implements Serializable {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+	
+	public AppProperty getFreightCompany() {
+        return this.freightCompany;
+    }
+
+    public void setFreightCompany(AppProperty freightCompany) {
+        this.freightCompany = freightCompany;
+    }
+
+    public Long getFreightCompanyId() {
+        if (this.freightCompany != null && this.freightCompany.getId() != null)
+            return freightCompany.getId();
+        return this.freightCompanyId;
+    }
+
+    public void setFreightCompanyId(Long id) {
+        this.freightCompanyId = id;
+    }
 	
     public String toString() {
         return new ToStringBuilder(this)

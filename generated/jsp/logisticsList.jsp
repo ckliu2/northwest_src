@@ -26,6 +26,7 @@
     <display:column titleKey="common.select">
         <input type="checkbox" id="selectedLogisticsId_<c:out value="${count}"/>" name="selectedLogisticsId" value="<c:out value="${row.id}"/>">
     </display:column>
+    <display:column property="freight" sortable="true" titleKey="logistics.freight" style="text-align:left" />
     <display:column property="code" sortable="true" titleKey="logistics.code" style="text-align:left" />
     <display:column property="otherBills" sortable="true" titleKey="logistics.otherBills" style="text-align:left" />
     <display:column property="sender" sortable="true" titleKey="logistics.sender" style="text-align:left" />
@@ -36,11 +37,14 @@
     <display:column property="recipientPhone" sortable="true" titleKey="logistics.recipientPhone" style="text-align:left" />
     <display:column property="recipientAddress" sortable="true" titleKey="logistics.recipientAddress" style="text-align:left" />
     <display:column property="serviceDate" sortable="true" titleKey="logistics.serviceDate" format="{0,date,yyyy/MM/dd}" style="text-align:left" />
+    <display:column property="memo" sortable="true" titleKey="logistics.memo" style="text-align:left" />
     <display:column property="lastModifiedDate" sortable="true" titleKey="common.lastModifiedDate" style="text-align:left"/>
     <display:column property="createdDate" sortable="true" titleKey="common.createdDate" style="text-align:left"/>
+    <display:column property="freightCompany.caption_" sortable="true" titleKey="logistics.freightCompany" style="text-align:left"/>
     <display:column property="bill.caption_" sortable="true" titleKey="logistics.bill" style="text-align:left"/>
     <display:column property="member.caption_" sortable="true" titleKey="logistics.member" style="text-align:left"/>
     <display:column property="time.caption_" sortable="true" titleKey="logistics.time" style="text-align:left"/>
+    <display:column property="createdUser" sortable="true" titleKey="common.createdUser" style="text-align:left"/>
     <display:column titleKey="common.action">
         <ww:if test="recordEditable == true">
             <a href="editLogistics.html?logistics.id=<c:out value="${row.id}"/>"><fmt:message key="common.edit"/></a>&nbsp;&nbsp;

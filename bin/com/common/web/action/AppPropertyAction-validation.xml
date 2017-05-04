@@ -1,0 +1,25 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="appProperty.seqNo">
+        <field-validator type="int">
+            <message key="errors.numericRequired"></message>
+        </field-validator>
+    </field>
+    <field name="appProperty.seqNo">
+        <field-validator type="required">
+            <message key="errors.required"></message>
+        </field-validator>
+    </field>
+    <field name="appProperty.valueTw">
+        <field-validator type="requiredstring">
+            <message key="errors.required"></message>
+        </field-validator>
+    </field>
+    <field name="appProperty.valueUs">
+        <field-validator type="requiredstring">
+            <message key="errors.required"></message>
+        </field-validator>
+    </field>
+</validators>

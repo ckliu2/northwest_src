@@ -1,0 +1,131 @@
+package com.common.service.impl;
+
+import java.util.List;
+
+import com.base.service.impl.BaseManagerImpl;
+import com.base.value.BaseObject;
+import com.base.value.SessionUser;
+import com.base.value.Group;
+import com.common.dao.CommonDAO;
+import com.common.service.CommonManager;
+import com.common.value.Checking;
+import edu.tncc.adm.value.Department;
+import edu.tncc.adm.value.Unit;
+import edu.tncc.tea.value.Teacher;
+import edu.tncc.rec.value.Channel;
+import edu.tncc.rec.value.RecruitDepartment;
+import edu.tncc.stu.value.Student;
+import edu.tncc.adm.value.Personnel;
+
+public class CommonManagerImpl extends BaseManagerImpl implements CommonManager
+{
+    public CommonManagerImpl()
+    {
+        super();
+    }
+    
+    public void saveChecking(Checking obj)
+    {
+        getGenericDAO().saveChecking(obj);
+    }
+
+    public CommonDAO getGenericDAO()
+    {
+        return (CommonDAO)super.getGenericDAO();
+    }
+
+    public void setGenericDAO(CommonDAO dao)
+    {
+        super.setGenericDAO(dao);
+    }
+ 
+    public SessionUser getSessionUserByLoginIdAndPassword(String uid, String pwd)
+    {
+        return getGenericDAO().findSessionUserByLoginIdAndPassword(uid, pwd);
+    }
+
+    public Personnel getPersonnelByStaffIdAndPassword(String uid, String pwd)
+    {
+        return getGenericDAO().findPersonnelByStaffIdAndPassword(uid, pwd);
+    }
+
+    public List findFunctionListBySessionUser(SessionUser su)
+    {
+        return getGenericDAO().findFunctionListBySessionUser(su);
+    }
+    
+    public Personnel getPersonnelById(Long id)
+    {
+        return getGenericDAO().findPersonnelById(id);
+    }
+
+    public Teacher getTeacherById(Long id)
+    {
+        return getGenericDAO().findTeacherById(id);
+    }
+
+    public Group getGroupById(Long id)
+    {
+        return getGenericDAO().findGroupById(id);
+    }
+
+    public Unit getUnitById(Long id)
+    {
+         return getGenericDAO().findUnitById(id);
+    }
+
+    public List getUnitList()
+    {
+        return getGenericDAO().findAllUnit();
+    }
+
+    public Student getStudentById(Long id)
+    {
+        return getGenericDAO().findStudentById(id);
+    }
+
+    public List<BaseObject> getBaseObjectListByTeacherId(Long id, Class cls)
+    {
+        return getGenericDAO().findBaseObjectListByTeacherId(id, cls);
+    }
+    
+    public List getTeacherListByCriteria(Teacher teacher)
+    {
+        return getGenericDAO().findTeacherListByCriteria(teacher);
+    }
+ 
+    public Teacher getTeacherByStaffId(String sid)
+    {       
+        return getGenericDAO().findTeacherByStaffId(sid);
+    }
+
+    public List getDepartmentListByChannelId(Long id)    
+    {
+    	return getGenericDAO().findDepartmentListByChannelId(id);
+    }    
+
+    public List getDepartmentList()
+    {
+        return getGenericDAO().findAllDepartment();
+    }    
+
+    public Channel getChannelById(Long id)
+    {
+    	return getGenericDAO().findChannelById(id);
+    }
+    
+    public Department getDepartmentById(Long id)
+    {
+        return getGenericDAO().findDepartmentById(id);
+    }
+  
+    public RecruitDepartment getRecruitDepartmentById(Long id)    
+    {
+    	return getGenericDAO().findRecruitDepartmentById(id);
+    }    
+    
+    public List getTeacherItemListByStaffId(Class cls, String sid)
+    {
+        return getGenericDAO().findTeacherItemListByStaffId(cls, sid);
+    }
+}

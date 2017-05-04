@@ -327,7 +327,7 @@ public interface BillManager extends CommonManager {
 
 	public abstract void removeLogisticsCode(Logistics val);
 
-	public abstract LogisticsCode getLastOneLogisticsCode();
+	public abstract LogisticsCode getLastOneLogisticsCode(AppProperty freightCompany);
 
 	// RecipientDB
 	public abstract List<RecipientDB> getRecipientDBList(String keyword);

@@ -1,0 +1,106 @@
+package com.common.web.action;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.base.value.SessionUser;
+import edu.tncc.adm.value.Personnel;
+import edu.tncc.tea.value.Teacher;
+
+public class LoginAction extends CommonActionSupport
+{
+    private static final long serialVersionUID = 100L;
+    private final Log log;
+ 
+    private String loginId;
+    private String password;
+
+    private String msg;  
+
+    public LoginAction()
+    {
+        log = LogFactory.getLog(com.common.web.action.LoginAction.class);
+    }
+    
+    public String logout()
+    {
+        log.info("entering 'logout' method");
+        super.getSession().removeAttribute("user"); //.remove(AuthenticationInterceptor.USER);
+        super.getSession().invalidate();
+        log.info("exit 'logout' method");
+        return SUCCESS;
+    }
+ 
+    public String execute()
+    {
+        log.info("entering 'execute' method");
+        Personnel per = getGenericManager().getPersonnelByStaffIdAndPassword(loginId, password);
+        if (per ==  null) {
+            msg = getText("common.login.error");
+            return INPUT;
+        } else {
+            String result = "teacher";
+            SessionUser sessionUser = per.copyToSessionUser();
+            if (per instanceof Teacher) {
+                sessionUser.setName(per.getCname());
+                sessionUser.setMisc(per.getCname());
+                if (sessionUser.getPicture() == null || sessionUser.getPicture().length() == 0) {
+                    sessionUser.setPicture(getText("common.personnel.nobody.pictureUrl"));
+                } else {
+                    sessionUser.setPicture(getText("teacher.uploadPhoto.relativeUrl") + "/" + sessionUser.getId() + "/" + sessionUser.getPicture());
+                }
+            } else {// ¥Nªí¬Y¤@unit
+                sessionUser.setName(per.getUnit().getCname());
+                sessionUser.setMisc(per.getCname());
+
+//                if (sessionUser.getPicture() == null || sessionUser.getPicture().length() == 0) {
+                if (per.getUnit() == null || per.getUnit().getLogo() == null || per.getUnit().getLogo().getFileName() == null || per.getUnit().getLogo().getSize() == null || per.getUnit().getLogo().getSize().longValue() == 0) {                
+                    sessionUser.setPicture(getText("common.unit.nobody.pictureUrl"));
+                } else {
+//                    sessionUser.setPicture(getText("unit.uploadLogo.relativeUrl") + "/" + per.getUnit().getId() + "/" + sessionUser.getPicture());
+                    sessionUser.setPicture(getText("unit.uploadLogo.relativeUrl") + "/" + per.getUnit().getId() + "/" + per.getUnit().getLogo().getFileName());                	
+                }     
+                result = "unit";
+            }
+            sessionUser.setMenuStr(MenuService.renderMenu(getGenericManager().findFunctionListBySessionUser(sessionUser), sessionUser, "context root")); // TODO hardcode now
+
+            if (sessionUser.getEnabled() == null || sessionUser.getEnabled().booleanValue() == false) {
+                msg = getText("common.login.disabled");
+                return INPUT;
+            } else {
+                getSession().setAttribute("user", sessionUser);
+                return result;
+            }
+        }
+     }
+
+    public String getMsg()
+    {
+        return msg;
+    }
+
+    public void setMsg(String msg)
+    {
+        this.msg = msg;
+    }
+
+    public String getLoginId()
+    {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId)
+    {
+        this.loginId = loginId;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+}

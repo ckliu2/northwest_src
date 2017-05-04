@@ -23,6 +23,12 @@
         </ww:else>
       </td>
     </tr>
+    <tr><td class="cInputCaption"><fmt:message key="logistics.freight"/></td>
+        <td class="cInputColumn">
+            <ww:textfield name="logistics.freight" value="%{logistics.freight}" maxlength="0" cssClass="cInputTextField" />
+        </td>
+    </tr>
+
     <tr><td class="cInputCaption"><fmt:message key="logistics.code"/><span class="cRequired">*</span></td>
         <td class="cInputColumn">
             <ww:textfield name="logistics.code" value="%{logistics.code}" maxlength="0" cssClass="cInputTextField" /><span class="cInputValidationError"><ww:property value="showHtmlErrorMessage('logistics.code')"/></span>
@@ -83,6 +89,12 @@
         </td>
     </tr>
 
+    <tr><td class="cInputCaption"><fmt:message key="logistics.memo"/></td>
+        <td class="cInputColumn">
+            <ww:textfield name="logistics.memo" value="%{logistics.memo}" maxlength="0" cssClass="cInputTextField" />
+        </td>
+    </tr>
+
     <tr><td class="cInputCaption"><fmt:message key="common.lastModifiedDate"/></td>
         <td class="cInputColumn">
             <span class="cLabel"><ww:property value="logistics.lastModifiedDate" /></span>
@@ -92,6 +104,19 @@
     <tr><td class="cInputCaption"><fmt:message key="common.createdDate"/></td>
         <td class="cInputColumn">
             <span class="cLabel"><ww:property value="logistics.createdDate" /></span>
+        </td>
+    </tr>
+
+    <tr><td class="cInputCaption"><fmt:message key="logistics.freightCompany"/><span class="cRequired">*</span></td>
+        <td class="cInputColumn">
+            <ww:select name="logistics.freightCompanyId" id="freightCompanyId"
+               headerKey=""
+               headerValue="%{getText('common.pleaseSelect')}..."
+               list="freightCompanyList"
+               listKey="id"
+               listValue="caption_"
+               cssClass="cInputListField"
+            /><span class="cInputValidationError"><ww:property value="showHtmlErrorMessage('logistics.freightCompanyId')"/></span>
         </td>
     </tr>
 
@@ -133,6 +158,7 @@
             /><span class="cInputValidationError"><ww:property value="showHtmlErrorMessage('logistics.timeId')"/></span>
         </td>
     </tr>
+
 
     <tr class="cActionButtonLine">
       <td colspan="2">

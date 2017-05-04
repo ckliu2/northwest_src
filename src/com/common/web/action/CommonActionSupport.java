@@ -519,5 +519,10 @@ public abstract class CommonActionSupport extends BaseActionSupport
     public List<AppProperty> getLogisticsTimeList() {
 		return super.getAppPropertyList("logistics.time");
 	}
+    
+    public List<AppProperty> getFreightCompanyList() {
+		return super.getAppPropertyList("send.freight");
+	}
+    
 
 }

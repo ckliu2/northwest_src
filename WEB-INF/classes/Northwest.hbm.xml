@@ -489,6 +489,7 @@
         </id>  
        <property name="code" type="string" not-null="true"/> 
        <many-to-one name="logistics" class="northwest.common.value.Logistics" cascade="none" not-null="true"/>
+       <many-to-one name="freightCompany"  class="com.base.value.AppProperty" cascade="none" not-null="true"/>
     </class>
     
     <!-- 
@@ -501,6 +502,7 @@
             <generator class="identity"/>
         </id>          
         <property name="freight" type="string" /> 
+        <many-to-one name="freightCompany"  class="com.base.value.AppProperty" cascade="none" not-null="true"/>
         <property name="code" type="string" not-null="true"/> 
         <many-to-one name="bill" class="northwest.common.value.Bill"  column="bill" not-null="true"/>     
         <property name="otherBills" type="string" />         

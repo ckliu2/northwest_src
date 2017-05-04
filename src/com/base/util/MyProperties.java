@@ -1,8 +1,8 @@
 package com.base.util;
 
 public class MyProperties {
-	
-	public String execelOutputPath;
+
+	public String execelOutputPath,pdfMergePath;
 	
 	
 	public String getExecelOutputPath() {
@@ -11,6 +11,14 @@ public class MyProperties {
 
 	public void setExecelOutputPath(String execelOutputPath) {
 		this.execelOutputPath = execelOutputPath;
+	}
+	
+	public String getPdfMergePath() {
+		return pdfMergePath;
+	}
+
+	public void setPdfMergePath(String pdfMergePath) {
+		this.pdfMergePath = pdfMergePath;
 	}
 
 }

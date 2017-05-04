@@ -1,0 +1,533 @@
+package com.common.web.action;
+
+import com.base.web.action.BaseActionSupport;
+import com.common.service.CommonManager;
+import com.common.util.SchoolYear;
+import com.common.util.SchoolYearable;
+import com.common.value.Groups;
+import com.common.value.CheckingState;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import com.base.value.NameValue;
+import com.base.value.Function;
+import com.base.value.Group;
+import edu.tncc.tea.value.Teacher;
+import edu.tncc.stu.value.Student;
+import com.base.util.Tools;
+import com.base.value.SessionUser;
+
+public abstract class CommonActionSupport extends BaseActionSupport
+{
+    private com.common.util.SchoolYearable schoolYearable;
+    private String whichAction;
+    private String submitChecking;
+
+    public String getWhichAction()
+    {
+        return whichAction;
+    }
+
+    public String getStateLabel(String state)
+    {
+        return CheckingState.getStateLabel(state);
+    }
+    
+    public String toAccessName(String s)
+    {
+        if (s != null)
+            return Tools.firstCharToUpperCase(toObjectName(s));
+        
+        return s;
+    }
+
+    public String toLowerCase(String s)
+    {
+        if (s != null)
+            return s.toLowerCase();
+        
+        return s;
+    }
+
+    public String toObjectName(String s)
+    {
+        StringTokenizer st = new StringTokenizer(s, "_");
+        int i = 0;
+        String tmp = "";
+        while(st.hasMoreTokens()) {
+            String str = st.nextToken();
+            if (i == 0) {
+                tmp = str.toLowerCase();
+            } else {
+                tmp = tmp + Tools.firstCharToUpperCase(str.toLowerCase());
+            }
+            i++;
+        }
+        
+        return tmp;
+    }
+
+    public void setWhichAction(String whichAction)
+    {
+        this.whichAction = whichAction;
+    }
+   
+    public CommonActionSupport()
+    {
+        super();
+    }
+
+
+    public void setGenericManager(CommonManager m)
+    {
+        super.setBaseManager(m);
+    }
+
+    public CommonManager getGenericManager()
+    {
+        return (CommonManager)super.getBaseManager();
+    }
+    
+    public Function getFunction()
+    {
+        return new Function();
+    }
+    
+    public String getFunctionOpenPeriodMessage()
+    {
+        Function fun = getFunction();
+        if (fun == null || fun.getEditBegin() == null &&  fun.getEditEnd() == null)
+            return null; // open period is anytime
+        
+        String tmp = "";
+        if (fun.getEditBegin() != null) {
+            tmp = DateFormat.getInstance().format(fun.getEditBegin()) + " ~ ";
+        }
+        
+        if (fun.getEditEnd() != null) {
+            tmp = tmp + DateFormat.getInstance().format(fun.getEditEnd());
+        }
+        
+        return tmp;
+        
+    }
+    public boolean getRecordEditable()
+    {
+        Date now = new Date();
+        Function fun = getFunction();
+        if ((fun.getEditBegin() == null &&   fun.getEditEnd() == null))
+            return true;
+
+        if (fun.getEditBegin() != null && now.before(fun.getEditBegin()) == true) {
+            return false;
+        }
+        
+        if (fun.getEditEnd() != null && now.after(fun.getEditEnd()) == true) {
+            return false;
+        }
+        
+        return true;
+    }
+   
+    public String getCssFile()
+    {
+        if (isFullTimeTeacher(getSessionUser())) {
+            return getText("common.style.fullTimeTeacher");
+        }
+
+        if (isDepartmentEmp(getSessionUser())) {
+            return getText("common.style.departmentEmp");
+        }
+
+        return getText("common.style.default");
+    }
+    
+    public List getLicenceTypeList()
+    {
+        return getAppPropertyList("licence.type");
+    }
+    
+    public boolean isFullTimeTeacher(SessionUser su)
+    {
+        return checkGroup(su, Groups.GROUP_FULLTIME_TEACHER);
+    }
+
+    public boolean isDepartmentEmp(SessionUser su)
+    {            
+        return checkGroup(su, Groups.GROUP_DEPARTMENT_EMP);
+    }
+
+    public boolean checkGroup(SessionUser su, String groupKey)
+    {
+        if (su == null || su.getRole() == null || su.getRole().size() == 0) {
+            return false;
+        }
+        
+        for (int i=0; i < su.getRole().size(); i++) {
+            Group g = (Group) su.getRole().get(i);
+            if(groupKey.equals(g)) {
+                return true;
+            }
+        }
+            
+        return false;        
+    }
+    
+    public List getAuthorOrderList()
+    {
+        ArrayList<NameValue> al = new ArrayList<NameValue>();
+        NameValue nv = null;
+        nv = new NameValue(1, getText("1")); al.add(nv);
+        nv = new NameValue(2, getText("2")); al.add(nv);
+        nv = new NameValue(3, getText("3")); al.add(nv);
+        nv = new NameValue(4, getText("4")); al.add(nv);
+        nv = new NameValue(5, getText("5")); al.add(nv);
+        nv = new NameValue(6, getText("6")); al.add(nv);
+        nv = new NameValue(7, getText("7")); al.add(nv);
+        nv = new NameValue(8, getText("8")); al.add(nv);
+        nv = new NameValue(9, getText("9")); al.add(nv);
+        nv = new NameValue(10, getText("10")); al.add(nv);
+        return al;  
+    }
+
+
+    public Long[] getIdsFromGroupList(List tlist)
+    {
+        ArrayList<Long> al = new ArrayList<Long>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.size(); i++) {
+                Group t = (Group) tlist.get(i);
+                if (t != null)
+                    al.add(t.getId());
+            }
+        }
+        Long lng[] = new Long[al.size()];
+        al.toArray(lng);
+        
+        return lng;       
+    }
+ 
+    public List getGroupListByIds(Long[] tlist)
+    {
+        ArrayList<Group> al = new ArrayList<Group>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.length; i++) {
+                Group t = (Group) getGenericManager().getGroupById(tlist[i]);
+                if (t != null)
+                    al.add(t);
+            }
+        }
+        return al;
+    }
+
+    public Long[] getIdsFromTeacherList(List tlist)
+    {
+        ArrayList<Long> al = new ArrayList<Long>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.size(); i++) {
+                Teacher t = (Teacher) tlist.get(i);
+                if (t != null)
+                    al.add(t.getId());
+            }
+        }
+        Long lng[] = new Long[al.size()];
+        al.toArray(lng);
+        
+        return lng;
+    }
+
+    public List getTeacherListByIds(Long[] tlist)
+    {
+        ArrayList<Teacher> al = new ArrayList<Teacher>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.length; i++) {
+                Teacher t = (Teacher) getGenericManager().getTeacherById(tlist[i]);
+                if (t != null)
+                    al.add(t);
+            }
+        }
+        return al;
+    }
+
+
+    public Long[] getIdsFromStudentList(List tlist)
+    {
+        ArrayList<Long> al = new ArrayList<Long>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.size(); i++) {
+                Student t = (Student) tlist.get(i);
+                if (t != null)
+                    al.add(t.getId());
+            }
+        }
+
+        Long lng[] = new Long[al.size()];
+        al.toArray(lng);
+        
+        return lng;
+    }
+
+    public List getStudentListByIds(Long[] tlist)
+    {
+        ArrayList<Student> al = new ArrayList<Student>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.length; i++) {
+                Student t = (Student) getGenericManager().getStudentById(tlist[i]);
+                if (t != null)
+                    al.add(t);
+            }
+        }
+        return al;
+    }
+
+    public List getCharacterList()
+    {
+        return getAppPropertyList("specialtyService.character");
+    }
+
+    
+    public List getActiveCategoryList()
+    {
+        return getAppPropertyList("academic.activeCategory");
+    }
+
+
+    public List getActiveTypeList()
+    {
+        return getAppPropertyList("academic.activeType");
+    }
+
+    public List getActivePlaceList()
+    {
+        return getAppPropertyList("academic.activePlace");
+    }
+
+    public List getParticipateList()
+    {
+        return getAppPropertyList("academic.participate");
+    }
+
+    public List getLanguageList()
+    {
+        return getAppPropertyList("book.language");
+    }
+
+    public List getCourseList()
+    {
+        return getAppPropertyList("further.course");
+    }
+
+    public List getItemList()
+    {
+        return getAppPropertyList("further.item");
+    }
+
+    public List getFurtherTimeList()
+    {
+        return getAppPropertyList("further.furtherTime");
+    }
+
+    public List getJobStatusList()
+    {
+        return getAppPropertyList("further.jobStatus");
+    }
+
+    public List getRegionList()
+    {
+        return getAppPropertyList("further.region");
+    }
+
+    public List getSubsidyStatusList()
+    {
+        return getAppPropertyList("further.subsidyStatus");
+    }
+ 
+    public List getFurtherStatusList()
+    {
+        return getAppPropertyList("further.furtherStatus");
+    }
+
+    public List getSubsidySourceList()
+    {
+        return getAppPropertyList("further.subsidySource");
+    }
+
+    public List getCategoryList()
+    {
+        return getAppPropertyList("journal.category");
+    }
+
+    public List getAreaList()
+    {
+        return getAppPropertyList("patent.area");
+    }
+
+    public List getPatentTypeList()
+    {
+        return getAppPropertyList("patent.patentType");
+    }
+
+    public List getPatentStatusList()
+    {
+        return getAppPropertyList("patent.patentStatus");
+    }
+    
+    public List getProjectTypeList()
+    {
+        return getAppPropertyList("project.projectType");
+    }
+    
+    public List getWorkTypeList()
+    {
+        return getAppPropertyList("project.workType");
+    }
+    
+    public List getGradeList()
+    {
+        return getAppPropertyList("promotion.grade");
+    }
+    
+    public List getKindList()
+    {
+        return getAppPropertyList("promotion.kind");
+    }
+    
+    public List getStatusList()
+    {
+        return getAppPropertyList("promotion.status");
+    }
+  
+    public List getAwardIndoorTypeList()
+    {
+        return getAppPropertyList("awardIndoor.type");
+    }
+
+    public List getCommitteeTypeList()
+    {
+        return getAppPropertyList("committee.type");
+    }    
+
+    
+    public List getTutorItemList()
+    {
+        return getAppPropertyList("studentTutor.item");
+    }
+    public List getGroupTypeList()
+    {
+        return getMiscCodeListByCodeName("workGroup.type");
+    }
+    
+    public List getAdminJobList()
+    {
+        return getAppPropertyList("career.adminJob");
+    }
+    
+    public void computeSchoolYear(SchoolYearable s, Date d) {
+        SchoolYear sy = new SchoolYear();
+        int yt = s.getYearKind();
+        switch (yt) {
+            case SchoolYear.YEARKIND_ACADEMIC:
+                sy = com.common.util.Util.computeAcademicYear(d);
+                break;
+            case SchoolYear.YEARKIND_ANNUAL:
+                sy = com.common.util.Util.computeAnnualYear(d);
+                break;
+            case SchoolYear.YEARKIND_RANGE:
+                sy = com.common.util.Util.computeRangeYear(d);
+                break;
+            case SchoolYear.YEARKIND_SEMESTER:
+                sy = com.common.util.Util.computeSemesterYear(d);
+                break;
+        }
+        s.setYear(sy.getYear());
+        s.setYearType(sy.getYearType());
+    }
+
+    public String getYearKindName()
+    {
+        return getYearKindName(this.schoolYearable);
+    }
+    
+    public String getYearKindName(SchoolYearable s) {
+        String tmp = "";
+        if (s == null)
+            return tmp;
+        int yt = s.getYearKind();
+        switch (yt) {
+            case SchoolYear.YEARKIND_ACADEMIC:
+                tmp = getText("common.yearkind.academic");
+                break;
+            case SchoolYear.YEARKIND_ANNUAL:
+                tmp = getText("common.yearkind.annual");
+                break;
+            case SchoolYear.YEARKIND_RANGE:
+                tmp = getText("common.yearkind.range");
+                break;
+            case SchoolYear.YEARKIND_SEMESTER:
+                tmp = getText("common.yearkind.semester");
+                break;
+        }
+
+        return tmp;
+    }
+
+    public String getYearTypeName()
+    {
+        return getYearTypeName(this.schoolYearable);
+    }
+
+    public String getYearTypeName(SchoolYearable s) {
+        String tmp = "";
+        if (s == null || s.getYearType() == null)
+            return tmp;
+        int yt = s.getYearType().intValue();
+        switch (yt) {
+            case SchoolYear.YEARTYPE_ACADEMIC:
+                tmp = getText("common.yeartype.academic");
+                break;
+            case SchoolYear.YEARTYPE_ANNUAL:
+                tmp = getText("common.yeartype.annual");
+                break;
+            case SchoolYear.YEARTYPE_RANGE_1:
+                tmp = tmp = getText("common.yeartype.range1");
+                break;
+            case SchoolYear.YEARTYPE_RANGE_2:
+                tmp = tmp = getText("common.yeartype.range2");
+                break;
+            case SchoolYear.YEARTYPE_SEMESTER_1:
+                tmp = getText("common.yeartype.semester1");
+                break;
+            case SchoolYear.YEARTYPE_SEMESTER_2:
+                tmp = getText("common.yeartype.semester2");
+                break;
+        }
+
+        return tmp;
+    }
+
+    public void setSchoolYearable(com.common.util.SchoolYearable schoolYearable)
+    {
+        this.schoolYearable = schoolYearable;
+    }
+
+    public String getSubmitChecking()
+    {
+        return submitChecking;
+    }
+
+    public void setSubmitChecking(String submitChecking)
+    {
+        this.submitChecking = submitChecking;
+    }
+    
+    public List getDepartmentList()
+    {
+        return getGenericManager().getDepartmentList();
+    }
+
+
+}

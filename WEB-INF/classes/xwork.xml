@@ -807,7 +807,7 @@
             <result name="success" >/northwest/deleteLogisticsJSON.jsp</result>           
         </action>        
         
-         <action name="logisticsListJSON" class="logisticsAction" method="list">
+        <action name="logisticsListJSON" class="logisticsAction" method="list">
             <result name="success" >/northwest/logisticsListJSON.jsp</result>           
         </action>
      
@@ -826,6 +826,10 @@
         
         <action name="recipientDBJSON" class="logisticsAction" method="list">
             <result name="success" >/northwest/recipientDBJSON.jsp</result>           
+        </action>
+        
+         <action name="logisticsLastCodeJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/logisticsLastCodeJSON.jsp</result>           
         </action>
         
         

@@ -103,6 +103,20 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
     
+    
+    
+    <!-- ************************ PDFMerge ************************ -->
+	<servlet>
+		<servlet-name>PDFMerge</servlet-name>
+		<servlet-class>pdf.PDFMerge</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PDFMerge</servlet-name>
+		<url-pattern>/PDFMerge</url-pattern>
+	</servlet-mapping>
+    
  
 
     <session-config>

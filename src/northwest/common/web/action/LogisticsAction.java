@@ -154,12 +154,11 @@ public class LogisticsAction extends CommonActionSupport {
 	}
 
 	protected void formToBean() {
-		log.info("enter formToBean()");
 		logistics.setServiceDate(Tools.convertToDate(serviceDate));
 		logistics.setBill(getGenericManager().getBillById(logistics.getBillId()));
 		logistics.setMember(getGenericManager().getMemberById(logistics.getMemberId()));
 		logistics.setTime(getAppPropertyById(logistics.getTimeId()));
-		log.info("exit formToBean()");
+		System.out.println("logistics.getFreightCompanyId()=" + logistics.getFreightCompanyId());
 	}
 
 	public void setServiceDate(String val) {
@@ -207,7 +206,6 @@ public class LogisticsAction extends CommonActionSupport {
 			logistics = getGenericManager().getLogisticsById(logistics.getId());
 		} else {
 			logistics = new Logistics();
-			logistics.setCode(getLastCode());
 			logistics.setFreight("天成貨運");
 			logistics.setSender("西北影像");
 			logistics.setSenderPhone("02-25978757");
@@ -226,7 +224,9 @@ public class LogisticsAction extends CommonActionSupport {
 				logistics = ls.get(i);
 				JSONObject jo = new JSONObject();
 				jo.put("id", logistics.getId());
-				jo.put("freight", logistics.getFreight());
+				jo.put("freight", (logistics.getFreightCompany() != null) ? logistics.getFreightCompany().getValueTw() : "");
+				jo.put("freightCompany", (logistics.getFreightCompany() != null) ? logistics.getFreightCompanyId() : "");
+				jo.put("freightRPT", (logistics.getFreightCompany() != null) ? logistics.getFreightCompany().getValueUs() : "");
 				jo.put("code", logistics.getCode());
 				jo.put("billno", logistics.getBillId());
 				jo.put("otherBills", logistics.getOtherBills());
@@ -275,14 +275,31 @@ public class LogisticsAction extends CommonActionSupport {
 
 	}
 
-	public String getLastCode() {
+	public String getLastCode(Long id) {
 		try {
-			code = getGenericManager().getLastOneLogisticsCode();
+			System.out.println("getLastCode id=" + id);
+			AppProperty freightCompany = getGenericManager().getAppPropertyById(id);
+			code = getGenericManager().getLastOneLogisticsCode(freightCompany);
 			int c = Integer.parseInt(code.getCode()) + 1;
 			return Tools.IntegerFormart(10, c);
 		} catch (Exception e) {
 			return "";
 		}
+	}
+
+	public String logisticsLastCodeJSON() {
+		System.out.println("logisticsLastCodeJSON");
+		String no = "";
+		try {
+			System.out.println("FreightCompanyId id=" + logistics.getFreightCompanyId());
+			AppProperty freightCompany = getGenericManager().getAppPropertyById(logistics.getFreightCompanyId());
+			code = getGenericManager().getLastOneLogisticsCode(freightCompany);
+			int c = Integer.parseInt(code.getCode()) + 1;
+			no = String.valueOf(c);
+		} catch (Exception e) {
+			System.out.println("logisticsLastCodeJSON error= " + e.toString());
+		}
+		return no;
 	}
 
 	public String recipientDBJSON() {
@@ -359,7 +376,7 @@ public class LogisticsAction extends CommonActionSupport {
 			logistics1.setCreatedDate(Tools.getCurrentTimestamp());
 			logistics1.setLastModifiedDate(Tools.getCurrentTimestamp());
 
-			logistics1.setFreight(logistics.getFreight());
+			logistics1.setFreightCompany(getAppPropertyById(logistics.getFreightCompanyId()));
 
 			logistics1.setCreatedUser(getSessionUser().getMember());
 
@@ -372,6 +389,7 @@ public class LogisticsAction extends CommonActionSupport {
 			code = new LogisticsCode();
 			code.setCode(logistics.getCode());
 			code.setLogistics(logistics1);
+			code.setFreightCompany(getAppPropertyById(logistics.getFreightCompanyId()));
 			getGenericManager().saveLogisticsCode(code);
 
 			return SUCCESS;

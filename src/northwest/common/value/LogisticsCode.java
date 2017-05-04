@@ -17,6 +17,8 @@ public class LogisticsCode implements Serializable {
     
 	Logistics logistics;
 
+	AppProperty freightCompany;
+
     /** full constructor */
     public LogisticsCode(String code) {
         this.code = code;
@@ -51,6 +53,14 @@ public class LogisticsCode implements Serializable {
 		this.logistics = logistics;
 	}
 
+	public AppProperty getFreightCompany() {
+		return freightCompany;
+	}
+
+	public void setFreightCompany(AppProperty freightCompany) {
+		this.freightCompany = freightCompany;
+	}
+	
     public String toString() {
         return new ToStringBuilder(this)
             .append("code", getCode())

@@ -1,0 +1,297 @@
+package com.common.dao.hibernate;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+import com.base.dao.hibernate.BaseDAOHibernate;
+import com.base.value.SessionUser;
+import com.base.value.BaseObject;
+import com.base.value.Group;
+import com.common.dao.CommonDAO;
+import edu.tncc.adm.value.Unit;
+import edu.tncc.adm.value.Department;
+import edu.tncc.tea.value.Teacher;
+import edu.tncc.rec.value.Channel;
+import edu.tncc.rec.value.RecruitDepartment;
+import edu.tncc.stu.value.Student;
+import edu.tncc.adm.value.Personnel;
+import com.common.value.Checking;
+import com.common.value.CheckingState;
+import edu.tncc.tea.value.Experience;
+import edu.tncc.tea.value.Academic;
+import edu.tncc.tea.value.Book;
+import edu.tncc.tea.value.Honor;
+import edu.tncc.tea.value.Journal;
+import edu.tncc.tea.value.Licence;
+import edu.tncc.tea.value.Patent;
+import edu.tncc.tea.value.Project;
+import edu.tncc.tea.value.Seminar;
+import edu.tncc.adm.value.StudentTopic;
+
+public class CommonDAOHibernate extends BaseDAOHibernate  implements CommonDAO
+{
+
+    public void saveChecking(Checking obj)
+    {
+        getHibernateTemplate().saveOrUpdate(obj);
+        if(logger.isDebugEnabled())
+            logger.debug((new StringBuffer()).append("id set to: ").append(obj.getId()).toString());
+    }
+
+    public SessionUser findSessionUserByLoginIdAndPassword(String uid, String pwd)
+    {
+        Personnel per = findPersonnelByStaffIdAndPassword(uid, pwd);
+        
+        if (per != null) {
+            SessionUser su = per.copyToSessionUser();
+//            per.setLastLoginTime(new java.util.Date()); // TODO not work here
+//            getHibernateTemplate().saveOrUpdate(per);
+            return su;
+        }
+        return null;
+    }
+
+    public List findAllUnit()
+    {
+        return getHibernateTemplate().find("from Unit");
+    }
+
+    public List findAllDepartment()
+    {
+        return getHibernateTemplate().find("from Department");
+    }
+
+    public Personnel findPersonnelByStaffIdAndPassword(String staffId, String pwd)
+    {
+        if (staffId == null || pwd == null)
+            return null;
+        Criteria  c = getHibernateSession().createCriteria(Personnel.class);
+
+        c.add(Expression.eq("staffId", staffId));
+        c.add(Expression.eq("password", pwd));
+
+        List ll = c.list();        
+        if (ll.size() > 0)
+            return (Personnel) ll.get(0);
+        else
+            return null;
+    }
+
+    
+    public Personnel findPersonnelByStaffId(String staffId)
+    {
+        if (staffId == null)
+            return null;
+        Criteria  c = getHibernateSession().createCriteria(Personnel.class);
+
+        c.add(Expression.eq("staffId", staffId));
+
+        List ll = c.list();        
+        if (ll.size() > 0)
+            return (Personnel) ll.get(0);
+        else
+            return null;
+    }
+
+    
+    public Personnel findPersonnelById(Long id)
+    {
+        if (id == null)
+            return null;
+        Personnel obj = (Personnel)getHibernateTemplate().get(edu.tncc.adm.value.Personnel.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.adm.value.Personnel.class, id);
+        else
+            return obj;
+    }
+
+    public Group findGroupById(Long id)
+    {
+        if (id == null)
+            return null;
+        Group obj = (Group)getHibernateTemplate().get(com.base.value.Group.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(com.base.value.Group.class, id);
+        else
+            return obj;
+    }
+
+    public Teacher findTeacherById(Long id)
+    {
+        if (id == null)
+            return null;
+        Teacher obj = (Teacher)getHibernateTemplate().get(edu.tncc.tea.value.Teacher.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.tea.value.Teacher.class, id);
+        else
+            return obj;
+    }
+
+    public Student findStudentById(Long id)
+    {
+        if (id == null)
+            return null;
+        Student obj = (Student)getHibernateTemplate().get(edu.tncc.stu.value.Student.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.stu.value.Student.class, id);
+        else
+            return obj;
+    }
+
+    
+    public Unit findUnitById(Long id)
+    {
+        if (id == null)
+            return null;
+        Unit obj = (Unit)getHibernateTemplate().get(edu.tncc.adm.value.Unit.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.adm.value.Unit.class, id);
+        else
+            return obj;
+    }
+ 
+    // for 
+    public List<BaseObject> findBaseObjectListByTeacherId(Long id, Class cls)
+    {
+        if (id == null)
+            return null;
+
+        List<BaseObject> result = new ArrayList<BaseObject>();
+        try {
+            String hsql = "select c from " + cls.getName() + " as c where c.teacher.id = :teacherId";
+
+            Query query = getHibernateSession().createQuery(hsql);
+            query.setParameter("teacherId", id);
+
+            result = query.list();
+
+        }
+        catch (HibernateException ex) {
+            if ( logger.isErrorEnabled() ) {
+                logger.error(ex.getMessage(), ex);
+            }
+
+            throw new RuntimeException(ex);
+        }
+
+        return result;                   
+    }
+    
+    public List findTeacherListByCriteria(Teacher teacher)
+    {        
+        Criteria  c = getHibernateSession().createCriteria(Teacher.class);
+
+        if (teacher != null) {
+            if (teacher.getCname() != null) c.add(Expression.ilike("cname", teacher.getCname(), MatchMode.ANYWHERE));
+            if (teacher.getUnitId() != null) {
+                Criteria bc = c.createCriteria("unit")
+                    .add(Expression.eq("id", teacher.getUnitId()));            
+            }
+            if (teacher.getStaffId() != null) {
+                teacher.setStaffId(teacher.getStaffId().trim());
+                if (teacher.getStaffId().length() > 0) {
+                    c.add(Expression.eq("staffId", teacher.getStaffId()));
+                }
+            }
+            c.add(Expression.eq("status", new Integer(1)));
+            c.addOrder(Order.asc("id"));
+        }
+        return c.list();        
+    }
+
+    public Teacher findTeacherByStaffId(String sid)
+    {        
+        if (sid == null || sid.length() == 0)
+            return null;
+        
+        Criteria  c = getHibernateSession().createCriteria(Teacher.class);
+        c.add(Expression.eq("staffId", sid))
+        .add(Expression.eq("status", new Integer(1)));
+        
+        List lst = c.list();   
+        if (lst.size() > 0)
+            return (Teacher)lst.get(0);
+        return null;
+    }
+    
+    public List findDepartmentListByChannelId(Long id)
+    {
+        if (id == null)
+            return null;
+        return getHibernateTemplate().find("from Department where channel=" + id);
+    }
+    
+    public RecruitDepartment findRecruitDepartmentById(Long id)
+    {
+        if (id == null)
+            return null;
+        RecruitDepartment obj = (RecruitDepartment)getHibernateTemplate().get(edu.tncc.rec.value.RecruitDepartment.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.rec.value.RecruitDepartment.class, id);
+        else
+            return obj;
+    }
+    
+    public Channel findChannelById(Long id)
+    {
+        if (id == null)
+            return null;
+        Channel obj = (Channel)getHibernateTemplate().get(edu.tncc.rec.value.Channel.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.rec.value.Channel.class, id);
+        else
+            return obj;
+    }   
+    
+    public Department findDepartmentById(Long id)
+    {
+        if (id == null)
+            return null;
+        Department obj = (Department)getHibernateTemplate().get(edu.tncc.adm.value.Department.class, id);
+        if (obj == null)
+            throw new ObjectRetrievalFailureException(edu.tncc.adm.value.Department.class, id);
+        else
+            return obj;
+    }       
+
+    public List findTeacherItemListByStaffId(Class cls, String sid)
+    {        
+        List lst = new ArrayList();
+        if (sid == null || sid.length() == 0)
+            return lst;
+        if (cls.getName().indexOf("StudentTopic") >= 0) {
+            try {
+                String hsql = "select StudentTopic from edu.tncc.adm.value.StudentTopic as StudentTopic " +
+                              "where :member in elements(StudentTopic.member) order by StudentTopic.createdDate desc";
+                Query query = getHibernateSession().createQuery(hsql);
+                Teacher per = findTeacherByStaffId(sid);
+                query.setParameter("member", per);
+                            
+                lst = query.list();
+            }
+            catch (HibernateException ex) {
+                if ( logger.isErrorEnabled() ) {
+                    logger.error(ex.getMessage(), ex);
+                }
+                
+                throw new RuntimeException(ex);
+            }
+
+            return lst;
+        } else {
+            Criteria  c = getHibernateSession().createCriteria(cls);
+            Criteria cc = c.createCriteria("teacher");
+            cc.add(Expression.eq("staffId", sid));
+            c.add(Expression.eq("state", CheckingState.PASS));
+            c.addOrder(Order.desc("createdDate"));        
+            return c.list();
+        }
+    }
+}

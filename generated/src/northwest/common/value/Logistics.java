@@ -12,6 +12,9 @@ import com.base.value.BaseObject;
 public class Logistics implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    /** nullable persistent field */
+    private String freight;
+
     /** persistent field */
     private String code;
 
@@ -42,11 +45,18 @@ public class Logistics implements Serializable {
     /** persistent field */
     private Date serviceDate;
 
+    /** nullable persistent field */
+    private String memo;
+
     /** persistent field */
     private Date lastModifiedDate;
 
     /** persistent field */
     private Date createdDate;
+
+    /** persistent field */
+    private AppProperty freightCompany;
+    private Long freightCompanyId;
 
     /** persistent field */
     private northwest.common.value.Bill bill;
@@ -60,8 +70,13 @@ public class Logistics implements Serializable {
     private AppProperty time;
     private Long timeId;
 
+    /** persistent field */
+    private Member createdUser;
+    private Long createdUserId;
+
     /** full constructor */
-    public Logistics(String code, String otherBills, String sender, String senderPhone, String senderAddress, String senderMemo, String recipient, String recipientPhone, String recipientAddress, Date serviceDate, Date lastModifiedDate, Date createdDate, northwest.common.value.Bill bill, Member member, AppProperty time) {
+    public Logistics(String freight, String code, String otherBills, String sender, String senderPhone, String senderAddress, String senderMemo, String recipient, String recipientPhone, String recipientAddress, Date serviceDate, String memo, Date lastModifiedDate, Date createdDate, AppProperty freightCompany, northwest.common.value.Bill bill, Member member, AppProperty time, Member createdUser) {
+        this.freight = freight;
         this.code = code;
         this.otherBills = otherBills;
         this.sender = sender;
@@ -72,11 +87,14 @@ public class Logistics implements Serializable {
         this.recipientPhone = recipientPhone;
         this.recipientAddress = recipientAddress;
         this.serviceDate = serviceDate;
+        this.memo = memo;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
+        this.freightCompany = freightCompany;
         this.bill = bill;
         this.member = member;
         this.time = time;
+        this.createdUser = createdUser;
     }
 
     /** default constructor */
@@ -84,7 +102,7 @@ public class Logistics implements Serializable {
     }
 
     /** minimal constructor */
-    public Logistics(String code, String sender, String senderPhone, String senderAddress, String recipient, String recipientPhone, String recipientAddress, Date serviceDate, Date lastModifiedDate, Date createdDate, northwest.common.value.Bill bill, Member member, AppProperty time) {
+    public Logistics(String code, String sender, String senderPhone, String senderAddress, String recipient, String recipientPhone, String recipientAddress, Date serviceDate, Date lastModifiedDate, Date createdDate, AppProperty freightCompany, northwest.common.value.Bill bill, Member member, AppProperty time, Member createdUser) {
         this.code = code;
         this.sender = sender;
         this.senderPhone = senderPhone;
@@ -95,9 +113,19 @@ public class Logistics implements Serializable {
         this.serviceDate = serviceDate;
         this.lastModifiedDate = lastModifiedDate;
         this.createdDate = createdDate;
+        this.freightCompany = freightCompany;
         this.bill = bill;
         this.member = member;
         this.time = time;
+        this.createdUser = createdUser;
+    }
+
+    public String getFreight() {
+        return this.freight;
+    }
+
+    public void setFreight(String freight) {
+        this.freight = freight;
     }
 
     public String getCode() {
@@ -180,6 +208,14 @@ public class Logistics implements Serializable {
         this.serviceDate = serviceDate;
     }
 
+    public String getMemo() {
+        return this.memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public Date getLastModifiedDate() {
         return this.lastModifiedDate;
     }
@@ -194,6 +230,24 @@ public class Logistics implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public AppProperty getFreightCompany() {
+        return this.freightCompany;
+    }
+
+    public void setFreightCompany(AppProperty freightCompany) {
+        this.freightCompany = freightCompany;
+    }
+
+    public Long getFreightCompanyId() {
+        if (this.freightCompany != null && this.freightCompany.getId() != null)
+            return freightCompany.getId();
+        return this.freightCompanyId;
+    }
+
+    public void setFreightCompanyId(Long id) {
+        this.freightCompanyId = id;
     }
 
     public northwest.common.value.Bill getBill() {
@@ -250,8 +304,27 @@ public class Logistics implements Serializable {
         this.timeId = id;
     }
 
+    public Member getCreatedUser() {
+        return this.createdUser;
+    }
+
+    public void setCreatedUser(Member createdUser) {
+        this.createdUser = createdUser;
+    }
+
+    public Long getCreatedUserId() {
+        if (this.createdUser != null && this.createdUser.getId() != null)
+            return createdUser.getId();
+        return this.createdUserId;
+    }
+
+    public void setCreatedUserId(Long id) {
+        this.createdUserId = id;
+    }
+
     public String toString() {
         return new ToStringBuilder(this)
+            .append("freight", getFreight())
             .append("code", getCode())
             .append("otherBills", getOtherBills())
             .append("sender", getSender())
@@ -262,11 +335,14 @@ public class Logistics implements Serializable {
             .append("recipientPhone", getRecipientPhone())
             .append("recipientAddress", getRecipientAddress())
             .append("serviceDate", getServiceDate())
+            .append("memo", getMemo())
             .append("lastModifiedDate", getLastModifiedDate())
             .append("createdDate", getCreatedDate())
+            .append("freightCompany", getFreightCompany())
             .append("bill", getBill())
             .append("member", getMember())
             .append("time", getTime())
+            .append("createdUser", getCreatedUser())
             .toString();
     }
 

@@ -1,0 +1,88 @@
+package com.common.web.action;
+
+import java.util.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import com.common.service.CommonManager;
+
+public class AjaxAction extends CommonActionSupport
+{
+    private static final long serialVersionUID = 100L;
+    private static final String QUERY_OBEJCT_RECRUITDEPARTMENT = "RecruitDepartment";
+    
+    private final Log log;
+
+    private Long selectedChannel;
+    private String whichObject;
+    private List recruitDepartmentListBySelectedChannel;
+    
+    public AjaxAction()
+    {
+        log = LogFactory.getLog(com.common.web.action.AjaxAction.class);
+    }
+    
+    public void setGenericManager(CommonManager m)
+    {
+        super.setGenericManager(m);
+    }
+
+    public CommonManager getGenericManager()
+    {
+        return (CommonManager) super.getGenericManager();
+    }
+    
+    public String list()
+    {
+        if (QUERY_OBEJCT_RECRUITDEPARTMENT.equals(getWhichObject())) {
+            return queryRecruitDepartment();
+        }
+        return "success";
+    } 
+
+    public String execute()
+    {
+        return "success";
+    }
+    
+    public String queryRecruitDepartment()
+    {
+        if (selectedChannel != null) {
+        	recruitDepartmentListBySelectedChannel = getGenericManager().getRecruitDepartmentListByChannelId(selectedChannel);
+        } else {
+        	recruitDepartmentListBySelectedChannel =  new ArrayList();
+        }
+        
+        return "success";
+    }
+      
+	public Long getSelectedChannel()
+    {
+        return selectedChannel;
+    }
+
+    public void setSelectedChannel(Long selectedChannel)
+    {
+        this.selectedChannel = selectedChannel;
+    }
+
+    public String getWhichObject()
+    {
+        return whichObject;
+    }
+
+    public void setWhichObject(String whichObject)
+    {
+        this.whichObject = whichObject;
+    }
+    
+    public List getRecruitDepartmentListBySelectedChannel()
+    {
+        return recruitDepartmentListBySelectedChannel;
+    }
+
+    public void setRecruitDepartmentListBySelectedChannel(List recruitDepartmentListBySelectedChannel)
+    {
+        this.recruitDepartmentListBySelectedChannel = recruitDepartmentListBySelectedChannel;
+    }
+}

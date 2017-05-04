@@ -2473,16 +2473,19 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 	public List<Logistics> findAllLogistics(String keyword, Date startDate, Date endDate) {
 		Criteria c = getHibernateSession().createCriteria(Logistics.class);
 		c.createCriteria("bill", "b");
+		c.createCriteria("freightCompany", "c");
 		if (keyword != null) {		
 			Disjunction disjunction = Restrictions.disjunction();
 			Criterion c1 = Restrictions.like("b.id", "%" + keyword + "%");
 			Criterion c2 = Restrictions.like("code", "%" + keyword + "%");
 			Criterion c3 = Restrictions.like("otherBills", "%" + keyword + "%");
 			Criterion c4 = Restrictions.like("memo", "%" + keyword + "%");
+			Criterion c5 = Restrictions.like("c.valueTw", "%" + keyword + "%");
 			disjunction.add(c1);
 			disjunction.add(c2);
 			disjunction.add(c3);
 			disjunction.add(c4);
+			disjunction.add(c5);
 			c.add(disjunction);
 		}
 
@@ -2520,8 +2523,9 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 		}
 	}
 
-	public LogisticsCode getLastOneLogisticsCode() {
+	public LogisticsCode getLastOneLogisticsCode(AppProperty freightCompany) {
 		Criteria c = getHibernateSession().createCriteria(LogisticsCode.class);
+		c.add(Expression.eq("freightCompany", freightCompany));
 		c.addOrder(Order.desc("id"));
 		List ls = c.list();
 		if (ls.size() > 0) {

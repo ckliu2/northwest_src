@@ -653,8 +653,8 @@ public class BillManagerImpl extends CommonManagerImpl implements BillManager {
 		getGenericDAO().removeLogisticsCode(val);
 	}
 
-	public LogisticsCode getLastOneLogisticsCode() {
-		return getGenericDAO().getLastOneLogisticsCode();
+	public LogisticsCode getLastOneLogisticsCode(AppProperty freightCompany) {
+		return getGenericDAO().getLastOneLogisticsCode(freightCompany);
 	}
 
 	// RecipientDB

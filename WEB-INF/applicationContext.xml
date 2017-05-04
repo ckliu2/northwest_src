@@ -35,6 +35,10 @@
       <property name="execelOutputPath">   
           <value>D://Tomcat//webapps//northwest//upload//export//</value>   
       </property>
+      <property name="pdfMergePath">   
+          <value>D://tmp//imageDB//</value>   
+      </property>
+      
     </bean>
     
     <bean id="billManager" parent="txProxyTemplate">

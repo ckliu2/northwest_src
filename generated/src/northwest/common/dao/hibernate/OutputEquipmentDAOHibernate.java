@@ -10,7 +10,7 @@ import com.common.dao.hibernate.CommonDAOHibernate;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 08 13:06:16 CST 2017
+    Created Date: Sat Apr 29 13:10:13 CST 2017
 */
 
 public class OutputEquipmentDAOHibernate extends CommonDAOHibernate implements OutputEquipmentDAO

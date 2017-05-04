@@ -10,7 +10,7 @@ import com.common.service.impl.CommonManagerImpl;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 08 13:06:17 CST 2017
+    Created Date: Sat Apr 29 13:10:14 CST 2017
 */
 
 public class BillDetailManagerImpl extends CommonManagerImpl implements BillDetailManager
