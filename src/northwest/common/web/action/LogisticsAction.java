@@ -6,10 +6,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.*;
 
+import java.io.File;
 import java.util.*;
 import com.common.web.action.CommonActionSupport;
 import com.base.util.Tools;
 import com.base.value.*;
+
+import jxl.*;
+import jxl.write.*;
 
 public class LogisticsAction extends CommonActionSupport {
 
@@ -22,6 +26,8 @@ public class LogisticsAction extends CommonActionSupport {
 	LogisticsCode code;
 	Long logisticsId;
 	SenderDB senderDB;
+	private java.io.File fileExcel;
+	private String fileExcelContentType, fileExcelFileName;
 
 	public LogisticsAction() {
 		log = LogFactory.getLog(northwest.common.web.action.LogisticsAction.class);
@@ -287,6 +293,30 @@ public class LogisticsAction extends CommonActionSupport {
 		}
 	}
 
+	public java.io.File getFileExcel() {
+		return fileExcel;
+	}
+
+	public void setFileExcel(java.io.File fileExcel) {
+		this.fileExcel = fileExcel;
+	}
+
+	public String getFileExcelContentType() {
+		return fileExcelContentType;
+	}
+
+	public void setFileExcelContentType(String fileExcelContentType) {
+		this.fileExcelContentType = fileExcelContentType;
+	}
+
+	public String getFileExcelFileName() {
+		return fileExcelFileName;
+	}
+
+	public void setFileExcelFileName(String fileExcelFileName) {
+		this.fileExcelFileName = fileExcelFileName;
+	}
+
 	public String logisticsLastCodeJSON() {
 		System.out.println("logisticsLastCodeJSON");
 		String no = "";
@@ -398,6 +428,178 @@ public class LogisticsAction extends CommonActionSupport {
 			return INPUT;
 		}
 
+	}
+
+	// logisticExcelExportJSON()
+	public String logisticExcelExportJSON() {
+		System.out.println("logisticExcelExportJSON *****");
+		try {
+			Long id = 1L;
+			AppProperty freightCompany = getAppPropertyById(logistics.getFreightCompanyId());
+			System.out.println("freightCompany=" + freightCompany.getValueTw() + "--FreightCompanyId=" + logistics.getFreightCompanyId());
+			saveFileToLocal("logisticExcel.xls", fileExcel, getTextWithArgs("logistics.upload.dir"), id);
+
+			// File inputWorkbook = new File(inputFile);
+
+			File ff = new File(getTextWithArgs("logistics.upload.dir"));
+			File target = new File(ff, "\\1\\logisticExcel.xls");
+			// File target = new
+			// File("D://mycase//tomcat//northwest//upload//1//logisticExcel.xlsx");
+			// Workbook w = Workbook.getWorkbook(new
+			// File("D://mycase//tomcat//northwest//upload//1//logisticExcel.xls"));
+
+			Workbook w = Workbook.getWorkbook(target);
+			Sheet sheet = w.getSheet(0);
+
+			System.out.println("sheet.getColumns()=" + sheet.getColumns() + "--sheet.getRows()=" + sheet.getRows());
+
+			for (int i = 0; i < sheet.getRows(); i++) {
+
+				logistics1 = new Logistics();
+				logistics1.setFreightCompany(freightCompany);
+
+				for (int j = 0; j < sheet.getColumns(); j++) {
+					if (i > 0) {
+
+						Cell cell = sheet.getCell(j, i);
+						String value = cell.getContents().toString();
+						System.out.println("i=" + i + "---j=" + j + "----" + value);
+						try {
+
+							switch (j) {
+							case 0:
+								try {
+									logistics1.setBill(getGenericManager().getBillById(value));
+								} catch (Exception e) {
+								}
+								break;
+
+							case 1:
+								logistics1.setOtherBills(value);
+								break;
+
+							case 2:
+								logistics1.setMemo(value);
+								break;
+
+							case 3:
+								logistics1.setSender(value);
+								break;
+
+							case 4:
+								logistics1.setSenderPhone(value);
+								break;
+
+							case 5:
+								logistics1.setSenderAddress(value);
+								break;
+
+							case 6:
+								logistics1.setRecipient(value);
+								break;
+
+							case 7:
+								logistics1.setRecipientPhone(value);
+								break;
+
+							case 8:
+								logistics1.setRecipientAddress(value);
+								break;
+
+							case 9:
+								try {
+									logistics1.setServiceDate(Tools.convertToDate(value));
+								} catch (Exception e) {
+								}
+								break;
+
+							case 10:
+								// logistics1
+								if (value.equals("¤W¤È")) {
+									logistics1.setTime(getAppPropertyById(31L));
+								} else {
+									logistics1.setTime(getAppPropertyById(32L));
+								}
+								break;
+							}
+
+							// code
+							LogisticsCode lc = getGenericManager().getLastOneLogisticsCode(freightCompany);
+							int cx = Integer.parseInt(lc.getCode()) + 1;
+							String no = String.valueOf(cx);
+
+							// member
+							logistics1.setMember(getSessionUser().getMember());
+							logistics1.setCode(no);
+							logistics1.setLastModifiedDate(Tools.getCurrentTimestamp());
+							logistics1.setCreatedDate(Tools.getCurrentTimestamp());
+							logistics1.setCreatedUser(getSessionUser().getMember());
+
+							// save Logistics
+							getGenericManager().saveLogistics(logistics1);
+
+							// save LogisticsCode
+							code = new LogisticsCode();
+							code.setCode(no);
+							code.setLogistics(logistics1);
+							code.setFreightCompany(freightCompany);
+							getGenericManager().saveLogisticsCode(code);
+
+						} catch (Exception e) {
+							System.out.println(e.toString());
+						}
+
+					}
+				}
+			}
+
+			/*
+			 * // ·s¼Wlogistics logistics1 = new Logistics();
+			 * logistics1.setOtherBills(logistics.getOtherBills());
+			 * logistics1.setCode(logistics.getCode());
+			 * logistics1.setMember(getSessionUser().getMember());
+			 * logistics1.setBill(getGenericManager().getBillById(logistics.
+			 * getBillId())); logistics1.setSender(logistics.getSender());
+			 * logistics1.setSenderPhone(logistics.getSenderPhone());
+			 * logistics1.setSenderAddress(logistics.getSenderAddress());
+			 * 
+			 * logistics1.setRecipient(logistics.getRecipient());
+			 * logistics1.setRecipientPhone(logistics.getRecipientPhone());
+			 * logistics1.setRecipientAddress(logistics.getRecipientAddress());
+			 * 
+			 * logistics1.setServiceDate(Tools.convertToDate(serviceDate));
+			 * logistics1.setTime(getAppPropertyById(logistics.getTimeId()));
+			 * 
+			 * logistics1.setCreatedDate(Tools.getCurrentTimestamp());
+			 * logistics1.setLastModifiedDate(Tools.getCurrentTimestamp());
+			 * 
+			 * logistics1.setFreightCompany(getAppPropertyById(logistics.
+			 * getFreightCompanyId()));
+			 * 
+			 * logistics1.setCreatedUser(getSessionUser().getMember());
+			 * 
+			 * logistics1.setMemo(logistics.getMemo());
+			 * 
+			 * // save Logistics getGenericManager().saveLogistics(logistics1);
+			 * 
+			 * // save LogisticsCode code = new LogisticsCode();
+			 * code.setCode(logistics.getCode()); code.setLogistics(logistics1);
+			 * code.setFreightCompany(getAppPropertyById(logistics.
+			 * getFreightCompanyId()));
+			 * getGenericManager().saveLogisticsCode(code);
+			 */
+
+			w.close();
+
+			/*
+			 * private java.io.File fileExcel; private String
+			 * fileExcelContentType, fileExcelFileName;
+			 */
+			return SUCCESS;
+		} catch (Exception e) {
+			System.out.println("logisticExcelExportJSON **** " + e.toString());
+			return INPUT;
+		}
 	}
 
 }

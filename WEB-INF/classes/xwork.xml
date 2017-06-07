@@ -832,6 +832,14 @@
             <result name="success" >/northwest/logisticsLastCodeJSON.jsp</result>           
         </action>
         
+         <action name="logisticsExcel" class="logisticsAction" method="list">
+            <result name="success" >/northwest/logisticsExcel.jsp</result>           
+        </action>
+        
+          <action name="logisticExcelExportJSON" class="logisticsAction" method="list">
+            <result name="success" >/northwest/logisticExcelExportJSON.jsp</result>           
+        </action>
+         
         
             
     </package>

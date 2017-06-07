@@ -698,6 +698,7 @@ common.createdDate=建檔日
 logistics.bill=訂單
 logistics.member=登入
 logistics.time=指定送達時段
+logistics.upload.dir={0}/upload/
 
 
 
