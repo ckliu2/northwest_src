@@ -31,6 +31,23 @@ public class ProfitAction extends CommonActionSupport {
 	String scost;
 	int tag;
 	BigDecimal profitPerc;
+	int start, end;
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
 
 	public Profit getProfit() {
 		return profit;
@@ -200,14 +217,12 @@ public class ProfitAction extends CommonActionSupport {
 	public List<Profit> getProfitList_bk() {
 		int pageIndex = getPageIndex();
 		int pageSize = getPageSize();
-		System.out.println("projectNo=" + projectNo + "--customerId=" + customerId + "--startDate=" + startDate
-				+ "--endDate=" + endDate + "--pageIndex=" + pageIndex + "--pageSize=" + pageSize + "---scost=" + scost);
+		System.out.println("projectNo=" + projectNo + "--customerId=" + customerId + "--startDate=" + startDate + "--endDate=" + endDate + "--pageIndex=" + pageIndex + "--pageSize=" + pageSize + "---scost=" + scost);
 
 		List<Profit> al = new ArrayList<Profit>();
 		customer = getGenericManager().getCustomerById(customerId);
 		salesmen = getGenericManager().getMemberById(salesmenId);
-		int resultSize = getGenericManager().getProfitListByConditionCount(projectNo, startDate, endDate, customer,
-				salesmen);
+		int resultSize = getGenericManager().getProfitListByConditionCount(projectNo, startDate, endDate, customer, salesmen);
 		getSession().setAttribute("RESULT_SIZE", new Integer(resultSize));
 		System.out.println("resultSize=" + resultSize);
 		al = getGenericManager().getProfitList(projectNo, startDate, endDate, customer, salesmen, pageSize, pageIndex);
@@ -368,7 +383,7 @@ public class ProfitAction extends CommonActionSupport {
 	public List<ProfitProduct> getProfitProductList() {
 		ArrayList<ProfitProduct> al = new ArrayList<ProfitProduct>();
 		System.out.println("getProfitProductList-----");
-		
+
 		if (selectedProductIds != null) {
 			for (int j = 0; j < selectedProductIds.length; j++) {
 				try {
@@ -416,8 +431,7 @@ public class ProfitAction extends CommonActionSupport {
 
 	public List getProfitDetailListByProduct() {
 		product = getProductById();
-		System.out.println(
-				"product.name=" + product.getProductName() + "--startDate=" + startDate + "--endDate=" + endDate);
+		System.out.println("product.name=" + product.getProductName() + "--startDate=" + startDate + "--endDate=" + endDate);
 		return getGenericManager().getProfitDetailListByProduct(startDate, endDate, product);
 	}
 
@@ -447,6 +461,17 @@ public class ProfitAction extends CommonActionSupport {
 
 	public void setProfitPerc(BigDecimal profitPerc) {
 		this.profitPerc = profitPerc;
+	}
+
+	public String CIPReport001JSON() {
+		try {
+			System.out.println("CIPReport001JSON start=" + start + "--end=" + end + "--customerId=" + customerId);
+			String sql = " dbo.getCIPReport001 '" + start + "' , '" + end + "' , '" + customerId + "'  ";
+			getGenericManager().executeSQL(sql);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return SUCCESS;
 	}
 
 }

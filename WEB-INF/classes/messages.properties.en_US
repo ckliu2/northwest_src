@@ -573,7 +573,7 @@ report.construction=施工圖
 
 report1=人員勾選統計
 report2=正航細項展開表
-
+report3=包裝未完成
 processState.list=訂單處理狀態查詢
 
 
@@ -678,6 +678,27 @@ menu.billQAList=QA清單
 menu.billQAForm=QA明細
 billQA.question=客戶反應問題
 billQA.answer=處理方式
+
+
+logistics.list=快遞單
+logistics.form=快遞明細
+menu.logisticsList=快遞單
+menu.logisticsForm=快遞明細
+logistics.code=條碼編號
+logistics.sender=寄件人
+logistics.senderPhone=寄件人電話
+logistics.senderAddress=寄件人地址
+logistics.senderMemo=寄件人備註
+logistics.recipient=收件人
+logistics.recipientPhone=收件人電話
+logistics.recipientAddress=收件人地址
+logistics.serviceDate=指定送達日
+common.lastModifiedDate=最後修改日
+common.createdDate=建檔日
+logistics.bill=訂單
+logistics.member=登入
+logistics.time=指定送達時段
+logistics.upload.dir={0}/upload/
 
 
 

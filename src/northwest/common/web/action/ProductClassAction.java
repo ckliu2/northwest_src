@@ -4,6 +4,9 @@ import northwest.common.value.*;
 import northwest.common.service.BillManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.*;
 
 import com.common.value.Member;
@@ -220,6 +223,30 @@ public class ProductClassAction extends CommonActionSupport
     public List<Product> queryProductList(){    
     	return getGenericManager().getProductListByCondition(key,key);
     }
+    
+   
+	public String findProductJSON() {
+		JSONArray ja = new JSONArray();
+		try {		
+			List<Product> ls=queryProductList();		
+			for (int i = 0; i < ls.size(); i++) {
+				Product product = ls.get(i);
+				String id= product.getId();
+				String fistChar=id.substring(0,1);
+				
+				if(!fistChar.equals("A") && !fistChar.equals("Z")){
+					System.out.println("findProductJSON id= " +id +"---fistChar="+fistChar);
+					JSONObject jo = new JSONObject();
+					jo.put("id", id);
+					jo.put("name", product.getProductName());			
+					ja.put(jo);
+				}
+			}			
+		} catch (Exception e) {
+			System.out.println("findProductJSON error= " + e.toString());
+		}
+		return ja.toString();
+	}
     
     
     public List<Vector> getProductSelect(){

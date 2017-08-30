@@ -68,6 +68,7 @@ public class LoginAction extends CommonActionSupport
     	//LocalizedTextUtil.addLaborResourceBundle("en_US");
     	
     	
+    	
     	if(loginId==null||password==null){
             appendXworkParam("msg=2");
             return INPUT;

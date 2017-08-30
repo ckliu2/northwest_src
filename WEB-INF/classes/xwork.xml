@@ -563,6 +563,10 @@
         <action name="findProduct" class="productClassAction" method="list">          
             <result name="success" type="tiles">findProduct</result>
         </action>
+        
+        <action name="findProductJSON" class="productClassAction" method="list">          
+            <result name="success" >/northwest/findProductJSON.jsp</result>
+        </action>
     
         <action name="productSelect" class="productClassAction" method="list">          
             <result name="success" type="tiles">productSelect</result>
@@ -651,7 +655,9 @@
             <result name="success" >/northwest/calculateProfitJSON.jsp</result>           
         </action>
         
-        
+        <action name="CIPReport001JSON" class="profitAction" method="list">
+            <result name="success" >/northwest/CIPReport001JSON.jsp</result>           
+        </action> 
         
         <!--產能分析-->
         <action name="workEfficiency" class="workEfficiencyAction" method="list">
@@ -836,10 +842,11 @@
             <result name="success" >/northwest/logisticsExcel.jsp</result>           
         </action>
         
-          <action name="logisticExcelExportJSON" class="logisticsAction" method="list">
+        <action name="logisticExcelExportJSON" class="logisticsAction" method="list">
             <result name="success" >/northwest/logisticExcelExportJSON.jsp</result>           
         </action>
          
+       
         
             
     </package>
