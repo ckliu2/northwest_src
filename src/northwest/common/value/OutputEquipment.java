@@ -18,6 +18,8 @@ public class OutputEquipment implements Serializable {
     /** nullable persistent field */
     private String memo;
 
+    private Integer maxChi;
+
     /** full constructor */
     public OutputEquipment(String name, String memo) {
         this.name = name;
@@ -52,6 +54,14 @@ public class OutputEquipment implements Serializable {
         this.memo = memo;
     }
 
+    public Integer getMaxChi() {
+        return this.maxChi;
+    }
+
+    public void setMaxChi(Integer maxChi) {
+        this.maxChi = maxChi;
+    }
+    
     public String toString() {
         return new ToStringBuilder(this)
             .append("id", getId())

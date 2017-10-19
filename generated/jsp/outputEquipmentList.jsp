@@ -29,6 +29,7 @@
     <display:column property="id" sortable="true" titleKey="common.id"/>
     <display:column property="name" sortable="true" titleKey="outputEquipment.name" style="text-align:left" />
     <display:column property="memo" sortable="true" titleKey="outputEquipment.memo" style="text-align:left" />
+    <display:column property="maxChi" sortable="true" titleKey="outputEquipment.maxChi" />
     <display:column titleKey="common.action">
         <ww:if test="recordEditable == true">
             <a href="editOutputEquipment.html?outputEquipment.id=<c:out value="${row.id}"/>"><fmt:message key="common.edit"/></a>&nbsp;&nbsp;

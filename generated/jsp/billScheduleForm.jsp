@@ -537,6 +537,19 @@
         </td>
     </tr>
 
+    <tr><td class="cInputCaption"><fmt:message key="billSchedule.postProductionsEqt"/></td>
+        <td class="cInputColumn">
+            <ww:select name="billSchedule.postProductionsEqtId" 
+               headerKey=""
+               headerValue="%{getText('common.pleaseSelect')}..."
+               list="postProductionsEqtList"
+               listKey="id"
+               listValue="caption_"
+               cssClass="cInputListField"
+            />
+        </td>
+    </tr>
+
     <tr><td class="cInputCaption"><fmt:message key="billSchedule.drawingsFiles"/></td>
         <td class="cInputColumn">
             <ww:checkboxlist name="drawingsFilesIds" 
@@ -544,6 +557,17 @@
                listKey="id"
                listValue="caption_"
                value = "%{drawingsFilesIds}"
+            />
+        </td>
+    </tr>
+
+    <tr><td class="cInputCaption"><fmt:message key="billSchedule.postProductions"/></td>
+        <td class="cInputColumn">
+            <ww:checkboxlist name="postProductionsIds" 
+               list="postProductionsList"
+               listKey="id"
+               listValue="caption_"
+               value = "%{postProductionsIds}"
             />
         </td>
     </tr>

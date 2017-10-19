@@ -13,7 +13,7 @@ import com.base.value.Function;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:15 CST 2017
+    Created Date: Sun Oct 15 16:13:59 CST 2017
 */
 
 public class BillScheduleAction extends CommonActionSupport
@@ -45,6 +45,7 @@ public class BillScheduleAction extends CommonActionSupport
     private java.io.File fileCheckDiagram;
     private String fileCheckDiagramContentType, fileCheckDiagramFileName, removeCheckDiagram;
     private Long[] drawingsFilesIds;
+    private Long[] postProductionsIds;
     private Long[] selectedBillScheduleIds;
 
     public BillScheduleAction()
@@ -162,6 +163,7 @@ public class BillScheduleAction extends CommonActionSupport
         check11 = Tools.dateToString(billSchedule.getCheck11());
         check12 = Tools.dateToString(billSchedule.getCheck12());
         drawingsFilesIds = getGenericManager().getIdsFromUploadedFileList(billSchedule.getDrawingsFiles());
+        postProductionsIds = getGenericManager().getIdsFromMemberList(billSchedule.getPostProductions());
         log.info("exit beanToForm()");
     }
 
@@ -224,7 +226,9 @@ public class BillScheduleAction extends CommonActionSupport
         billSchedule.setChecker10(getGenericManager().getMemberById(billSchedule.getChecker10Id())); 
         billSchedule.setChecker11(getGenericManager().getMemberById(billSchedule.getChecker11Id())); 
         billSchedule.setChecker12(getGenericManager().getMemberById(billSchedule.getChecker12Id())); 
+        billSchedule.setPostProductionsEqt(getGenericManager().getOutputEquipmentById(billSchedule.getPostProductionsEqtId())); 
         billSchedule.setDrawingsFiles(getGenericManager().getUploadedFileListByIds(drawingsFilesIds)); 
+        billSchedule.setPostProductions(getGenericManager().getMemberListByIds(postProductionsIds)); 
         log.info("exit formToBean()");
     }
     public void setOutputTime(String val)
@@ -587,6 +591,11 @@ public class BillScheduleAction extends CommonActionSupport
         return getGenericManager().getChecker12List(); // TODO
     }
 
+    public List<OutputEquipment> getPostProductionsEqtList()
+    {
+        return getGenericManager().getPostProductionsEqtList(); // TODO
+    }
+
     public List<List> getDrawingsFilesList()
     {
         return getGenericManager().getDrawingsFilesList(); // TODO
@@ -600,6 +609,21 @@ public class BillScheduleAction extends CommonActionSupport
     public Long[] getDrawingsFilesIds()
     {
         return drawingsFilesIds;
+    }
+
+    public List<List> getPostProductionsList()
+    {
+        return getGenericManager().getPostProductionsList(); // TODO
+    }
+
+    public void setPostProductionsIds(Long[] val)
+    {
+        postProductionsIds = val;
+    }
+
+    public Long[] getPostProductionsIds()
+    {
+        return postProductionsIds;
     }
 
     public List<BillSchedule> getBillScheduleList()

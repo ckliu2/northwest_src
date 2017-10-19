@@ -10,7 +10,7 @@ import com.common.dao.hibernate.CommonDAOHibernate;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:13 CST 2017
+    Created Date: Sun Oct 15 16:13:56 CST 2017
 */
 
 public class BillScheduleDAOHibernate extends CommonDAOHibernate implements BillScheduleDAO
@@ -156,6 +156,11 @@ public class BillScheduleDAOHibernate extends CommonDAOHibernate implements Bill
         return new ArrayList<Member>(); // TODO
     }
 
+    public List<OutputEquipment> findPostProductionsEqtList()
+    {
+        return new ArrayList<OutputEquipment>(); // TODO
+    }
+
     public Long[] getIdsFromUploadedFileList(List tlist)
     {
         ArrayList<Long> al = new ArrayList<Long>();
@@ -178,6 +183,34 @@ public class BillScheduleDAOHibernate extends CommonDAOHibernate implements Bill
         if (ids != null) {
             for (int i = 0; i < ids.length; i++) {
                 UploadedFile t = (UploadedFile) findUploadedFileById(ids[i]);
+                if (t != null)
+                    al.add(t);
+            }
+        }
+        return al;
+    }
+    public Long[] getIdsFromMemberList(List tlist)
+    {
+        ArrayList<Long> al = new ArrayList<Long>();
+        if (tlist != null) {
+            for (int i = 0; i < tlist.size(); i++) {
+                Member t = (Member) tlist.get(i);
+                if (t != null)
+                    al.add(t.getId());
+            }
+        }
+        Long lng[] = new Long[al.size()];
+        al.toArray(lng);
+        
+        return lng;
+    }
+
+    public List getMemberListByIds(Long[] ids)
+    {
+        ArrayList<Member> al = new ArrayList<Member>();
+        if (ids != null) {
+            for (int i = 0; i < ids.length; i++) {
+                Member t = (Member) findMemberById(ids[i]);
                 if (t != null)
                     al.add(t);
             }

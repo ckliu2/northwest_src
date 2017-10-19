@@ -28,6 +28,7 @@
     </display:column>
     <display:column property="code" sortable="true" titleKey="logisticsCode.code" style="text-align:left" />
     <display:column property="logistics.caption_" sortable="true" titleKey="logisticsCode.logistics" style="text-align:left"/>
+    <display:column property="freightCompany.caption_" sortable="true" titleKey="logisticsCode.freightCompany" style="text-align:left"/>
     <display:column titleKey="common.action">
         <ww:if test="recordEditable == true">
             <a href="editLogisticsCode.html?logisticsCode.id=<c:out value="${row.id}"/>"><fmt:message key="common.edit"/></a>&nbsp;&nbsp;

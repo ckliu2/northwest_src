@@ -36,6 +36,12 @@
         </td>
     </tr>
 
+    <tr><td class="cInputCaption"><fmt:message key="outputEquipment.maxChi"/></td>
+        <td class="cInputColumn">
+            <ww:textfield name="outputEquipment.maxChi" value="%{outputEquipment.maxChi}" cssClass="cInputTextFieldTiny" /><span class="cInputValidationError"><ww:property value="showHtmlErrorMessage('outputEquipment.maxChi')"/></span>
+        </td>
+    </tr>
+
     <tr class="cActionButtonLine">
       <td colspan="2">
         <input type=button onclick="javascript:history.back()" class="cButton" value="<fmt:message key="common.back"/>" >

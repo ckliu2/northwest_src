@@ -13,7 +13,7 @@ import com.base.value.Function;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:15 CST 2017
+    Created Date: Sun Oct 15 16:13:59 CST 2017
 */
 
 public class LogisticsCodeAction extends CommonActionSupport
@@ -125,11 +125,17 @@ public class LogisticsCodeAction extends CommonActionSupport
     {
         log.info("enter formToBean()");
         logisticsCode.setLogistics(getGenericManager().getLogisticsById(logisticsCode.getLogisticsId())); 
+        logisticsCode.setFreightCompany(getAppPropertyById(logisticsCode.getFreightCompanyId())); 
         log.info("exit formToBean()");
     }
     public List<Logistics> getLogisticsList()
     {
         return getGenericManager().getLogisticsList(); // TODO
+    }
+
+    public List<AppProperty> getFreightCompanyList()
+    {
+        return super.getAppPropertyList("logisticsCode.freightCompany");
     }
 
     public List<LogisticsCode> getLogisticsCodeList()

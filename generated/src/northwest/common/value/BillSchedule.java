@@ -216,10 +216,17 @@ public class BillSchedule implements Serializable {
     private Long checker12Id;
 
     /** nullable persistent field */
+    private northwest.common.value.OutputEquipment postProductionsEqt;
+    private Long postProductionsEqtId;
+
+    /** nullable persistent field */
     private List drawingsFiles;
 
+    /** nullable persistent field */
+    private List postProductions;
+
     /** full constructor */
-    public BillSchedule(String fileName, String outputDevice, Date outputTime, Date deliveryTime, Date isSendTime, Date arrival, String freightNo, Integer costs, Date uploadDrawingsTime, String drawingsMemo, Boolean step1, Boolean step2, Boolean step3, Boolean step4, Boolean step5, Boolean step6, Boolean step7, Boolean step8, Boolean step9, Boolean step10, Boolean step11, Boolean step12, Boolean cuticlestep, Date cuticle, Date check1, Date check2, Date check3, Date check4, Date check5, Date check6, Date check7, Date check8, Date check9, Date check10, Date check11, Date check12, String code, UploadedFile imageDiagram, UploadedFile checkDiagram, northwest.common.value.OutputEquipment outputEquipment, AppProperty isSend, northwest.common.value.CustomerDetail customerAddress, northwest.common.value.Freight freight, Member worker, northwest.common.value.BillDetail billDetail, northwest.common.value.CustomerScreen customerScreen, Member cuticleer, Member checker1, Member checker2, Member checker3, Member checker4, Member checker5, Member checker6, Member checker7, Member checker8, Member checker9, Member checker10, Member checker11, Member checker12, List drawingsFiles) {
+    public BillSchedule(String fileName, String outputDevice, Date outputTime, Date deliveryTime, Date isSendTime, Date arrival, String freightNo, Integer costs, Date uploadDrawingsTime, String drawingsMemo, Boolean step1, Boolean step2, Boolean step3, Boolean step4, Boolean step5, Boolean step6, Boolean step7, Boolean step8, Boolean step9, Boolean step10, Boolean step11, Boolean step12, Boolean cuticlestep, Date cuticle, Date check1, Date check2, Date check3, Date check4, Date check5, Date check6, Date check7, Date check8, Date check9, Date check10, Date check11, Date check12, String code, UploadedFile imageDiagram, UploadedFile checkDiagram, northwest.common.value.OutputEquipment outputEquipment, AppProperty isSend, northwest.common.value.CustomerDetail customerAddress, northwest.common.value.Freight freight, Member worker, northwest.common.value.BillDetail billDetail, northwest.common.value.CustomerScreen customerScreen, Member cuticleer, Member checker1, Member checker2, Member checker3, Member checker4, Member checker5, Member checker6, Member checker7, Member checker8, Member checker9, Member checker10, Member checker11, Member checker12, northwest.common.value.OutputEquipment postProductionsEqt, List drawingsFiles, List postProductions) {
         this.fileName = fileName;
         this.outputDevice = outputDevice;
         this.outputTime = outputTime;
@@ -279,7 +286,9 @@ public class BillSchedule implements Serializable {
         this.checker10 = checker10;
         this.checker11 = checker11;
         this.checker12 = checker12;
+        this.postProductionsEqt = postProductionsEqt;
         this.drawingsFiles = drawingsFiles;
+        this.postProductions = postProductions;
     }
 
     /** default constructor */
@@ -994,12 +1003,38 @@ public class BillSchedule implements Serializable {
         this.checker12Id = id;
     }
 
+    public northwest.common.value.OutputEquipment getPostProductionsEqt() {
+        return this.postProductionsEqt;
+    }
+
+    public void setPostProductionsEqt(northwest.common.value.OutputEquipment postProductionsEqt) {
+        this.postProductionsEqt = postProductionsEqt;
+    }
+
+    public Long getPostProductionsEqtId() {
+        if (this.postProductionsEqt != null && this.postProductionsEqt.getId() != null)
+            return postProductionsEqt.getId();
+        return this.postProductionsEqtId;
+    }
+
+    public void setPostProductionsEqtId(Long id) {
+        this.postProductionsEqtId = id;
+    }
+
     public List getDrawingsFiles() {
         return this.drawingsFiles;
     }
 
     public void setDrawingsFiles(List drawingsFiles) {
         this.drawingsFiles = drawingsFiles;
+    }
+
+    public List getPostProductions() {
+        return this.postProductions;
+    }
+
+    public void setPostProductions(List postProductions) {
+        this.postProductions = postProductions;
     }
 
     public String toString() {
@@ -1063,7 +1098,9 @@ public class BillSchedule implements Serializable {
             .append("checker10", getChecker10())
             .append("checker11", getChecker11())
             .append("checker12", getChecker12())
+            .append("postProductionsEqt", getPostProductionsEqt())
             .append("drawingsFiles", getDrawingsFiles())
+            .append("postProductions", getPostProductions())
             .toString();
     }
 

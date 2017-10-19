@@ -150,6 +150,9 @@ public class BillSchedule implements Serializable {
 	private Member cuticleer;
 	private Boolean cuticlestep;
 	private Date cuticle;
+	
+	OutputEquipment postProductionsEqt;
+
 
     /** Labor constructor */
     public BillSchedule() {
@@ -780,5 +783,15 @@ public class BillSchedule implements Serializable {
 	public void setCuticle(Date cuticle) {
 		this.cuticle = cuticle;
 	}
+	
+	public OutputEquipment getPostProductionsEqt() {
+		return postProductionsEqt;
+	}
+
+	public void setPostProductionsEqt(OutputEquipment postProductionsEqt) {
+		this.postProductionsEqt = postProductionsEqt;
+	}
+
+
 
 }

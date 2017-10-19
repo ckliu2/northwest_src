@@ -53,9 +53,7 @@ public class ProductClass implements Serializable {
     }
 
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("className", getClassName())
-            .toString();
+        return getClassName();
     }
 
     public String getCaption_() {

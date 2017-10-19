@@ -42,6 +42,19 @@
         </td>
     </tr>
 
+    <tr><td class="cInputCaption"><fmt:message key="logisticsCode.freightCompany"/><span class="cRequired">*</span></td>
+        <td class="cInputColumn">
+            <ww:select name="logisticsCode.freightCompanyId" 
+               headerKey=""
+               headerValue="%{getText('common.pleaseSelect')}..."
+               list="freightCompanyList"
+               listKey="id"
+               listValue="caption_"
+               cssClass="cInputListField"
+            /><span class="cInputValidationError"><ww:property value="showHtmlErrorMessage('logisticsCode.freightCompanyId')"/></span>
+        </td>
+    </tr>
+
     <tr class="cActionButtonLine">
       <td colspan="2">
         <input type=button onclick="javascript:history.back()" class="cButton" value="<fmt:message key="common.back"/>" >

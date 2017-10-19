@@ -8,7 +8,7 @@ import com.common.service.CommonManager;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:14 CST 2017
+    Created Date: Sun Oct 15 16:13:57 CST 2017
 */
 
 public interface BillScheduleManager extends CommonManager 
@@ -43,9 +43,14 @@ public interface BillScheduleManager extends CommonManager
     public abstract List<Member> getChecker10List();
     public abstract List<Member> getChecker11List();
     public abstract List<Member> getChecker12List();
+    public abstract List<OutputEquipment> getPostProductionsEqtList();
     public abstract Long[] getIdsFromUploadedFileList(List<UploadedFile> lst);
 
     public abstract List<UploadedFile> getUploadedFileListByIds(Long[] ids);
+
+    public abstract Long[] getIdsFromMemberList(List<Member> lst);
+
+    public abstract List<Member> getMemberListByIds(Long[] ids);
 
 }
 

@@ -554,6 +554,13 @@ menu.outputEquipmentList=輸出設備清單
 menu.outputEquipmentForm=輸出設備明細
 outputEquipment.name=輸出設備名稱
 outputEquipment.memo=備註
+outputEquipment.maxChi=才/天
+
+##權重
+weights.productClassWeight=材質權重
+weights.inkWeight=墨水權重
+weights.productClasses=產品類別
+
 
 #產品組合
 productCombine.list=產品組合

@@ -10,7 +10,7 @@ import com.common.service.impl.CommonManagerImpl;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:14 CST 2017
+    Created Date: Sun Oct 15 16:13:58 CST 2017
 */
 
 public class BillScheduleManagerImpl extends CommonManagerImpl implements BillScheduleManager
@@ -159,6 +159,11 @@ public class BillScheduleManagerImpl extends CommonManagerImpl implements BillSc
         return getGenericDAO().findChecker12List();
     }
 
+    public List<OutputEquipment> getPostProductionsEqtList()
+    {
+        return getGenericDAO().findPostProductionsEqtList();
+    }
+
     public Long[] getIdsFromUploadedFileList(List<UploadedFile> lst)
     {
         return getGenericDAO().getIdsFromUploadedFileList(lst);
@@ -167,6 +172,16 @@ public class BillScheduleManagerImpl extends CommonManagerImpl implements BillSc
     public List<UploadedFile> getUploadedFileListByIds(Long[] ids)
     {
         return getGenericDAO().getUploadedFileListByIds(ids);
+    }
+
+    public Long[] getIdsFromMemberList(List<Member> lst)
+    {
+        return getGenericDAO().getIdsFromMemberList(lst);
+    }
+
+    public List<Member> getMemberListByIds(Long[] ids)
+    {
+        return getGenericDAO().getMemberListByIds(ids);
     }
 
 }

@@ -111,6 +111,19 @@
 
     <!-- 
     ************************ 
+    * PostProductions 
+    ************************
+    -->
+    <definition name="postProductionsList" extends="default">
+        <put name="content" value="/postProductionsList.jsp"/>
+    </definition>
+
+    <definition name="postProductionsForm" extends="default">
+        <put name="content" value="/postProductionsForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
     * BillQA 
     ************************
     -->
@@ -250,6 +263,19 @@
 
     <definition name="logisticsForm" extends="default">
         <put name="content" value="/logisticsForm.jsp"/>
+    </definition>
+
+    <!-- 
+    ************************ 
+    * Weights 
+    ************************
+    -->
+    <definition name="weightsList" extends="default">
+        <put name="content" value="/weightsList.jsp"/>
+    </definition>
+
+    <definition name="weightsForm" extends="default">
+        <put name="content" value="/weightsForm.jsp"/>
     </definition>
 
     <!-- 

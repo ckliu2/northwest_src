@@ -37,6 +37,10 @@
         <property name="genericManager" ref="senderDBManager"/>
     </bean>
 
+    <bean id="postProductionsAction" class="northwest.common.web.action.PostProductionsAction" singleton="false">
+        <property name="genericManager" ref="postProductionsManager"/>
+    </bean>
+
     <bean id="billQAAction" class="northwest.common.web.action.BillQAAction" singleton="false">
         <property name="genericManager" ref="billQAManager"/>
     </bean>
@@ -79,6 +83,10 @@
 
     <bean id="logisticsAction" class="northwest.common.web.action.LogisticsAction" singleton="false">
         <property name="genericManager" ref="logisticsManager"/>
+    </bean>
+
+    <bean id="weightsAction" class="northwest.common.web.action.WeightsAction" singleton="false">
+        <property name="genericManager" ref="weightsManager"/>
     </bean>
 
     <bean id="customerAction" class="northwest.common.web.action.CustomerAction" singleton="false">

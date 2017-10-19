@@ -331,5 +331,23 @@ public interface BillManager extends CommonManager {
 
 	// RecipientDB
 	public abstract List<RecipientDB> getRecipientDBList(String keyword);
+	
+	//Weights
+	public abstract void saveWeights(Weights val);
+
+    public abstract void removeWeights(Weights val);
+
+    public abstract void removeWeights(Long id);
+
+    public abstract Weights getWeightsById(Long id);
+
+    public abstract List<Weights> getWeightsList(OutputEquipment outputEquipment);
+    
+    public abstract String[] getIdsFromProductClassList(List<ProductClass> lst);
+
+    public abstract List<ProductClass> getProductClassListByIds(String[] ids);
+    
+    //PostProductions
+    public abstract void savePostProductions(PostProductions val);
 
 }

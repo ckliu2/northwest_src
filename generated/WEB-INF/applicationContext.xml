@@ -86,6 +86,14 @@
         </property>
     </bean>
 
+    <bean id="postProductionsManager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="northwest.common.service.impl.PostProductionsManagerImpl">
+                <property name="genericDAO" ref="postProductionsDAO"/>
+            </bean>
+        </property>
+    </bean>
+
     <bean id="billQAManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="northwest.common.service.impl.BillQAManagerImpl">
@@ -170,6 +178,14 @@
         <property name="target">
             <bean class="northwest.common.service.impl.LogisticsManagerImpl">
                 <property name="genericDAO" ref="logisticsDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="weightsManager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="northwest.common.service.impl.WeightsManagerImpl">
+                <property name="genericDAO" ref="weightsDAO"/>
             </bean>
         </property>
     </bean>

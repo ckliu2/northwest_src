@@ -330,7 +330,26 @@ public interface BillDAO extends CommonDAO {
 	public abstract void removeLogisticsCode(Logistics val);
 
 	public abstract LogisticsCode getLastOneLogisticsCode(AppProperty freightCompany);
-	
+
 	// RecipientDB
 	public abstract List<RecipientDB> findAllRecipientDB(String keyword);
+
+	// Weights
+	public abstract void saveWeights(Weights val);
+
+	public abstract void removeWeights(Weights val);
+
+	public abstract void removeWeights(Long id);
+
+	public abstract Weights findWeightsById(Long id);
+
+	public abstract List<Weights> findAllWeights(OutputEquipment outputEquipment);
+
+	public abstract String[] getIdsFromProductClassList(List<ProductClass> lst);
+
+	public abstract List<ProductClass> getProductClassListByIds(String[] ids);
+
+	// PostProductions
+	public abstract void savePostProductions(PostProductions val);
+
 }

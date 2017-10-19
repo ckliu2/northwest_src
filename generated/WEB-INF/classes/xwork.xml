@@ -234,6 +234,33 @@
             <result name="success">/common/backback.jsp</result>
         </action>
 
+    <!-- PostProductions -->
+        <action name="postProductionsList" class="postProductionsAction" method="list">
+            <result name="success" type="tiles">postProductionsList</result>
+            <result name="input" type="tiles">postProductionsList</result>
+        </action>
+
+        <action name="editPostProductions" class="postProductionsAction" method="edit">
+            <result name="success" type="tiles">postProductionsForm</result>
+            <result name="input" type="tiles">postProductionsList</result>
+        </action>
+
+        <action name="copyPostProductions" class="postProductionsAction" method="copy">
+            <result name="success" type="tiles">postProductionsForm</result>
+            <result name="input" type="tiles">postProductionsList</result>
+        </action>
+
+        <action name="savePostProductions" class="postProductionsAction">
+            <result name="delete" type="redirect">postProductionsList.html</result>
+            <result name="input" type="tiles">postProductionsForm</result>
+            <result name="success" type="chain">savePostProductionsWithValidation</result>
+        </action>
+
+        <action name="savePostProductionsWithValidation" class="postProductionsAction" method="save">
+            <result name="input" type="tiles">postProductionsForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
     <!-- BillQA -->
         <action name="billQAList" class="billQAAction" method="list">
             <result name="success" type="tiles">billQAList</result>
@@ -528,6 +555,33 @@
 
         <action name="saveLogisticsWithValidation" class="logisticsAction" method="save">
             <result name="input" type="tiles">logisticsForm</result>
+            <result name="success">/common/backback.jsp</result>
+        </action>
+
+    <!-- Weights -->
+        <action name="weightsList" class="weightsAction" method="list">
+            <result name="success" type="tiles">weightsList</result>
+            <result name="input" type="tiles">weightsList</result>
+        </action>
+
+        <action name="editWeights" class="weightsAction" method="edit">
+            <result name="success" type="tiles">weightsForm</result>
+            <result name="input" type="tiles">weightsList</result>
+        </action>
+
+        <action name="copyWeights" class="weightsAction" method="copy">
+            <result name="success" type="tiles">weightsForm</result>
+            <result name="input" type="tiles">weightsList</result>
+        </action>
+
+        <action name="saveWeights" class="weightsAction">
+            <result name="delete" type="redirect">weightsList.html</result>
+            <result name="input" type="tiles">weightsForm</result>
+            <result name="success" type="chain">saveWeightsWithValidation</result>
+        </action>
+
+        <action name="saveWeightsWithValidation" class="weightsAction" method="save">
+            <result name="input" type="tiles">weightsForm</result>
             <result name="success">/common/backback.jsp</result>
         </action>
 

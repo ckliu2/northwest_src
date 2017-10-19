@@ -301,6 +301,16 @@
             <result name="input" type="tiles">freightForm</result>
             <result name="success">/common/backback.jsp</result>
         </action>
+        
+        <action name="freightIdByJSON" class="freightAction" method="list">          
+            <result name="success" >/northwest/freightIdByJSON.jsp</result>
+        </action>
+        
+        <action name="saveFreightNoJSON" class="freightAction" method="list">          
+            <result name="success" >/northwest/saveFreightNoJSON.jsp</result>
+        </action>
+        
+        
   
       <!-- Bill -->
         <action name="billList" class="billAction" method="list">
@@ -552,7 +562,9 @@
             <result name="success">/common/backback.jsp</result>
         </action>
 
-        
+        <action name="outputEquipmentIdBySJON" class="outputEquipmentAction" method="list">          
+            <result name="success" >/northwest/outputEquipmentIdBySJON.jsp</result>
+        </action>
 
         
         
@@ -659,6 +671,10 @@
             <result name="success" >/northwest/CIPReport001JSON.jsp</result>           
         </action> 
         
+        <action name="report10" class="profitAction" method="list">
+            <result name="success" type="tiles">report10</result>
+        </action>
+        
         <!--產能分析-->
         <action name="workEfficiency" class="workEfficiencyAction" method="list">
             <result name="success" type="tiles">workEfficiency</result>           
@@ -689,6 +705,10 @@
         
         <action name="barcodeUserStep" class="barcodeAction" method="list">
             <result name="success" >/northwest/barcodeUserStepByJSON.jsp</result>           
+        </action>
+        
+        <action name="saveFreightJSON" class="barcodeAction" method="list">
+            <result name="success" >/northwest/saveFreightJSON.jsp</result>           
         </action>
         
   
@@ -846,7 +866,28 @@
             <result name="success" >/northwest/logisticExcelExportJSON.jsp</result>           
         </action>
          
+        <!-- Weight -->
+        <action name="editWeights" class="weightsAction" method="edit">
+            <result name="success" >/northwest/weightsForm.jsp</result>           
+        </action>
+        
+        <action name="saveWeights" class="weightsAction">            
+            <result name="input" >/northwest/weightsForm.jsp</result>
+            <result name="success" type="chain">saveWeightsWithValidation</result>
+        </action>
+
+        <action name="saveWeightsWithValidation" class="weightsAction" method="save">
+            <result name="input" >/northwest/weightsForm.jsp</result>
+            <result name="success" type="redirect">editWeights.html${xworkParam}</result>
+        </action>
        
+        <action name="weightsByOutputEquipmentJSON" class="weightsAction" method="list">
+            <result name="success" >/northwest/weightsByOutputEquipmentJSON.jsp</result>           
+        </action>
+        
+        <action name="removeWeightsByIDJSON" class="weightsAction" method="list">
+            <result name="success" >/northwest/removeWeightsByIDJSON.jsp</result>           
+        </action>
         
             
     </package>

@@ -109,7 +109,7 @@
 
     <tr><td class="cInputCaption"><fmt:message key="logistics.freightCompany"/><span class="cRequired">*</span></td>
         <td class="cInputColumn">
-            <ww:select name="logistics.freightCompanyId" id="freightCompanyId"
+            <ww:select name="logistics.freightCompanyId" 
                headerKey=""
                headerValue="%{getText('common.pleaseSelect')}..."
                list="freightCompanyList"

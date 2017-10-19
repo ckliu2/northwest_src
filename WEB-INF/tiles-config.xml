@@ -344,7 +344,15 @@
         <put name="content" value="/northwest/logisticsList.jsp"/>
     </definition>
 
-    
+
+    <!-- 
+    ************************ 
+    * report10 
+    ************************
+    -->
+    <definition name="report10" extends="default">
+        <put name="content" value="/northwest/report10.jsp"/>
+    </definition>
     
     
 </tiles-definitions>

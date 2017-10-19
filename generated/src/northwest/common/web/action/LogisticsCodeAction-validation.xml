@@ -13,4 +13,9 @@
             <message key="errors.required"></message>
         </field-validator>
     </field>
+    <field name="logisticsCode.freightCompanyId">
+        <field-validator type="required">
+            <message key="errors.required"></message>
+        </field-validator>
+    </field>
 </validators>

@@ -2474,16 +2474,16 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 		Criteria c = getHibernateSession().createCriteria(Logistics.class);
 		c.createCriteria("bill", "b");
 		c.createCriteria("freightCompany", "c");
-		if (keyword != null) {		
+		if (keyword != null) {
 			Disjunction disjunction = Restrictions.disjunction();
 			Criterion c1 = Restrictions.like("b.id", "%" + keyword + "%");
 			Criterion c2 = Restrictions.like("code", "%" + keyword + "%");
 			Criterion c3 = Restrictions.like("otherBills", "%" + keyword + "%");
 			Criterion c4 = Restrictions.like("memo", "%" + keyword + "%");
-			Criterion c5 = Restrictions.like("c.valueTw", "%" + keyword + "%");			
+			Criterion c5 = Restrictions.like("c.valueTw", "%" + keyword + "%");
 			Criterion c6 = Restrictions.like("sender", "%" + keyword + "%");
 			Criterion c7 = Restrictions.like("recipient", "%" + keyword + "%");
-			
+
 			disjunction.add(c1);
 			disjunction.add(c2);
 			disjunction.add(c3);
@@ -2545,6 +2545,68 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 		Criteria c = getHibernateSession().createCriteria(RecipientDB.class);
 		c.add(Expression.like("recipient", "%" + keyword + "%"));
 		return c.list();
+	}
+
+	// Weights
+	public void saveWeights(Weights val) {
+		getHibernateTemplate().saveOrUpdate(val);
+	}
+
+	public void removeWeights(Weights val) {
+		getHibernateTemplate().delete(val);
+	}
+
+	public void removeWeights(Long id) {
+		Weights obj = findWeightsById(id);
+		getHibernateTemplate().delete(obj);
+	}
+
+	public Weights findWeightsById(Long id) {
+		if (id == null)
+			return null;
+		Weights obj = (Weights) getHibernateTemplate().get(northwest.common.value.Weights.class, id);
+		if (obj == null)
+			throw new ObjectRetrievalFailureException(northwest.common.value.Weights.class, id);
+		else
+			return obj;
+	}
+
+	public List<Weights> findAllWeights(OutputEquipment outputEquipment) {
+		Criteria c = getHibernateSession().createCriteria(Weights.class);
+		c.add(Expression.eq("outputEquipment", outputEquipment));
+		return c.list();
+	}
+
+	public String[] getIdsFromProductClassList(List tlist) {
+		ArrayList<String> al = new ArrayList<String>();
+		if (tlist != null) {
+			for (int i = 0; i < tlist.size(); i++) {
+				ProductClass t = (ProductClass) tlist.get(i);
+				if (t != null)
+					al.add(t.getId());
+			}
+		}
+		String lng[] = new String[al.size()];
+		al.toArray(lng);
+
+		return lng;
+	}
+
+	public List getProductClassListByIds(String[] ids) {
+		ArrayList<ProductClass> al = new ArrayList<ProductClass>();
+		if (ids != null) {
+			for (int i = 0; i < ids.length; i++) {
+				ProductClass t = (ProductClass) findProductClassById(ids[i]);
+				if (t != null)
+					al.add(t);
+			}
+		}
+		return al;
+	}
+
+	// PostProductions
+	public void savePostProductions(PostProductions val) {
+		getHibernateTemplate().saveOrUpdate(val);
 	}
 
 }

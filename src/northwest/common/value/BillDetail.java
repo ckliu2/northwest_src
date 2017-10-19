@@ -62,8 +62,8 @@ public class BillDetail implements Serializable {
 	Integer basicQuantity;
 	
 	String uncomplete;
-	
-	String complete;
+
+	String complete,productionmembers;
 
     /** full constructor */
     public BillDetail(Integer fromRow, Integer price, Float width, Float heigh, Float visibleWidth, Float visibleHeigh, Integer calcArea, Integer area, Integer quantity, String detail, String itemRemark, Integer paperPrice, Float amount, northwest.common.value.Product product, northwest.common.value.Bill bill) {
@@ -258,6 +258,14 @@ public class BillDetail implements Serializable {
 
 	public void setComplete(String complete) {
 		this.complete = complete;
+	}
+	
+	public String getProductionmembers() {
+		return productionmembers;
+	}
+
+	public void setProductionmembers(String productionmembers) {
+		this.productionmembers = productionmembers;
 	}
 
     public String toString() {

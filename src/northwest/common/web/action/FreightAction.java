@@ -4,6 +4,8 @@ import northwest.common.value.*;
 import northwest.common.service.BillManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONObject;
+
 import java.util.*;
 import com.common.web.action.CommonActionSupport;
 import com.base.util.Tools;
@@ -23,6 +25,7 @@ public class FreightAction extends CommonActionSupport
     private final Log log;
     private Freight freight;
     private Long[] selectedFreightIds;
+	String no;
 
     public FreightAction()
     {
@@ -33,6 +36,14 @@ public class FreightAction extends CommonActionSupport
     {
         return getGenericManager().getFunctionByKey("FREIGHT");
     }
+    
+    public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
 
     public Freight getFreight()
     {
@@ -145,4 +156,31 @@ public class FreightAction extends CommonActionSupport
     {
         return selectedFreightIds;
     }
+    
+    
+    public void saveFreightNoJSON(){         
+        try{    	    	 
+        	System.out.println("saveFreightNoJSON no="+no);     
+        	getSession().setAttribute("freightNo", no); 	
+        }catch(Exception ex){
+        	System.out.println("saveFreightNoJSON err="+ex.toString());
+        }
+      
+    }
+    
+    public JSONObject freightIdByJSON() throws Exception{           
+        JSONObject jo = new JSONObject();
+        try{    	    	 
+        	System.out.println("freight.id="+freight.getId());    
+        	freight=getGenericManager().getFreightById(freight.getId());
+        	System.out.println("freight.name="+freight.getName());    
+        	jo.put("id", freight.getId());
+        	jo.put("name", freight.getName());
+        	getSession().setAttribute("freight", freight); 	
+        }catch(Exception ex){
+        	System.out.println("freightIdByJSON err="+ex.toString());
+        }
+        return jo;
+    }
+    
 }

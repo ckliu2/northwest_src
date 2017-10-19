@@ -85,7 +85,9 @@
     <display:column property="checker10.caption_" sortable="true" titleKey="billSchedule.checker10" style="text-align:left"/>
     <display:column property="checker11.caption_" sortable="true" titleKey="billSchedule.checker11" style="text-align:left"/>
     <display:column property="checker12.caption_" sortable="true" titleKey="billSchedule.checker12" style="text-align:left"/>
+    <display:column property="postProductionsEqt.caption_" sortable="true" titleKey="billSchedule.postProductionsEqt" style="text-align:left"/>
     <display:column property="drawingsFiles" sortable="true" titleKey="billSchedule.drawingsFiles" style="text-align:left" />
+    <display:column property="postProductions" sortable="true" titleKey="billSchedule.postProductions" style="text-align:left" />
     <display:column titleKey="common.action">
         <ww:if test="recordEditable == true">
             <a href="editBillSchedule.html?billSchedule.id=<c:out value="${row.id}"/>"><fmt:message key="common.edit"/></a>&nbsp;&nbsp;

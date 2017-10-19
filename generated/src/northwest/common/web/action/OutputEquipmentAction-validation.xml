@@ -2,4 +2,9 @@
 "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 
 <validators>
+    <field name="outputEquipment.maxChi">
+        <field-validator type="int">
+            <message key="errors.numericRequired"></message>
+        </field-validator>
+    </field>
 </validators>

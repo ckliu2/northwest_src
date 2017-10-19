@@ -661,4 +661,47 @@ public class BillManagerImpl extends CommonManagerImpl implements BillManager {
 	public List<RecipientDB> getRecipientDBList(String keyword) {
 		return getGenericDAO().findAllRecipientDB(keyword);
 	}
+	
+	//Weights
+	public void saveWeights(Weights val)
+    {
+        getGenericDAO().saveWeights(val);
+    }
+
+    public void removeWeights(Weights val)
+    {
+        getGenericDAO().removeWeights(val);
+    }
+
+    public void removeWeights(Long id)
+    {
+        getGenericDAO().removeWeights(id);
+    }
+
+    public Weights getWeightsById(Long id)
+    {
+         return getGenericDAO().findWeightsById(id);
+    }
+
+    public List<Weights> getWeightsList(OutputEquipment outputEquipment)
+    {
+        return getGenericDAO().findAllWeights(outputEquipment);
+    }
+    
+    public String[] getIdsFromProductClassList(List<ProductClass> lst)
+    {
+        return getGenericDAO().getIdsFromProductClassList(lst);
+    }
+
+    public List<ProductClass> getProductClassListByIds(String[] ids)
+    {
+        return getGenericDAO().getProductClassListByIds(ids);
+    }
+	
+    //PostProductions
+    public void savePostProductions(PostProductions val)
+    {
+        getGenericDAO().savePostProductions(val);
+    }
+	
 }

@@ -4,6 +4,9 @@ import northwest.common.value.*;
 import northwest.common.service.BillManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.*;
 import com.common.web.action.CommonActionSupport;
 import com.base.util.Tools;
@@ -139,5 +142,21 @@ public class OutputEquipmentAction extends CommonActionSupport
     public Long[] getSelectedOutputEquipmentIds()
     {
         return selectedOutputEquipmentIds;
+    }
+    
+    
+    public JSONObject outputEquipmentIdBySJON() throws Exception{           
+        JSONObject jo = new JSONObject();
+        try{    	    	 
+        	System.out.println("outputEquipment.id="+outputEquipment.getId());    
+        	outputEquipment=getGenericManager().getOutputEquipmentById(outputEquipment.getId());
+        	System.out.println("outputEquipment.name="+outputEquipment.getName());    
+        	jo.put("id", outputEquipment.getId());
+        	jo.put("deviceName", outputEquipment.getName());
+        	getSession().setAttribute("outputEquipment", outputEquipment); 	
+        }catch(Exception ex){
+        	System.out.println("outputEquipmentIdBySJON err="+ex.toString());
+        }
+        return jo;
     }
 }

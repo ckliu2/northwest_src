@@ -8,7 +8,7 @@ import com.common.service.CommonManager;
  WebWork Application Generator V 1.0
 
     Copyright 2006 Chih-Shyang Chang
-    Created Date: Sat Apr 29 13:10:14 CST 2017
+    Created Date: Sun Oct 15 16:13:57 CST 2017
 */
 
 public interface RecipientDBManager extends CommonManager 

@@ -103,6 +103,10 @@
     <bean id="logisticsAction" class="northwest.common.web.action.LogisticsAction" singleton="false">
         <property name="genericManager" ref="billManager"/>
     </bean>
+    
+    <bean id="weightsAction" class="northwest.common.web.action.WeightsAction" singleton="false">
+        <property name="genericManager" ref="billManager"/>
+    </bean>
    
     
     
