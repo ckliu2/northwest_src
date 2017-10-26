@@ -107,10 +107,7 @@ public class Member implements Serializable {
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this)	        
-	            .append("email", getEmail())
-	            .append("name", getName())
-	            .toString();
+		return getName();
 	}
 
 	public String getCaption_() {

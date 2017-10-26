@@ -24,7 +24,7 @@ public class BarcodeAction extends CommonActionSupport {
 	String code;
 	Long step;
 	Freight freight;
-	
+
 	public Freight getFreight() {
 		return freight;
 	}
@@ -207,12 +207,12 @@ public class BarcodeAction extends CommonActionSupport {
 		}
 		return ls;
 	}
-	
+
 	public void saveFreightJSON() {
 		try {
-			System.out.println("saveFreightJSON freight.id="+freight.getId());    
-        	freight=getGenericManager().getFreightById(freight.getId());
-        	getSession().setAttribute("freight", "freight");			
+			System.out.println("saveFreightJSON freight.id=" + freight.getId());
+			freight = getGenericManager().getFreightById(freight.getId());
+			getSession().setAttribute("freight", "freight");
 		} catch (Exception e) {
 			System.out.println("saveFreightJSON err=" + e.toString());
 		}
@@ -389,6 +389,7 @@ public class BarcodeAction extends CommonActionSupport {
 
 			System.out.println("ls.size()=" + ls.size());
 
+			boolean barcode = true;
 			for (int j = 0; j < ls.size(); j++) {
 				Group g = ls.get(j);
 				// 如果是護膜不卡流程
@@ -443,57 +444,60 @@ public class BarcodeAction extends CommonActionSupport {
 									} catch (Exception e) {
 										System.out.println("saveOutputEquipment 後製 err=" + e.toString());
 									}
-									
-									//出件
+
+									// 出件
 									try {
 										Freight freight = (Freight) getSession().getAttribute("freight");
 										String freightNo = (String) getSession().getAttribute("freightNo");
-										if (freight != null  &&  g.getGroupKey().equals("CK11")) {
-											saveFreight(billSchedule,freight,freightNo);
+										if (freight != null && g.getGroupKey().equals("CK11")) {
+											saveFreight(billSchedule, freight, freightNo);
 										}
 									} catch (Exception e) {
 										System.out.println("saveOutputEquipment 後製 err=" + e.toString());
 									}
 
 								} else { // 沒有人已完成才可以覆蓋
-									getGenericManager().saveBarcode(billSchedule, s.getMember(), g);
 
-									// 輸出
-									try {
-										OutputEquipment outputEquipment = (OutputEquipment) getSession().getAttribute("outputEquipment");
-										if (outputEquipment != null && g.getGroupKey().equals("CK07")) {
-											System.out.println("barcode / outputEquipment.name =" + outputEquipment.getName());
-											billSchedule.setOutputEquipment(outputEquipment);
-											getGenericManager().saveBillSchedule(billSchedule);
-										}
-									} catch (Exception e) {
-										System.out.println("saveOutputEquipment 輸出 err=" + e.toString());
-									}
+									if (barcode) {
+										getGenericManager().saveBarcode(billSchedule, s.getMember(), g);
 
-									// 後製
-									try {
-										OutputEquipment outputEquipment = (OutputEquipment) getSession().getAttribute("outputEquipment");
-										if (outputEquipment != null && g.getGroupKey().equals("CK09")) {
-											PostProductions(billSchedule, s.getMember());
+										// 輸出
+										try {
+											OutputEquipment outputEquipment = (OutputEquipment) getSession().getAttribute("outputEquipment");
+											if (outputEquipment != null && g.getGroupKey().equals("CK07")) {
+												System.out.println("barcode / outputEquipment.name =" + outputEquipment.getName());
+												billSchedule.setOutputEquipment(outputEquipment);
+												getGenericManager().saveBillSchedule(billSchedule);
+											}
+										} catch (Exception e) {
+											System.out.println("saveOutputEquipment 輸出 err=" + e.toString());
 										}
-									} catch (Exception e) {
-										System.out.println("saveOutputEquipment 後製 err=" + e.toString());
-									}
-									
-									//出件
-									try {
-										Freight freight = (Freight) getSession().getAttribute("freight");
-										String freightNo = (String) getSession().getAttribute("freightNo");
-										if (freight != null  &&  g.getGroupKey().equals("CK11")) {
-											saveFreight(billSchedule,freight,freightNo);
-										}
-									} catch (Exception e) {
-										System.out.println("saveOutputEquipment 後製 err=" + e.toString());
-									}
-									
 
+										// 後製
+										try {
+											OutputEquipment outputEquipment = (OutputEquipment) getSession().getAttribute("outputEquipment");
+											if (outputEquipment != null && g.getGroupKey().equals("CK09")) {
+												PostProductions(billSchedule, s.getMember());
+											}
+										} catch (Exception e) {
+											System.out.println("saveOutputEquipment 後製 err=" + e.toString());
+										}
+
+										// 出件
+										try {
+											Freight freight = (Freight) getSession().getAttribute("freight");
+											String freightNo = (String) getSession().getAttribute("freightNo");
+											if (freight != null && g.getGroupKey().equals("CK11")) {
+												saveFreight(billSchedule, freight, freightNo);
+											}
+										} catch (Exception e) {
+											System.out.println("saveOutputEquipment 後製 err=" + e.toString());
+										}
+										barcode = false;
+									}
 									memo = "已完成";
 									optionCode = "barcode-ok";
+
 								}
 							}
 						} else {
@@ -515,14 +519,13 @@ public class BarcodeAction extends CommonActionSupport {
 		vc.add(optionCode);
 		return vc;
 	}
-	
-	
-	public void saveFreight(BillSchedule billSchedule,Freight freight,String freightNo) {
+
+	public void saveFreight(BillSchedule billSchedule, Freight freight, String freightNo) {
 		try {
 			billSchedule.setFreight(freight);
 			billSchedule.setFreightNo(freightNo);
 			getGenericManager().saveBillSchedule(billSchedule);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("saveFreight 出件 err=" + e.toString());
 		}
 	}
@@ -548,8 +551,6 @@ public class BarcodeAction extends CommonActionSupport {
 			System.out.println("saveOutputEquipment 後製 err=" + e.toString());
 		}
 	}
-
-	
 
 	public Group getGroup() {
 		return group;
