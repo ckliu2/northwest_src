@@ -555,6 +555,7 @@ menu.outputEquipmentForm=輸出設備明細
 outputEquipment.name=輸出設備名稱
 outputEquipment.memo=備註
 outputEquipment.maxChi=才/天
+outputEquipment.hourChi=才/小時
 
 ##權重
 weights.productClassWeight=材質權重

@@ -99,6 +99,7 @@ public class BarcodeAction extends CommonActionSupport {
 
 								Vector groups = groups(billSchedule);
 								boolean previous = Boolean.parseBoolean(String.valueOf(groups.get(1)));
+
 								System.out.println("previous=====" + previous + "---groups.get(1)=" + groups.get(1));
 
 								// 如果護膜不再流程管控裡
@@ -328,6 +329,21 @@ public class BarcodeAction extends CommonActionSupport {
 		return al;
 	}
 
+	public boolean getPass(String billScheduleId, String gid) {
+		boolean result = false;
+		try {
+			Group group = getGenericManager().getGroupById(Long.parseLong(gid));
+			BillSchedule billSchedule = getGenericManager().getBillScheduleById(billScheduleId);
+			List ls = billSchedule.getBillDetail().getProduct().getProductClass().getExpectionFlows();
+			if (ls != null) {
+				result = ls.contains(group);
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
+
 	public Vector groups(BillSchedule billSchedule) {
 		String groups = "";
 		boolean previous = false;
@@ -342,12 +358,14 @@ public class BarcodeAction extends CommonActionSupport {
 				System.out.println("groups g=" + g.getGroupKey());
 				if (auth == true) {
 					boolean enabledEdit = getGenericManager().isEnabledEdit(billSchedule, g);
+
 					if (enabledEdit == true) {
 						groups += g.getGroupName() + "、";
 						previous = true;
 					}
-					// System.out.println("GroupKey="+g.getGroupKey()+"--auth="+auth+"--enabledEdit="+enabledEdit);
-				}
+
+					System.out.println("GroupKey=" + g.getGroupKey() + "--auth=" + auth + "--enabledEdit=" + enabledEdit);
+				} 
 			}
 		} catch (Exception e) {
 			System.out.println("groups=" + e.toString());

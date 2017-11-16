@@ -20,7 +20,7 @@
                 <interceptor-ref name="params" />
                 <interceptor-ref name="conversionError" />
                 <interceptor-ref name="validation">
-                    <param name="excludeMethods">execute,delete,edit,edit1,list,list1,copy,saveCheck11,queryBillList,query,login,mark,saveReg,saveRemark,miss,missSave,setDevicePowerStatus,setDevicePower,Download,Cleaner,saveCheck6,saveBillOutputDevice,saveCheck1,saveCheck7,saveBillProductionTime,saveBillDeliveryTimeTime,saveBillDrawings,saveCheck5,saveStep,uploadFiles,deleteStep</param>
+                    <param name="excludeMethods">execute,delete,edit,edit1,list,list1,copy,saveCheck11,queryBillList,query,login,mark,saveReg,saveRemark,miss,missSave,setDevicePowerStatus,setDevicePower,Download,Cleaner,saveCheck6,saveBillOutputDevice,saveCheck1,saveCheck7,saveCheck9,saveBillProductionTime,saveBillDeliveryTimeTime,saveBillDrawings,saveCheck5,saveStep,uploadFiles,deleteStep</param>
                 </interceptor-ref>
                 <interceptor-ref name="workflow">
                     <param name="excludeMethods">input,back</param>
@@ -369,6 +369,13 @@
             <result name="input">/northwest/uploadStep8.jsp</result>
         </action>
         
+        
+        <action name="uploadStep9" class="billAction" method="edit">
+            <result name="success">/northwest/uploadStep9.jsp</result>
+            <result name="input">/northwest/uploadStep9.jsp</result>
+        </action>
+        
+        
         <action name="uploadStep10" class="billAction" method="edit">
             <result name="success">/northwest/uploadStep10.jsp</result>
             <result name="input">/northwest/uploadStep10.jsp</result>
@@ -415,6 +422,13 @@
         <action name="saveCheck7" class="billAction" method="saveCheck7">          
             <result name="success" type="redirect">uploadStep7.html${xworkParam}</result>
         </action>
+        
+        
+        <action name="saveCheck9" class="billAction" method="saveCheck9">          
+            <result name="success" type="redirect">uploadStep9.html${xworkParam}</result>
+        </action>
+        
+        
         
         <action name="saveCheck11" class="billAction" method="saveCheck11">          
             <result name="success" type="redirect">uploadStep11.html${xworkParam}</result>

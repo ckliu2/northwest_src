@@ -18,7 +18,7 @@ public class OutputEquipment implements Serializable {
     /** nullable persistent field */
     private String memo;
 
-    private Integer maxChi;
+	private Integer maxChi,hourChi;
 
     /** full constructor */
     public OutputEquipment(String name, String memo) {
@@ -61,6 +61,14 @@ public class OutputEquipment implements Serializable {
     public void setMaxChi(Integer maxChi) {
         this.maxChi = maxChi;
     }
+    
+    public Integer getHourChi() {
+		return hourChi;
+	}
+
+	public void setHourChi(Integer hourChi) {
+		this.hourChi = hourChi;
+	}
     
     public String toString() {
         return new ToStringBuilder(this)

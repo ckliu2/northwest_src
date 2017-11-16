@@ -661,7 +661,7 @@ public class BillAction extends CommonActionSupport {
 				result1 = s.getStep4();
 				break;
 			case 5:
-				result1 = false;
+				result1 = true;
 				// result1=s.getStep5();
 				break;
 			case 6:
@@ -733,8 +733,14 @@ public class BillAction extends CommonActionSupport {
 			if (firstGroup.getGroupKey().equals(group.getGroupKey())) {
 				result1 = true;
 			}
+			
+			//如果上個流程PASS就OK
+			boolean previousStepPasss=getPass(b.getId(), String.valueOf(g.getId()));
+			if(previousStepPasss){
+				result1 = true;
+			}
 
-			System.out.println("s.getId()=" + s.getId() + "---result=" + result + "--result1=" + result1 + "-result2="
+			System.out.println("s.getId()=" + s.getId() +  "FromRow=" + s.getBillDetail().getFromRow()  + "---result=" + result + "--result1=" + result1 + "-result2="
 					+ result2 + "--g=" + g.getGroupName() + "--firstGroup=" + firstGroup.getGroupName() + "--group="
 					+ group.getGroupName());
 
@@ -1426,6 +1432,33 @@ public class BillAction extends CommonActionSupport {
 			b.setCheck7(Tools.getCurrentTimestamp());
 			b.setChecker7(s.getMember());
 			getGenericManager().saveBillSchedule(b);
+		}
+		appendXworkParam("bill.id=" + bill.getId());
+		appendXworkParam("reload=Y");
+		return SUCCESS;
+	}
+	
+	
+	public String saveCheck9() {
+		System.out.println("saveCheck9()...bill.getId()=" + bill.getId());
+		SessionUser s = (SessionUser) getSession().getAttribute("user");
+		for (int i = 0; i < billDetailIds.length; i++) {
+			String id = billDetailIds[i];
+			BillDetail obj = getGenericManager().getBillDetailById(id);
+			BillSchedule b = getGenericManager().getBillScheduleByBillDetail(obj);			
+			b.setPostProductionsEqt(getGenericManager().getOutputEquipmentById(billSchedule.getPostProductionsEqtId()));			
+			b.setStep9(true);
+			b.setCheck9(Tools.getCurrentTimestamp());
+			b.setChecker9(s.getMember());
+			getGenericManager().saveBillSchedule(b);
+			
+			//savePostProductions
+			PostProductions p=new PostProductions();
+			p.setBillschedule(b);
+			p.setMember(s.getMember());
+			p.setCreatedDate(Tools.getCurrentTimestamp());
+			getGenericManager().savePostProductions(p);
+			
 		}
 		appendXworkParam("bill.id=" + bill.getId());
 		appendXworkParam("reload=Y");

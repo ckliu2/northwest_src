@@ -296,6 +296,9 @@
         <property name="maxChi" type="integer">
          <column name="maxChi"  default="0" />
         </property>   
+        <property name="hourChi" type="integer">
+         <column name="hourChi"  default="0" />
+        </property> 
     </class> 
     
     <!-- 

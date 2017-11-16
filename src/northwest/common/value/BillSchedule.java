@@ -152,6 +152,7 @@ public class BillSchedule implements Serializable {
 	private Date cuticle;
 	
 	OutputEquipment postProductionsEqt;
+	Long postProductionsEqtId;
 
 
     /** Labor constructor */
@@ -792,6 +793,12 @@ public class BillSchedule implements Serializable {
 		this.postProductionsEqt = postProductionsEqt;
 	}
 
+	public Long getPostProductionsEqtId() {
+		return postProductionsEqtId;
+	}
 
+	public void setPostProductionsEqtId(Long postProductionsEqtId) {
+		this.postProductionsEqtId = postProductionsEqtId;
+	}
 
 }
