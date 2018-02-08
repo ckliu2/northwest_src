@@ -344,7 +344,7 @@ public class ProfitAction extends CommonActionSupport {
 				Product s = (Product) ls.get(i);
 				JSONObject jo = new JSONObject();
 				jo.accumulate("id", s.getId());
-				jo.accumulate("name", s.getProductName());
+				jo.accumulate("name", s.getId()+s.getProductName());
 				jsonArray.put(jo);
 			}
 			// System.out.println("findMemberByJSON

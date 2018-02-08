@@ -727,7 +727,7 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 	public List<Product> getProductListByCondition(String name, String id) {
 		ArrayList<Product> al = new ArrayList<Product>();
 		Criteria c = getHibernateSession().createCriteria(Product.class);
-		c.add(Restrictions.or(Restrictions.like("id", "%" + id + "%"), Restrictions.like("productName", "%" + name + "%")));
+		c.add(Restrictions.or(Restrictions.like("id",  id + "%"), Restrictions.like("productName",  name + "%")));
 		List result = c.list();
 		for (int i = 0; i < result.size(); i++) {
 			Product m = (Product) result.get(i);
@@ -1511,6 +1511,9 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 
 			// int step=Integer.parseInt(group.getGroupKey().substring(2,4));
 			int step = Integer.parseInt(s.getGroupKey().substring(2, 4));
+			
+			System.out.println("Hiber isEnabledEdit step="+step);
+			
 			switch (step) {
 			case 1:
 				result = true;
@@ -1588,10 +1591,21 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 			}
 		}
 
-		/*
-		 * if(group.getGroupKey().equals("cuticle")) { result=true; }
-		 */
-
+		System.out.println("Hiber isEnabledEdit result = 0 ="+result);
+		
+		//如果上一步驟Bypass 可以編輯
+		ProductClass productClass = billSchedule.getBillDetail().getProduct().getProductClass();
+		List ls = productClass.getExpectionFlows();
+		if (ls != null) {
+		   boolean pass=  productClass.getExpectionFlows().contains(s);
+		   if(pass){
+			   result=true;
+		   }
+		   System.out.println("Hiber isEnabledEdit pass ="+pass);
+		}
+		
+		System.out.println("Hiber isEnabledEdit result = 1 ="+result);
+		
 		return result;
 	}
 

@@ -95,6 +95,9 @@ public class BarcodeAction extends CommonActionSupport {
 							jo.accumulate("returnValue", "login-index");
 						} else {
 							BillSchedule billSchedule = getGenericManager().getBillScheduleByCode(barcode);
+							
+							System.out.println("barcode() billSchedule ===== " + billSchedule.getId());
+							
 							if (billSchedule.getId() != null) {
 
 								Vector groups = groups(billSchedule);
@@ -163,6 +166,7 @@ public class BarcodeAction extends CommonActionSupport {
 										jo.accumulate("billno", billSchedule.getBillDetail().getBillId());
 
 									} else {
+										System.out.println("barcode() workflow-error");
 										jo.accumulate("returnValue", "workflow-error");
 									}
 
@@ -427,8 +431,14 @@ public class BarcodeAction extends CommonActionSupport {
 					System.out.println("group is not cuticle");
 
 					boolean auth = checkGroup(s, g.getGroupKey());
+					
+					System.out.println("group is not cuticle auth="+auth);
+					
 					if (auth == true) {
 						boolean enabledEdit = getGenericManager().isEnabledEdit(billSchedule, g);
+						
+						System.out.println("group is not cuticle enabledEdit="+enabledEdit);
+						
 						if (enabledEdit == true) {
 							Vector alreadyEdits = getGenericManager().isAlreadyEdits(billSchedule, g);
 							// System.out.println(billSchedule.getId()+"--"+alreadyEdits.get(0)+"--"+alreadyEdits.get(1));

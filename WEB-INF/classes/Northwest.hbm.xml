@@ -604,6 +604,10 @@
         <property name="recipientAddress" type="string" not-null="true"/> 
     </class> 
 
+
+
+
+
   	
   	 
 </hibernate-mapping>
