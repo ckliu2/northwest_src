@@ -727,7 +727,7 @@ public class BillDAOHibernate extends CommonDAOHibernate implements BillDAO {
 	public List<Product> getProductListByCondition(String name, String id) {
 		ArrayList<Product> al = new ArrayList<Product>();
 		Criteria c = getHibernateSession().createCriteria(Product.class);
-		c.add(Restrictions.or(Restrictions.like("id",  id + "%"), Restrictions.like("productName",  name + "%")));
+		c.add(Restrictions.or(Restrictions.like("id",  "%" +id + "%"), Restrictions.like("productName",  "%" +name + "%")));
 		List result = c.list();
 		for (int i = 0; i < result.size(); i++) {
 			Product m = (Product) result.get(i);
